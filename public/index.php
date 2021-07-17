@@ -13,8 +13,10 @@ require '../Core/Router.php';
 
 $router = new Router();
 
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
+// $router->add('', ['controller' => 'Home', 'action' => 'index']);
 
+$router->add('{controller}/{action}');
+$router->add('{controller}/{id:\d+}/{action}');
 
 // Match the requested route
 $url = $_SERVER['QUERY_STRING'];
