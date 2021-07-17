@@ -20,7 +20,6 @@ spl_autoload_register(function ($class) {
 /**
  * Routing
  */
-require '../Core/Router.php';
 
 $router = new Core\Router();
 
@@ -28,5 +27,4 @@ $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
 
-// Match the requested route
 $router->dispatch($_SERVER['QUERY_STRING']);
