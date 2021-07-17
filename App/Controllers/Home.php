@@ -16,5 +16,8 @@ class Home
   public function index()
   {
     echo 'Home controller!';
+
+    echo '<p>Query string parameters: <pre>' .
+      htmlspecialchars(print_r($_GET, true)) . '</pre></p>';
   }
 }
