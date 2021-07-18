@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 
 /**
- * Home controller
+ * Login controller
  *
  */
 class Login extends \Core\Controller

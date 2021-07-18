@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Add income{% endblock %}
+
+{% block body %}
+
+<main>
+
+    <nav id="mainNavbar" class="add navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+        <a href="main-menu.php" class="navbar-brand"><i class="icon-money-2 d-none d-lg-inline"></i>PERSONAL BUDGET</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav mt-3">
+                <li class="nav-item">
+                    <a href="main-menu.php" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="add-expense.php" class="nav-link">Add expense</a>
+                </li>
+                <li class="nav-item">
+                    <a href="add-income.php" class="nav-link">Add income</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle caret-off" href="#" data-toggle="dropdown" role="button"
+                        aria-expanded="false" id="submenu" aria-haspopup="true"> Balance </a>
+
+                    <div class="dropdown-menu bg-transparent border-0 m-0 p-0" aria-labelledby="submenu">
+
+                        <a class="dropdown-item " href="balance-current-month.php">Current month</a>
+                        <a class="dropdown-item " href="balance-previous-month.php">Previous month</a>
+                        <a class="dropdown-item " href="balance-current-year.php">Current year</a>
+                        <a class="dropdown-item " href="#">Custom</a>
+                        <!-- <a class="dropdown-item " href="#" data-toggle="modal" data-target=".custom"> Custom </a> -->
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle caret-off " href="#" data-toggle="dropdown" role="button"
+                        aria-expanded="false" id="submenu1" aria-haspopup="true"> Settings </a>
+
+                    <div class="dropdown-menu bg-transparent border-0 m-0 p-0" aria-labelledby="submenu1">
+
+                        <a class="dropdown-item" href="#"> User </a>
+                        <a class="dropdown-item" href="#"> Incomes</a>
+                        <a class="dropdown-item" href="#"> Expenses </a>
+                        <a class="dropdown-item" href="#"> Payment methods </a>
+
+                    </div>
+
+                </li>
+                <li class="nav-item">
+                    <a href="logout.php" class="nav-link">Log out</a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+
+    <section class="container-fluid px-0 mb-5 mb-lg-0">
+        <div class="row align-items-center justify-content-center">
+
+            <div class="col-md-6 order-1 order-md-1 px-0 mt-2">
+
+                <div class="row justify-content-center mx-0">
+
+                    <div id="add-items" class="col-11 mx-1 col-md-12 col-xl-10 mt-lg-0 mt-xl-5">
+
+                        <form method="post" class="p-2 m-2">
+
+                            <h5 class="text-center">Add income</h5>
+
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i
+                                            class="icon-money inputGroup-sizing-lg"></i></span>
+                                </div>
+                                <input type="number" name="amount" class="form-control form-control-lg" id="inputAmount"
+                                    step="0.01" placeholder="0.00" min="0.01" value="" aria-label="amount"
+                                    aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2"><i
+                                            class="icon-calendar inputGroup-sizing-lg"></i></span>
+                                </div>
+                                <input type="date" name="date" class="form-control form-control-lg" id="inputDate"
+                                    aria-label="date" aria-describedby="basic-addon2">
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3"><i
+                                            class="icon-tags inputGroup-sizing-lg"></i></span>
+                                </div>
+                                <select class="income form-control form-control-lg" name="category" aria-label="income"
+                                    aria-describedby="basic-addon3">
+                                    <option value="" disabled="" selected="" hidden="">-- income --
+                                    </option>
+
+                                </select>
+                            </div>
+
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-comment"
+                                            id="inputGroup-sizing-lg"></i></span>
+                                </div>
+                                <textarea class="form-control" name="comment" rows="2" style="resize: none"
+                                    aria-label="With textarea"></textarea>
+                            </div>
+
+                            <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
+                                <input class="add-button btn px-0 py-3 m-2" type="submit" value="Add">
+                                <input onclick="window.location.href='main-menu.php'"
+                                    class="cancel-button btn px-0 py-3  btn-secondary m-2" type="button" value="Cancel">
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
+
+                <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
+
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
+        <div class="text-center p-2" style="background-color:  #474849">
+            Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
+        </div>
+    </footer>
+
+</main>
+
+
+
+{% endblock %}

@@ -5,18 +5,18 @@ namespace App\Controllers;
 use \Core\View;
 
 /**
- * Register controller
+ * Expense controller
  *
  */
-class Signup extends \Core\Controller
+class Expense extends \Core\Controller
 {
   /**
-   * Show the register page
+   * Show the expense page
    *
    * @return void
    */
   public function indexAction()
   {
-    View::renderTemplate('SignUp/new-user.html');
+    View::renderTemplate('Expense/expense.html');
   }
 }
