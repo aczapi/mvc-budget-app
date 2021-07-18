@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+
+{% block title %}Main menu{% endblock %}
+
+{% block body %}
+<main>
+
+    <nav id="mainNavbar" class="navbar navbar-light navbar-expand-xxl pt-1 px-0">
+        <a href="#" class="navbar-brand"><i class="icon-money-2 d-none d-md-inline"></i>PERSONAL BUDGET</a>
+
+    </nav>
+
+    <div class="row justify-content-center mt-3 mt-xl-2 mb-xl-4 welcome">
+
+        <h2>Hello</h2>
+
+    </div>
+
+
+    <section class="container-fluid px-0 mt-2 mt-xl-5">
+
+        <div class="row align-items-center mt-2 mt-xl-1">
+            <div class="col-lg-12 col-xl-6">
+                <div class="row align-items-center content">
+                    <div class="col-md-6 col-xl-5 col-xxl-6 order-1 order-md-1 px-0 view ">
+                        <img src="/imgs/office.jpg" alt="" class="img-fluid rounded small-img">
+                    </div>
+                    <div class="col-md-6 col-xl-7 col-xxl-6 text-center order-2 order-md-2">
+                        <div class="row">
+                            <div class="col-12 blurb mb-md-0">
+
+                                <h2 class="h2 my-2 my-xl-1"> <i
+                                        class="icon-wallet icons d-none d-md-inline m-1"></i>Manage
+                                    your
+                                    finances</h2>
+                                <div class="row justify-content-center mt-1">
+                                    <div
+                                        class="d-flex justify-content-center justify-content-sm-end justify-content-lg-center col-12 col-sm-4 col-md-5 col-lg-6 mx-2 my-2 px-0">
+
+                                        <button onclick="window.location.href='add-expense.php'" type="button"
+                                            class="btn py-3 px-0">Add expense</button>
+                                    </div>
+                                    <div
+                                        class="justify-content-center d-flex justify-content-sm-start justify-content-lg-center col-12 col-sm-4 col-md-5 col-lg-6 mx-2 my-2 px-0">
+
+                                        <button onclick="window.location.href='add-income.php'" type="button"
+                                            class="btn py-3 px-0">Add income</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-6">
+                <div class="row align-items-center content">
+                    <div class="col-md-6 col-xl-7 col-xxl-6 text-center order-2 order-md-2">
+                        <div class="row align-items-center">
+                            <div class="col-12 blurb my-2 mb-md-0">
+                                <h2 class="h2 my-2 my-xl-1"><i
+                                        class="icon-balance-scale icons d-none d-md-inline m-1"></i>View
+                                    balance</h2>
+
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-1">
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
+                                <button onclick="window.location.href='balance-current-month.php'" type="button"
+                                    class="btn px-0 py-3">Current month</button>
+                            </div>
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
+                                <button onclick="window.location.href='balance-previous-month.php'" type="button"
+                                    class="btn px-0 py-3">Previous month</button>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
+                                <button onclick="window.location.href='balance-current-year.php'" type="button"
+                                    class="btn px-0 py-3">Current year</button>
+                            </div>
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
+                                <button type="button" class="btn py-3" data-toggle="modal"
+                                    data-target=".custom">Custom</button>
+                            </div>
+                            <div class="modal fade custom" tabindex="-1" role="dialog">
+                                <div class="modal-dialog " role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Select dates</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="balance-selected-period.php" method="post" class="p-2 m-2">
+                                            <div class="modal-body">
+                                                <div class="input-group mt-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2"><i
+                                                                class="icon-calendar inputGroup-sizing-lg"></i></span>
+                                                    </div>
+                                                    <input type="date" name="startDate"
+                                                        class="form-control form-control-lg" id="inputDate"
+                                                        aria-label="date" aria-describedby="basic-addon2">
+                                                </div>
+                                                <div class="input-group mt-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon2"><i
+                                                                class="icon-calendar inputGroup-sizing-lg"></i></span>
+                                                    </div>
+
+                                                    <input type="date" name="endDate"
+                                                        class="form-control form-control-lg" id="inputDate"
+                                                        aria-label="date" aria-describedby="basic-addon2">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button onclick="window.location.href='balance-selected-period.php'"
+                                                    type="submit" id="modal-select" class="btn">Select</button>
+                                                <button type="button" id="modal-close" class="btn"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-xl-5 col-xxl-6 px-0 view order-1 order-md-2 order-lg-1">
+                        <img src="/imgs/balance.jpg" alt="" class="img-fluid rounded small-img">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row align-items-center mt-2 mt-xl-4">
+            <div class="col-lg-12 col-xl-6">
+                <div class="row align-items-center content">
+                    <div class="col-md-6 col-xl-7 col-xxl-6 text-center order-2 order-md-2">
+                        <div class="row align-items-center">
+                            <div class="col-12 blurb my-2 mb-md-0">
+                                <h2 class="h2 my-2 my-xl-1"><i
+                                        class="icon-cog-alt icons d-none d-md-inline m-0"></i>Settings
+                                </h2>
+
+                            </div>
+                        </div>
+
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".construction"></button> -->
+
+                        <!-- modal -->
+
+                        <div class="modal fade construction" id="exampleModalCenter" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!-- <h5 class="modal-title" id="exampleModalCenterTitle"></h5> -->
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Site under construction!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- modal -->
+                        <div class="row justify-content-center mt-1">
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
+                                <button type="button" class="btn py-3" data-toggle="modal" data-target=".construction">
+                                    Incomes</button>
+                            </div>
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
+                                <button type="button" class="btn py-3" data-toggle="modal"
+                                    data-target=".construction">Expenses</button>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
+                                <button type="button" class="btn px-0 py-3" data-toggle="modal"
+                                    data-target=".construction">Payment</button>
+                            </div>
+                            <div
+                                class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
+                                <button type="button" class="btn py-3" data-toggle="modal"
+                                    data-target=".construction">User</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-xl-5 col-xxl-6 px-0 view order-1 order-md-1 order-lg-1">
+                        <img id="firstImg" src="/imgs/monet.jpg" alt="" class="img-fluid rounded small-img">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+                <div class="row align-items-center content">
+                    <div class="col-md-6 col-xl-5 col-xxl-6 order-1 order-md-2 px-0 view">
+                        <img src="/imgs/pexels.jpg" alt="" class="img-fluid rounded small-img">
+                    </div>
+                    <div class="col-md-6 col-xl-7 col-xxl-6 text-center order-2 order-md-1 order-lg-2">
+                        <div class="row mb-3">
+                            <div class="col-12 blurb mb-3 mb-md-0">
+
+                                <h2 class="h2 my-2 my-xl-1"><i class="icon-logout icons d-none d-md-inline m-1"></i>Come
+                                    back
+                                    soon!</h2>
+                                <div class="row justify-content-center mt-1">
+                                    <div class="col-sm-6 m-1 mt-3 mb-5">
+                                        <button onclick="window.location.href='logout.php'" type="button"
+                                            class="btn py-3">Log out</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="myFooter bg-light text-white text-center text-lg-start mt-3 mt-xl-1">
+        <div class="text-center p-2" style="background-color:  #474849">
+            Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
+        </div>
+    </footer>
+
+</main>
+
+
+
+{% endblock %}
