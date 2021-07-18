@@ -1,0 +1,485 @@
+*{
+    box-sizing: border-box;
+}
+html{
+    position:relative; 
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+body {
+    background: linear-gradient(to top left, #80b1c5, #3e6772);
+    font-family: 'Della Respira', serif;
+    font-size: 16px;
+    margin-left:15px;
+    margin-right: 15px;
+}
+
+.welcome{
+    font-size: 1.5rem;
+    background-color: #2C383B;
+    color: #ffe7c9;
+    padding:0.5rem 0;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.caret-off::before {
+    display: none;
+}
+.caret-off::after {
+    display: none;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.blurb{
+    color: #ffe7c9;
+ }
+
+.blurb h2 {
+    color: #2C383B;
+    font-weight: 100;
+    font-size: 2.25rem;
+ }
+ 
+ .blurb p {
+     color: #fff;
+     font-weight: 100;
+     font-size: 1.125rem;
+     line-height: 2;
+ }
+
+.navbar-nav li:hover>.dropdown-menu
+{
+    display: block;
+}
+
+#mainNavbar, .dropdown-item {
+    font-size: 1.7rem;
+    line-height: 1.2rem; 
+    color: #2C383B; 
+}
+
+#mainNavbar .dropdown-item:hover{
+    background: transparent;
+    color: #ffe7c9;
+}
+
+#navLinks .collapse{
+    display: flex;
+    flex-direction: row;
+}
+
+.collapse {
+    justify-content: flex-end;
+}
+
+#mainNavbar .nav-link {
+    color: #2C383B;
+    font-size: 1.7rem;
+}
+
+ .navbar-nav > li{
+    margin-left:10px;
+    margin-right:10px;
+  } 
+
+#mainNavbar .nav-link:hover {
+    color: #ffe7c9;
+    font-weight: 300;
+}
+
+#mainNavbar .navbar-brand {
+    color: #ffe7c9;
+    font-size:3rem;
+	font-weight: 700;	
+    font-style: italic;
+    margin-left: 5px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+    }
+
+
+#headingGroup span {
+    color: #ffe7c9;
+}
+
+ .view{
+    overflow: hidden;
+}
+
+.btn {
+    width: 155px;
+    background: none;
+    color:#2C383B;
+    border: 2px solid;
+    padding: 1em 1em;
+    font-size: 1.2em;
+    transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
+  }
+  
+.btn:hover {
+    border-color: #ffe7c9;
+    color: #ffe7c9;
+    box-shadow: 0 0.5em 0.5em -0.4em #ffe7c9;
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+
+.balance{
+    font-size: 2.35rem;
+}
+
+th, td{
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+
+.icons{
+      color:#2C383B;
+      font-size: 2.2rem;
+}
+
+#mainImg{
+    
+ -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0)), linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+ -webkit-mask-size: 100% 50%;
+ -webkit-mask-repeat: no-repeat;
+ -webkit-mask-position: left top, left bottom;
+}
+
+#signInForm, #signUpForm, #add-items, .balance-display {
+    min-height: 350px;
+   background-color: rgba(128, 178, 197, 0.041);
+    border-radius: 0.5rem;
+    color: #2C383B;
+	-webkit-box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+	-moz-box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+	box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+}
+
+.myFooter
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+	bottom: 0;
+    width: 100%;
+    line-height: 1.7rem;
+}
+
+.change, .forgotPassword{
+    line-height: 2.2rem;
+    text-align: center;
+}
+
+a.link
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+a.link:hover{
+	color: #ffe7c9;
+    font-style: italic;
+    font-weight: bold;  
+}
+
+.form-control:focus {
+    border-color: rgb(255, 231, 201);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 231, 201, 0.9);
+}
+
+.options{
+      font-size: 1.5rem;
+}
+
+@media (max-width:1700px) and (min-width: 1200px){
+   
+    .small-img{
+        transform: scale(1.18);
+    }
+    .blurb h2 {
+        font-size: 1.5rem;
+       } 
+
+     .btn{
+       width:130px; 
+       font-size: 0.95em;
+    }
+
+    .view{
+        overflow: visible;
+    }
+    section{
+        margin-bottom: 3.2rem;
+    }
+    h3{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 1375px){
+    #mainNavbar .nav-link{
+        font-size: 1.4rem;
+    }
+
+    #mainNavbar .dropdown-item{
+        font-size: 1.4rem;
+        line-height: 1rem;
+}
+#mainNavbar .navbar-brand {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0.9rem;
+} 
+
+}
+
+
+ @media(max-width: 1199.98px){
+    .add, .account{
+        position: relative;
+    }
+    #signInForm, #signUpForm, #add-items{
+        margin-top: 10px;
+    } 
+    #mainNavbar .navbar-brand {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-top: 1rem;
+    } 
+ 
+    #mainNavbar .nav-link{
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+        padding:1px;
+    }
+    #mainNavbar .dropdown-item{
+        font-size: 1.3rem;
+        line-height: 0.9rem;
+        font-weight: 100;
+ 
+    } 
+ 
+     .welcome{
+         font-size: 1.4rem;
+        }
+     
+        .blurb h2 {
+         font-size: 2.2rem;
+        } 
+    
+}
+
+
+ @media(max-width: 767.98px) {
+    
+    #mainNavbar .navbar-brand {
+       font-size: 2.0rem;
+       font-weight: 700;
+       margin-top: 0.9rem;
+   } 
+
+   #mainNavbar .nav-link{
+       font-size: 1.2rem;
+       line-height: 1.5rem;
+       padding:1px;
+   }
+   #mainNavbar .dropdown-item{
+       font-size: 1.2rem;
+       line-height: 0.9rem;
+       font-weight: 100;
+
+   } 
+
+     .small-img{
+       width: 800px;
+       height: auto;
+       
+    } 
+    .welcome{
+        font-size: 1.2rem;
+       }
+    
+       .blurb h2 {
+        font-size: 2rem;
+       } 
+   #signInForm, #signUpForm, #add-items{
+       margin-top: 10px;
+   } 
+
+   .balance{
+    font-size: 1.5rem;
+}
+
+    .header{
+        font-size: 1.4rem ;
+    }
+
+    th, td{
+        font-size: 1rem;
+        
+    }
+  
+}
+
+@media(max-width:460px){
+
+   #mainNavbar .navbar-brand {
+       font-size: 1.8rem;
+       font-weight: 700;
+       margin-left:0;
+       margin-top: 0.2rem;
+   }
+   .welcome{
+    font-size: 1.1rem;
+   }
+
+   .blurb h2 {
+    font-size: 1.8rem;
+   } 
+   .btn {
+    width: 125px;
+   
+    padding: 0.3em 0.6em;
+    font-size: 0.9em;
+    
+  }
+  .myFooter{
+    font-size: 0.8rem;
+}
+.balance{
+    font-size: 1.4rem;
+}
+
+    .header{
+        font-size: 1.3rem ;
+    }
+
+    th, td{
+        font-size: 0.9rem;
+        
+    }
+
+}
+
+@media(max-width: 339px){
+
+    #mainNavbar .navbar-brand {
+        font-size: 1.38rem;
+        font-weight: 700;
+        margin-left:0;
+        margin-top: 0.2rem;
+    }
+    .welcome{
+        font-size: 1rem;
+    }
+    .blurb h2, h3{
+        font-size: 1.4rem;
+    } 
+    .btn {
+        width: 135px;
+        font-size: 1rem;
+        
+      }
+
+    .myFooter{
+        font-size: 0.7rem;
+}
+ .form-control, .input-group-prepend{
+     height: 2.5rem;
+   
+ }
+ 
+     #mainNavbar .nav-link{
+        font-size: 1rem;
+        line-height: 1.2rem;
+	    padding:1px;
+    } 
+     #mainNavbar .dropdown-item{
+        font-size: 1rem;
+        line-height: 0.5rem;
+        font-weight: 100;
+
+    } 
+
+    #signInForm, #signUpForm, #add-items{
+       margin-top: 10px;
+   } 
+
+   .balance{
+    font-size: 1.4rem;
+}
+
+    .header{
+        font-size: 1.15rem ;
+    }
+
+    th, td{
+        font-size: 0.5rem;
+        
+    }
+
+}
+
+
+@media (min-width: 1200px) {
+    .account{
+        position: fixed;
+    } 
+    section{
+        margin-bottom: 3.0rem;
+    }
+    #signInForm, #signUpForm, #add-items{
+        margin-top: 100px;
+    }  
+
+    .navbar.scrolled {
+        background: rgba(44, 56, 59, 0.9);
+        transition: background 500ms;  
+    }
+    
+    #mainNavbar .nav-link.scrolled {
+        color: #fff;
+    }
+    #mainNavbar .nav-link.scrolled:hover {
+       color: #ffe7c9;
+       font-weight: 700;
+    }
+    .dropdown-item.scrolled {
+        background: rgba(44, 56, 59, 0.9);
+        transition: background 500ms;
+        color: #fff;
+    }
+    #mainNavbar .dropdown-item.scrolled:hover {
+        background: rgba(44, 56, 59, 0.9);
+        color: #ffe7c9;
+        font-weight: 700;
+    }
+
+}
+
+
+
+#modal-select, #modal-close {
+    width: 155px;
+    background: none;
+    border: 2px solid;
+    color:rgb(49, 59, 61);
+    padding: 1em 1em;
+    font-size: 1.2em;
+    transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
+  }
+    
+ #modal-close:hover {
+    
+    background: grey;
+    transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
+  }
+  
