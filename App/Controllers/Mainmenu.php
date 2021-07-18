@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 
 /**
- * Home controller
+ * Main menu controller
  *
  */
 class MainMenu extends \Core\Controller
