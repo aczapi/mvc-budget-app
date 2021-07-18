@@ -19,4 +19,13 @@ class Signup extends \Core\Controller
   {
     View::renderTemplate('SignUp/new-user.html');
   }
+
+  /**
+   * Sign up a new user
+   * 
+   * @return void
+   */
+  public function createAction()
+  {
+  }
 }
