@@ -65,29 +65,29 @@ class User extends \Core\Model
   {
     //Login
     if ((strlen($this->login) < 3) || (strlen($this->login) > 30)) {
-      $this->error[] = "Username must be between 3 and 30 characters";
+      $this->errors[] = "Username must be between 3 and 30 characters";
     }
 
     //Email adress
     $emailS = filter_var($this->email, FILTER_SANITIZE_EMAIL);
     if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false || $emailS !== $this->email) {
-      $this->error[] = "Invalid email";
+      $this->errors[] = "Invalid email";
     }
 
     //Password
     if ($this->password != $this->password_confirmation) {
-      $this->error[] = "Password must match confirmation";
+      $this->errors[] = "Password must match confirmation";
     }
 
     if (strlen($this->password) < 8) {
-      $this->error[] = "Please enter at least 8 characters for the password";
+      $this->errors[] = "Please enter at least 8 characters for the password";
     }
 
     if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-      $this->error[] = "Password needs at least one letter";
+      $this->errors[] = "Password needs at least one letter";
     }
     if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-      $this->error[] = "Password needs at least one number";
+      $this->errors[] = "Password needs at least one number";
     }
   }
 }
