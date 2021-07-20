@@ -82,9 +82,9 @@ class User extends \Core\Model
     }
 
     //Password
-    if ($this->password != $this->password_confirmation) {
-      $this->errors['password'] = "Password must match confirmation";
-    }
+    // if ($this->password != $this->password_confirmation) {
+    //   $this->errors['password'] = "Password must match confirmation";
+    // }
 
     if (strlen($this->password) < 8) {
       $this->errors['password'] = "Please enter at least 8 characters for the password";
