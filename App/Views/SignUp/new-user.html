@@ -31,7 +31,8 @@
                 name: 'required',
                 email: {
                     required: true,
-                    email: true
+                    email: true,
+                    remote: '/account/validate-email'
                 },
                 password: {
                     required: true,
@@ -40,6 +41,11 @@
                 },
                 password_confirmation: {
                     equalTo: '#inputPassword'
+                }
+            },
+            messages: {
+                email: {
+                    remote: 'There is already an account associated with this email address'
                 }
             }
             //TODO 

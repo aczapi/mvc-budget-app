@@ -77,7 +77,7 @@ class User extends \Core\Model
       $this->errors['email'] = "Invalid email";
     }
 
-    if ($this->emailExists($this->email)) {
+    if (static::emailExists($this->email)) {
       $this->errors['email'] = 'Email already taken';
     }
 
@@ -105,7 +105,7 @@ class User extends \Core\Model
    *
    * @return boolean  True if a record already exists with the specified email, false otherwise
    */
-  protected function emailExists($email)
+  public static function emailExists($email)
   {
     $sql = 'SELECT * FROM users WHERE email = :email';
 
