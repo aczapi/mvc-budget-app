@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\User;
+
 /**
  * Authentication
  * 
@@ -72,6 +74,19 @@ class Auth
    */
   public static function getReturnToPage()
   {
-    return $_SESSION['return_to'] ?? '/';
+    return $_SESSION['return_to'] ?? '/mainmenu/index';
+  }
+
+  /**
+   * Get the current logged in user, from the session or the remember me cookie
+   * 
+   * @return mixed user model or null if not logged in
+   */
+
+  public static function getUser()
+  {
+    if (isset($_SESSION['user_id'])) {
+      return User::findByID($_SESSION['user_id']);
+    }
   }
 }
