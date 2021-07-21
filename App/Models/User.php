@@ -118,7 +118,7 @@ class User extends \Core\Model
    */
   public static function findByEmail($email)
   {
-    $sql = 'SELECT * FROM users WHERE email = :email';
+    $sql = 'SELECT email, password FROM users WHERE email = :email';
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
@@ -129,5 +129,26 @@ class User extends \Core\Model
     $stmt->execute();
 
     return $stmt->fetch();
+  }
+
+  /**
+   * Authenticate a user by email and password.
+   *
+   * @param string $email email address
+   * @param string $password password
+   *
+   * @return mixed  The user object or false if authentication fails
+   */
+  public static function authenticate($email, $password)
+  {
+    $user = static::findByEmail($email);
+
+    if ($user) {
+      if (password_verify($password, $user->password)) {
+        return $user;
+      }
+    }
+
+    return false;
   }
 }

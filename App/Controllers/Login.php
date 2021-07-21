@@ -27,8 +27,14 @@ class Login extends \Core\Controller
    */
   public function createAction()
   {
-    $user = User::findByEmail($_POST['email']);
+    $user = User::authenticate($_POST['email'], $_POST['password']);
 
-    var_dump($user);
+    if ($user) {
+
+      $this->redirect('/');
+    } else {
+
+      View::renderTemplate('Login/new.html', ['email' => $_POST['email']]);
+    }
   }
 }
