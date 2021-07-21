@@ -118,7 +118,7 @@ class User extends \Core\Model
    */
   public static function findByEmail($email)
   {
-    $sql = 'SELECT email, password FROM users WHERE email = :email';
+    $sql = 'SELECT * FROM users WHERE email = :email';
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
