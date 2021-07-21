@@ -198,12 +198,6 @@ a.link:hover{
       font-size: 1.5rem;
 }
 
-#signUpFrom  #email-error > span.errors {
-    font-size: 15px ;
-    text-align: center ;
-    color: #ffe7c9 !important;
-}
-
 @media (max-width:1700px) and (min-width: 1200px){
    
     .small-img{
