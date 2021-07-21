@@ -17,6 +17,6 @@ class MainMenu extends \Core\Controller
    */
   public function indexAction()
   {
-    View::renderTemplate('MainMenu/main-menu.html');
+    View::renderTemplate('MainMenu/index.html');
   }
 }
