@@ -9,7 +9,7 @@ use App\Auth;
  * Income controller
  *
  */
-class Income extends \Core\Controller
+class Income extends Authenticated
 {
   /**
    * Show the income page
@@ -18,10 +18,7 @@ class Income extends \Core\Controller
    */
   public function indexAction()
   {
-    if (!Auth::isLoggedIn()) {
-      Auth::rememberRequestedPage();
-      $this->redirect('/login');
-    }
+    $this->requireLogin();
     View::renderTemplate('Income/income.html');
   }
 }

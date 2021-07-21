@@ -9,8 +9,9 @@ use App\Auth;
  * Main menu controller
  *
  */
-class MainMenu extends \Core\Controller
+class MainMenu extends Authenticated
 {
+
   /**
    * Show the main-menu page
    *
@@ -18,10 +19,6 @@ class MainMenu extends \Core\Controller
    */
   public function indexAction()
   {
-    if (!Auth::isLoggedIn()) {
-      Auth::rememberRequestedPage();
-      $this->redirect('/login');
-    }
     View::renderTemplate('MainMenu/index.html');
   }
 }

@@ -8,7 +8,7 @@ use \Core\View;
  * Expense controller
  *
  */
-class Expense extends \Core\Controller
+class Expense extends Authenticated
 {
   /**
    * Show the expense page
