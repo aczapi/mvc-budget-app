@@ -34,7 +34,7 @@ class Login extends \Core\Controller
 
       Auth::login($user);
 
-      $this->redirect('/mainmenu/index');
+      $this->redirect(Auth::getReturnToPage());
     } else {
 
       View::renderTemplate('Login/new.html', ['email' => $_POST['email']]);
