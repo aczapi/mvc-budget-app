@@ -15,7 +15,7 @@ class Login extends \Core\Controller
    *
    * @return void
    */
-  public function indexAction()
+  public function newAction()
   {
     View::renderTemplate('Login/new.html');
   }

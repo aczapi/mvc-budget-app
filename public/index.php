@@ -27,5 +27,6 @@ $router = new Core\Router();
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
-
+$router->add('login', ['controller' => 'login', 'action' => 'new']);
+$router->add('signup', ['controller' => 'signup', 'action' => 'index']);
 $router->dispatch($_SERVER['QUERY_STRING']);
