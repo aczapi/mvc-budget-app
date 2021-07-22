@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\User;
 use App\Auth;
+use App\Flash;
 
 /**
  * Login controller
@@ -33,10 +34,12 @@ class Login extends \Core\Controller
     if ($user) {
 
       Auth::login($user);
+      Flash::addMessage('Login successful');
 
       $this->redirect(Auth::getReturnToPage());
     } else {
 
+      Flash::addMessage('Login unsuccessful, please try again');
       View::renderTemplate('Login/new.html', ['email' => $_POST['email']]);
     }
   }
