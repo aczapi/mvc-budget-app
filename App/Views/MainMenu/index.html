@@ -11,8 +11,8 @@
     </nav>
 
     {% for message in flash_messages %}
-    <div>
-        {{ message }}
+    <div class="text-center alert alert-{{message.type}}">
+        {{ message.body }}
     </div>
     {% endfor %}
 

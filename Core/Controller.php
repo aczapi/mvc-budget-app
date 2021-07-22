@@ -4,6 +4,7 @@ namespace Core;
 
 use App\Auth;
 use App\Flash;
+use FFI;
 
 /**
  * Base controller
@@ -99,7 +100,7 @@ abstract class Controller
   public function requireLogin()
   {
     if (!Auth::getUser()) {
-      Flash::addMessage("You need to log in first");
+      Flash::addMessage('You need to log in first', Flash::INFO);
       Auth::rememberRequestedPage();
       $this->redirect('/login');
     }
