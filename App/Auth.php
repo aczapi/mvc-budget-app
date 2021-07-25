@@ -55,6 +55,8 @@ class Auth
 
     // Finally destroy the session
     session_destroy();
+
+    static::forgetLogin();
   }
 
   /**Remember the originally requested page in the session
@@ -104,7 +106,7 @@ class Auth
 
       $remembered_login = RememberedLogin::findByToken($cookie);
 
-      if ($remembered_login) {
+      if ($remembered_login && !$remembered_login->hasExpired()) {
 
         $user = $remembered_login->getUser();
 
@@ -112,6 +114,29 @@ class Auth
 
         return $user;
       }
+    }
+  }
+
+
+  /**
+   * Forget the remembered login, if present
+   *
+   * @return void
+   */
+  protected static function forgetLogin()
+  {
+    $cookie = $_COOKIE['remember_me'] ?? false;
+
+    if ($cookie) {
+
+      $remembered_login = RememberedLogin::findByToken($cookie);
+
+      if ($remembered_login) {
+
+        $remembered_login->delete();
+      }
+
+      setcookie('remember_me', '', time() - 3600);  // set to expire in the past
     }
   }
 }
