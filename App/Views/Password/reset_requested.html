@@ -16,39 +16,20 @@
     <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
       <div class="col-md-6 order-1 order-md-1 px-0">
-        {% for message in flash_messages %}
-        <div class="text-center alert alert-{{message.type}}">
-          {{ message.body }}
-        </div>
-        {% endfor %}
         <div class="row justify-content-center mx-0 mt-1">
 
           <div id="signInForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-            <form class="p-3" method="post" action="/password/request-reset">
-              <h5 class="text-center mt-4">Request password reset</h5>
-              <div class="input-group my-2 my-lg-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text basic-addon1 mt-4 mb-3"><i
-                      class="icon-mail-alt inputGroup-sizing-lg"></i></span>
-                </div>
-                <input class="form-control form-control-lg mt-4 mb-3" type="email" name="email"
-                  placeholder="Email address" onfocus="this.placeholder=''" onblur="this.placeholder='Email address'">
-              </div>
+            <h5 class="text-center mt-4 mb-5">Request password reset</h5>
 
-
-              <div class="row justify-content-center">
-                <input type="submit" class="btn px-0 py-3" value="Reset">
-              </div>
-
-
-
-            </form>
+            {% for message in flash_messages %}
+            <div class="text-center alert alert-{{message.type}}">
+              {{ message.body }}
+            </div>
+            {% endfor %}
 
           </div>
         </div>
-
-
       </div>
       <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline ">
         <!-- Photo by Scott Graham on Unsplash -->
