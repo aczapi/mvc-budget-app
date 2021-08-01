@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Forgot password{% endblock %}
+
+{% block body %}
+
+<main>
+
+  <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+    <a href="#" class="navbar-brand mt-2"><i class="icon-money-2 d-none d-lg-inline "></i>PERSONAL
+      BUDGET</a>
+  </nav>
+
+  <!-- add labels -->
+  <section class="container-fluid px-0 mb-5 mb-lg-0">
+    <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+
+      <div class="col-md-6 order-1 order-md-1 px-0">
+        {% for message in flash_messages %}
+        <div class="text-center alert alert-{{message.type}}">
+          {{ message.body }}
+        </div>
+        {% endfor %}
+        <div class="row justify-content-center mx-0 mt-1">
+
+          <div id="signInForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+
+            <form class="p-3" method="post">
+              <h5 class="text-center mt-4">Request password reset</h5>
+              <div class="input-group my-2 my-lg-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text basic-addon1 mt-4 mb-3"><i
+                      class="icon-mail-alt inputGroup-sizing-lg"></i></span>
+                </div>
+                <input class="form-control form-control-lg mt-4 mb-3" type="email" name="email"
+                  placeholder="Email address" onfocus="this.placeholder=''" onblur="this.placeholder='Email address'">
+              </div>
+
+
+              <div class="row justify-content-center">
+                <input type="submit" class="btn px-0 py-3" value="Send password">
+              </div>
+
+
+
+            </form>
+
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline ">
+        <!-- Photo by Scott Graham on Unsplash -->
+        <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
+    <div class="text-center p-1 pb-lg-3" style="background-color:  #474849">
+      Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
+    </div>
+  </footer>
+
+</main>
+
+
+
+{% endblock %}
