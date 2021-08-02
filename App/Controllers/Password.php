@@ -30,9 +30,9 @@ class Password extends \Core\Controller
    */
   public function requestResetAction()
   {
+    Flash::addMessage('Please check your email');
     User::sendPasswordReset($_POST['email']);
 
-    Flash::addMessage('Please check your email');
     View::renderTemplate('Password/reset_requested.html');
   }
 }
