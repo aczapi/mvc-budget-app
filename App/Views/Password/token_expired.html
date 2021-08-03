@@ -72,28 +72,11 @@
 
           <div id="signUpForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-            <form method="post" action="/password/reset-password" class="p-3" id="formPassword">
+            <h5 class="text-center mt-4 mb-5">Request password reset</h5>
 
-              <input type="hidden" name="token" value="{{ token }}" />
-
-              <div class="input-group mt-5">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3"><i class="icon-key inputGroup-sizing-lg"></i></span>
-                </div>
-                <input id="inputPassword" class="form-control form-control-lg" type="password" placeholder="Password"
-                  onfocus="this.placeholder=''" onblur="this.placeholder='Password'" name="password">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon4"><i class="bi bi-eye-slash inputGroup-sizing-lg"
-                      onclick="showPwd('inputPassword',this)"></i></span>
-                </div>
-              </div>
-              <span id="password-error" class="errors">{{user.errors.password}}</span>
-
-              <div class="row justify-content-center mt-3">
-                <input type="submit" class="btn px-0 py-3" value="Reset password">
-              </div>
-
-            </form>
+            <p class="text-center">Password reset link invalid or expired, please click <a href="/password/forgot"
+                class="link">here</a> to request
+              another one.</p>
 
           </div>
 
