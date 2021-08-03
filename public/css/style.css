@@ -152,7 +152,7 @@ th, td{
  -webkit-mask-position: left top, left bottom;
 }
 
-#signInForm, #signUpForm, #add-items, .balance-display {
+#signInForm, #signUpForm, #resetForm, #add-items, .balance-display {
     min-height: 350px;
    background-color: rgba(128, 178, 197, 0.041);
     border-radius: 0.5rem;
@@ -196,6 +196,10 @@ a.link:hover{
 
 .options{
       font-size: 1.5rem;
+}
+
+.input-group-append{
+    cursor: pointer;
 }
 
 
@@ -246,7 +250,7 @@ a.link:hover{
     .add, .account{
         position: relative;
     }
-    #signInForm, #signUpForm, #add-items{
+    #signInForm, #signUpForm, #resetForm, #add-items{
         margin-top: 10px;
     } 
     #mainNavbar .navbar-brand {
@@ -310,7 +314,7 @@ a.link:hover{
        .blurb h2 {
         font-size: 2rem;
        } 
-   #signInForm, #signUpForm, #add-items{
+   #signInForm, #signUpForm, #resetForm, #add-items{
        margin-top: 10px;
    } 
 
@@ -409,7 +413,7 @@ a.link:hover{
 
     } 
 
-    #signInForm, #signUpForm, #add-items{
+    #signInForm, #signUpForm, #resetForm, #add-items{
        margin-top: 10px;
    } 
 
@@ -436,7 +440,7 @@ a.link:hover{
     section{
         margin-bottom: 3.0rem;
     }
-    #signInForm, #signUpForm, #add-items{
+    #signInForm, #signUpForm, #resetForm, #add-items{
         margin-top: 100px;
     }  
 

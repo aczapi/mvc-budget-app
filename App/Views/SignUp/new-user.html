@@ -54,11 +54,7 @@
             //errorPlacement: 
 
         });
-        //TODO change visual effect
-        $('#inputPassword').hideShowPassword({
-            show: false,
-            innerToggle: 'focus'
-        });
+
     });
 
 </script>
@@ -83,7 +79,7 @@
 <main>
 
     <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-        <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-2 d-none d-lg-inline "></i>PERSONAL
+        <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
             BUDGET</a>
     </nav>
 
@@ -108,7 +104,7 @@
                             </div>
                             <span id="login-error" class="errors">{{user.errors.login}}</span>
 
-                            <div class="input-group mt-2">
+                            <div class="input-group my-lg-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon2"><i
                                             class="icon-mail-alt inputGroup-sizing-lg"></i></span>
@@ -121,17 +117,23 @@
                                 <span class="errors">{{user.errors.email}}</span>
                             </div>
 
-                            <div class="input-group mt-2">
+                            <div class="input-group my-2 my-lg-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon3"><i
                                             class="icon-key inputGroup-sizing-lg"></i></span>
                                 </div>
                                 <input id="inputPassword" class="form-control form-control-lg" type="password"
-                                    placeholder="Password" onfocus="this.placeholder=''"
+                                    name="password" placeholder="Password" onfocus="this.placeholder=''"
                                     onblur="this.placeholder='Password'" name="password">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon4"><i
+                                            class="bi bi-eye-slash inputGroup-sizing-lg"
+                                            onclick="showPwd('inputPassword',this)"></i></span>
+                                </div>
                             </div>
-                            <span id="password-error" class="errors">{{user.errors.password}}</span>
-
+                            <div>
+                                <span id="password-error" class="errors">{{user.errors.password}}</span>
+                            </div>
                             <!-- <div class="input-group mt-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon4"><i

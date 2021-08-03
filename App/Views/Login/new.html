@@ -7,7 +7,7 @@
 <main>
 
     <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-        <a href="#" class="navbar-brand mt-2"><i class="icon-money-2 d-none d-lg-inline "></i>PERSONAL
+        <a href="#" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
             BUDGET</a>
     </nav>
 
@@ -28,7 +28,7 @@
                         <form class="p-3" action="/login/create" method="post">
                             <div class="input-group my-2 my-lg-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text basic-addon1"><i
+                                    <span class="input-group-text" id="basic-addon1"><i
                                             class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                                 </div>
                                 <input class="form-control form-control-lg" type="email" name="email"
@@ -37,13 +37,15 @@
                             </div>
                             <div class="input-group my-2 my-lg-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text basic-addon1"><i
+                                    <span class="input-group-text" id="basic-addon2"><i
                                             class="icon-key inputGroup-sizing-lg"></i></span>
                                 </div>
-                                <input class="form-control form-control-lg" type="password" name="password"
-                                    placeholder="Password" onfocus="this.placeholder=''"
-                                    onblur="this.placeholder='Password'">
+                                <input id="inputPassword" class="form-control form-control-lg" type="password"
+                                    name="password" placeholder="Password" onfocus="this.placeholder=''"
+                                    onblur="this.placeholder='Password'" name="password">
+
                             </div>
+
                             <div class="form-group remember py-1">
                                 <label for="rememberMe">
                                     <input id="rememberMe" type="checkbox" name="remember_me" class="m-1" {% if
