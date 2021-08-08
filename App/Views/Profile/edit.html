@@ -18,7 +18,7 @@
          */
         $('#formProfile').validate({
             rules: {
-                name: 'required',
+                login: 'required',
                 email: {
                     required: true,
                     email: true,
@@ -84,7 +84,7 @@
 
                     <div id="profileEdit" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-                        <form method="post" class="p-3" id="formProfile">
+                        <form method="post" action="/profile/update" class="p-3" id="formProfile">
                             <div class=" input-group mt-2">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1"><i
@@ -101,8 +101,8 @@
                                     <span class="input-group-text" id="basic-addon2"><i
                                             class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                                 </div>
-                                <input class="form-control form-control-lg" type="text" placeholder="Email adress"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email adress'" name="email"
+                                <input class="form-control form-control-lg" type="text" placeholder="Email address"
+                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                     value="{{user.email}}">
                             </div>
                             <div id="email-error">
@@ -128,7 +128,7 @@
                             </div>
 
                             <div class="row justify-content-center mt-3">
-                                <input type="submit" class="btn px-0 py-3" value="Save">
+                                <input type="submit" class="btn px-0 py-3 m-2" value="Save">
                                 <input onclick="window.location.href='/profile/show'"
                                     class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
                             </div>

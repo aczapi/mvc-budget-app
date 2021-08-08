@@ -16,7 +16,7 @@
          */
         $('#formSignup').validate({
             rules: {
-                name: 'required',
+                login: 'required',
                 email: {
                     required: true,
                     email: true,
@@ -93,8 +93,8 @@
                                     <span class="input-group-text" id="basic-addon2"><i
                                             class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                                 </div>
-                                <input class="form-control form-control-lg" type="text" placeholder="Email adress"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email adress'" name="email"
+                                <input class="form-control form-control-lg" type="text" placeholder="Email address"
+                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                     value="{{user.email}}">
                             </div>
                             <div id="email-error">

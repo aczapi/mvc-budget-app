@@ -6,6 +6,12 @@
 
 <h1>Profile</h1>
 
+{% for message in flash_messages %}
+<div class="text-center alert alert-{{message.type}}">
+  {{ message.body }}
+</div>
+{% endfor %}
+
 <dl>
   <dt>Name</dt>
   <dd>{{ user.login }}</dd>
