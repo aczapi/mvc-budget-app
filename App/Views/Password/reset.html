@@ -56,63 +56,53 @@
 
 
 
-<main>
+<nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+  <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
+    BUDGET</a>
+</nav>
 
-  <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-    <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
-      BUDGET</a>
-  </nav>
+<section class="container-fluid px-0 mb-5 mb-lg-0">
+  <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-  <section class="container-fluid px-0 mb-5 mb-lg-0">
-    <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+    <div class="col-md-6 order-1 order-md-1 px-0">
 
-      <div class="col-md-6 order-1 order-md-1 px-0">
+      <div class="row justify-content-center mx-0 mt-1">
 
-        <div class="row justify-content-center mx-0 mt-1">
+        <div id="resetForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-          <div id="resetForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+          <form method="post" action="/password/reset-password" class="p-3" id="formPassword">
 
-            <form method="post" action="/password/reset-password" class="p-3" id="formPassword">
+            <input type="hidden" name="token" value="{{ token }}" />
 
-              <input type="hidden" name="token" value="{{ token }}" />
-
-              <div class="input-group mt-5">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon3"><i class="icon-key inputGroup-sizing-lg"></i></span>
-                </div>
-                <input id="inputPassword" class="form-control form-control-lg" type="password" placeholder="Password"
-                  onfocus="this.placeholder=''" onblur="this.placeholder='Password'" name="password">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon4"><i class="bi bi-eye-slash inputGroup-sizing-lg"
-                      onclick="showPwd('inputPassword',this)"></i></span>
-                </div>
+            <div class="input-group mt-5">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3"><i class="icon-key inputGroup-sizing-lg"></i></span>
               </div>
-              <span id="password-error" class="errors">{{user.errors.password}}</span>
-
-              <div class="row justify-content-center mt-3">
-                <input type="submit" class="btn px-0 py-3" value="Reset password">
+              <input id="inputPassword" class="form-control form-control-lg" type="password" placeholder="Password"
+                onfocus="this.placeholder=''" onblur="this.placeholder='Password'" name="password">
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon4"><i class="bi bi-eye-slash inputGroup-sizing-lg"
+                    onclick="showPwd('inputPassword',this)"></i></span>
               </div>
+            </div>
+            <span id="password-error" class="errors">{{user.errors.password}}</span>
 
-            </form>
+            <div class="row justify-content-center mt-3">
+              <input type="submit" class="btn px-0 py-3" value="Reset password">
+            </div>
 
-          </div>
+          </form>
 
         </div>
-      </div>
-      <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
-        <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
       </div>
     </div>
-  </section>
+    <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
+      <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
-  <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
-    <div class="text-center p-1 pb-lg-3" style="background-color:  #474849">
-      Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
     </div>
-  </footer>
-
-</main>
+  </div>
+</section>
 
 
 {% endblock %}

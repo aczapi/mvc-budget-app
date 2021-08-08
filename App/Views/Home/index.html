@@ -4,58 +4,48 @@
 
 {% block body %}
 
-<main>
 
-  <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-    <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
-      BUDGET</a>
-  </nav>
+<nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+  <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
+    BUDGET</a>
+</nav>
 
-  <section class="container-fluid px-0 mb-5 mb-lg-0">
+<section class="container-fluid px-0 mb-5 mb-lg-0">
 
-    <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+  <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-      <div class="col-md-6 order-1 order-md-1 px-0">
-        <!-- {% for message in flash_messages %}
+    <div class="col-md-6 order-1 order-md-1 px-0">
+      <!-- {% for message in flash_messages %}
         <div class="text-center alert alert-{{message.type}}">
           {{ message.body }}
         </div>
         {% endfor %} -->
-        <div class="row justify-content-center mx-0 mt-1">
-          <div class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+      <div class="row justify-content-center mx-0 mt-1">
+        <div class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
 
 
-            <!-- visual changes for later -->
-            <div class="row justify-content-center">
-              <input onclick="window.location.href='../login'" type="button" class="btn px-0 py-3" value="Sign in">
-            </div>
-
-            <div class="row justify-content-center">
-              <input onclick="window.location.href='../signup'" type="button" class="btn px-0 py-3 mt-5"
-                value="Sign up">
-            </div>
-
+          <!-- visual changes for later -->
+          <div class="row justify-content-center">
+            <input onclick="window.location.href='../login'" type="button" class="btn px-0 py-3" value="Sign in">
           </div>
+
+          <div class="row justify-content-center">
+            <input onclick="window.location.href='../signup'" type="button" class="btn px-0 py-3 mt-5" value="Sign up">
+          </div>
+
         </div>
-
-
       </div>
-      <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline ">
-        <!-- Photo by Scott Graham on Unsplash -->
-        <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
-      </div>
+
     </div>
-  </section>
+    <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline ">
+      <!-- Photo by Scott Graham on Unsplash -->
+      <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
-  <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
-    <div class="text-center p-1 pb-lg-3" style="background-color:  #474849">
-      Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
     </div>
-  </footer>
-
-</main>
+  </div>
+</section>
 
 
 {% endblock %}

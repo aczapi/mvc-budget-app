@@ -67,91 +67,80 @@
 {% endif %} -->
 
 
+<nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+    <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
+        BUDGET</a>
+</nav>
 
-<main>
+<section class="container-fluid px-0 mb-5 mb-lg-0">
+    <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-    <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-        <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
-            BUDGET</a>
-    </nav>
+        <div class="col-md-6 order-1 order-md-1 px-0">
 
-    <section class="container-fluid px-0 mb-5 mb-lg-0">
-        <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+            <div class="row justify-content-center mx-0 mt-1">
 
-            <div class="col-md-6 order-1 order-md-1 px-0">
+                <div id="profileEdit" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-                <div class="row justify-content-center mx-0 mt-1">
-
-                    <div id="profileEdit" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
-
-                        <form method="post" action="/profile/update" class="p-3" id="formProfile">
-                            <div class=" input-group mt-2">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i
-                                            class="icon-user inputGroup-sizing-lg"></i></span>
-                                </div>
-                                <input class="form-control form-control-lg" type="text" placeholder="Name"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
-                                    value="{{user.login}}">
+                    <form method="post" action="/profile/update" class="p-3" id="formProfile">
+                        <div class=" input-group mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i
+                                        class="icon-user inputGroup-sizing-lg"></i></span>
                             </div>
-                            <span id="login-error" class="errors">{{user.errors.login}}</span>
+                            <input class="form-control form-control-lg" type="text" placeholder="Name"
+                                onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
+                                value="{{user.login}}">
+                        </div>
+                        <span id="login-error" class="errors">{{user.errors.login}}</span>
 
-                            <div class="input-group my-lg-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2"><i
-                                            class="icon-mail-alt inputGroup-sizing-lg"></i></span>
-                                </div>
-                                <input class="form-control form-control-lg" type="text" placeholder="Email address"
-                                    onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
-                                    value="{{user.email}}">
+                        <div class="input-group my-lg-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2"><i
+                                        class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                             </div>
-                            <div id="email-error">
-                                <span class="errors">{{user.errors.email}}</span>
-                            </div>
+                            <input class="form-control form-control-lg" type="text" placeholder="Email address"
+                                onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
+                                value="{{user.email}}">
+                        </div>
+                        <div id="email-error">
+                            <span class="errors">{{user.errors.email}}</span>
+                        </div>
 
-                            <div class="input-group my-2 my-lg-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon3"><i
-                                            class="icon-key inputGroup-sizing-lg"></i></span>
-                                </div>
-                                <input id="inputPassword" class="form-control form-control-lg" type="password"
-                                    name="password" placeholder="Password" onfocus="this.placeholder=''"
-                                    onblur="this.placeholder='Password'" name="password">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon4"><i
-                                            class="bi bi-eye-slash inputGroup-sizing-lg"
-                                            onclick="showPwd('inputPassword',this)"></i></span>
-                                </div>
+                        <div class="input-group my-2 my-lg-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3"><i
+                                        class="icon-key inputGroup-sizing-lg"></i></span>
                             </div>
-                            <div>
-                                <span id="password-error" class="errors">{{user.errors.password}}</span>
+                            <input id="inputPassword" class="form-control form-control-lg" type="password"
+                                name="password" placeholder="Password" onfocus="this.placeholder=''"
+                                onblur="this.placeholder='Password'" name="password">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon4"><i
+                                        class="bi bi-eye-slash inputGroup-sizing-lg"
+                                        onclick="showPwd('inputPassword',this)"></i></span>
                             </div>
+                        </div>
+                        <div>
+                            <span id="password-error" class="errors">{{user.errors.password}}</span>
+                        </div>
 
-                            <div class="row justify-content-center mt-3">
-                                <input type="submit" class="btn px-0 py-3 m-2" value="Save">
-                                <input onclick="window.location.href='/profile/show'"
-                                    class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
-                            </div>
-                        </form>
-
-                    </div>
+                        <div class="row justify-content-center mt-3">
+                            <input type="submit" class="btn px-0 py-3 m-2" value="Save">
+                            <input onclick="window.location.href='/profile/show'"
+                                class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
+                        </div>
+                    </form>
 
                 </div>
-            </div>
-            <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
-                <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
             </div>
         </div>
-    </section>
+        <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
+            <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
-    <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
-        <div class="text-center p-1 pb-lg-3" style="background-color:  #474849">
-            Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
         </div>
-    </footer>
-
-</main>
+    </div>
+</section>
 
 
 {% endblock %}

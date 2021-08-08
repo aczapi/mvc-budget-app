@@ -55,47 +55,36 @@
 {% endif %} -->
 
 
+<nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
+  <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
+    BUDGET</a>
+</nav>
 
-<main>
+<section class="container-fluid px-0 mb-5 mb-lg-0">
+  <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-  <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
-    <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
-      BUDGET</a>
-  </nav>
+    <div class="col-md-6 order-1 order-md-1 px-0">
 
-  <section class="container-fluid px-0 mb-5 mb-lg-0">
-    <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+      <div class="row justify-content-center mx-0 mt-1">
 
-      <div class="col-md-6 order-1 order-md-1 px-0">
+        <div id="signUpForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
 
-        <div class="row justify-content-center mx-0 mt-1">
+          <h5 class="text-center mt-4 mb-5">Request password reset</h5>
 
-          <div id="signUpForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
-
-            <h5 class="text-center mt-4 mb-5">Request password reset</h5>
-
-            <p class="text-center">Password reset link invalid or expired, please click <a href="/password/forgot"
-                class="link">here</a> to request
-              another one.</p>
-
-          </div>
+          <p class="text-center">Password reset link invalid or expired, please click <a href="/password/forgot"
+              class="link">here</a> to request
+            another one.</p>
 
         </div>
-      </div>
-      <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
-        <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
       </div>
     </div>
-  </section>
+    <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline  ">
+      <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
-  <footer class="myFooter bg-light text-white text-center text-lg-start mt-sm-5 mt-lg-0">
-    <div class="text-center p-1 pb-lg-3" style="background-color:  #474849">
-      Personal Budget Manager | &copy; Agnieszka Czapiewska | 2021
     </div>
-  </footer>
-
-</main>
+  </div>
+</section>
 
 
 {% endblock %}
