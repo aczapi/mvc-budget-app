@@ -48,17 +48,6 @@
 
 {% block body %}
 
-<!-- {% if user.errors is not empty %}
-<p> Errors: </p>
-<ul>
-    {%for error in user.errors %}
-    <li>{{ error}}</li>
-    {% endfor %}
-</ul>
-
-{% endif %} -->
-
-
 <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
     <a href="main-menu.php" class="navbar-brand mt-2"><i class="icon-money-1 d-none d-lg-inline "></i>PERSONAL
         BUDGET</a>
@@ -83,8 +72,9 @@
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
                                 value="{{user.login}}">
                         </div>
-                        <span id="login-error" class="errors">{{user.errors.login}}</span>
-
+                        <div id="login-error">
+                            <span class="errors">{{user.errors.login}}</span>
+                        </div>
                         <div class="input-group my-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i
