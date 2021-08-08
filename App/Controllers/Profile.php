@@ -13,6 +13,21 @@ use \App\Flash;
 
 class Profile extends Authenticated
 {
+
+  /**
+   * Before filter - called before each action method
+   * 
+   * @return void
+   */
+
+  protected function before()
+  {
+    parent::before();
+    $this->user = Auth::getUser();
+  }
+
+
+
   /**
    * Show the profile
    * 
@@ -22,7 +37,7 @@ class Profile extends Authenticated
   public function showAction()
   {
     View::renderTemplate('Profile/show.html', [
-      'user' => Auth::getUser()
+      'user' => $this->user
     ]);
   }
 
@@ -35,7 +50,7 @@ class Profile extends Authenticated
   public function editAction()
   {
     View::renderTemplate('Profile/edit.html', [
-      'user' => Auth::getUser()
+      'user' => $this->user
     ]);
   }
 
@@ -47,14 +62,13 @@ class Profile extends Authenticated
 
   public function updateAction()
   {
-    $user = Auth::getUser();
 
-    if ($user->updateProfile($_POST)) {
+    if ($this->user->updateProfile($_POST)) {
       Flash::addMessage('Changes saved');
       $this->redirect('/profile/show');
     } else {
       View::renderTemplate('Profile/edit.html', [
-        'user' => $user
+        'user' => $this->user
       ]);
     }
   }

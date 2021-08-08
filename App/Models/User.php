@@ -96,6 +96,7 @@ class User extends \Core\Model
 
     // Password
     if (isset($this->password)) {
+
       if (strlen($this->password) < 8) {
         $this->errors['password'] = "Please enter at least 8 characters for the password";
       }
