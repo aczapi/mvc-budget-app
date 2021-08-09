@@ -27,7 +27,8 @@ class Expenses extends \Core\Model
   {
     $user = Auth::getUser();
 
-    $sql = 'SELECT login FROM expenses_category_assigned_to_users WHERE user_id = :user_id';
+
+    $sql = 'SELECT name FROM expenses_category_assigned_to_users WHERE user_id = :user_id';
 
     $db = static::getDB();
     $userExpensesCategory = $db->prepare($sql);
@@ -36,5 +37,20 @@ class Expenses extends \Core\Model
     $userExpensesCategory->execute();
 
     return $userExpensesCategory->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function getPaymentMethodsAssignToUser()
+  {
+    $user = Auth::getUser();
+
+    $sql = 'SELECT name FROM payment_methods_assigned_to_users WHERE user_id = :user_id';
+
+    $db = static::getDB();
+    $userPaymentMethods = $db->prepare($sql);
+
+    $userPaymentMethods->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $userPaymentMethods->execute();
+
+    return $userPaymentMethods->fetchAll(PDO::FETCH_ASSOC);
   }
 }

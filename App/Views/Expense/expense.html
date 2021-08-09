@@ -97,6 +97,12 @@
                                 <option value="" disabled="" selected="" hidden="">-- category--
                                 </option>
 
+                                {% for expenseCategory in expensesCategory %}
+                                <option>{{ expenseCategory.name }}</option>
+                                {% endfor %}
+
+
+
                             </select>
 
                         </div>
@@ -110,6 +116,11 @@
                                 aria-label="payment" aria-describedby="basic-addon4">
                                 <option value="" disabled="" selected="" hidden="">-- payment method --
                                 </option>
+
+                                {% for paymentMethod in paymentMethods %}
+                                <option>{{ paymentMethod.name }}</option>
+                                {% endfor %}
+
                             </select>
                         </div>
 

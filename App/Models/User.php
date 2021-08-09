@@ -61,7 +61,13 @@ class User extends \Core\Model
       $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
       $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
 
-      return $stmt->execute();
+      $user = $stmt->execute();
+
+      $this->addUserDefaultExpenses($this->email);
+      $this->addUserDefaultIncomes($this->email);
+      $this->addUserDefaultPaymentMethods($this->email);
+
+      return $user;
     }
     return false;
   }
@@ -470,5 +476,38 @@ class User extends \Core\Model
       return $stmt->execute();
     }
     return false;
+  }
+
+  protected function addUserDefaultExpenses($email)
+  {
+    $sql = 'INSERT INTO expenses_category_assigned_to_users(user_id, name) SELECT users.id, expenses_category_default.name FROM users, expenses_category_default WHERE users.email = :email';
+
+    $db = static::getDB();
+    $defaultExpensesCategory = $db->prepare($sql);
+
+    $defaultExpensesCategory->bindParam(':email', $email, PDO::PARAM_STR);
+    $defaultExpensesCategory->execute();
+  }
+
+  protected function addUserDefaultIncomes($email)
+  {
+    $sql = 'INSERT INTO incomes_category_assigned_to_users(user_id, name) SELECT users.id, incomes_category_default.name FROM users, incomes_category_default WHERE users.email = :email';
+
+    $db = static::getDB();
+    $defaultIncomesCategory = $db->prepare($sql);
+
+    $defaultIncomesCategory->bindParam(':email', $email, PDO::PARAM_STR);
+    $defaultIncomesCategory->execute();
+  }
+
+  protected function addUserDefaultPaymentMethods($email)
+  {
+    $sql = 'INSERT INTO payment_methods_assigned_to_users(user_id, name) SELECT users.id, payment_methods_default.name FROM users, payment_methods_default WHERE users.email = :email';
+
+    $db = static::getDB();
+    $defaultPaymentMethods = $db->prepare($sql);
+
+    $defaultPaymentMethods->bindParam(':email', $email, PDO::PARAM_STR);
+    $defaultPaymentMethods->execute();
   }
 }

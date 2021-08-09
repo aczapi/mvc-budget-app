@@ -19,7 +19,8 @@ class Expense extends Authenticated
   public function indexAction()
   {
     View::renderTemplate('Expense/expense.html', [
-      'expensesCategory' => Expenses::getExpensesCategoryAssignToUser()
+      'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),
+      'paymentMethods' => Expenses::getPaymentMethodsAssignToUser()
     ]);
   }
 }
