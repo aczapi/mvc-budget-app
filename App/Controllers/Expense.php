@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use \App\Models\Expenses;
 
 /**
  * Expense controller
@@ -17,6 +18,8 @@ class Expense extends Authenticated
    */
   public function indexAction()
   {
-    View::renderTemplate('Expense/expense.html');
+    View::renderTemplate('Expense/expense.html', [
+      'expensesCategory' => Expenses::getExpensesCategoryAssignToUser()
+    ]);
   }
 }
