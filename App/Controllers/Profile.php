@@ -55,6 +55,20 @@ class Profile extends Authenticated
   }
 
   /**
+   * Show the form for editing the profile's password
+   * 
+   * @return void
+   */
+
+  public function changePasswordAction()
+  {
+    View::renderTemplate('Profile/change_password.html', [
+      'user' => $this->user
+    ]);
+  }
+
+
+  /**
    * Update the profile
    * 
    * @return void
@@ -70,6 +84,24 @@ class Profile extends Authenticated
       View::renderTemplate('Profile/edit.html', [
         'user' => $this->user
       ]);
+    }
+  }
+
+  /**
+   * Update the profile
+   * 
+   * @return void
+   */
+
+  public function updatePasswordAction()
+  {
+
+    if ($this->user->updatePassword($_POST)) {
+      Flash::addMessage('Password has been changed');
+      $this->redirect('/profile/show');
+    } else {
+      Flash::addMessage('Password change failed.', Flash::WARNING);
+      $this->redirect('/profile/show');
     }
   }
 }

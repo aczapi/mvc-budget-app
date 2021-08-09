@@ -410,25 +410,14 @@ class User extends \Core\Model
     $this->login = $data['login'];
     $this->email = $data['email'];
 
-    //only validate and update the password if a value provided
-    if ($data['password'] != '') {
-      $this->password = $data['password'];
-    }
-
-
     $this->validate();
 
     if (empty($this->errors)) {
 
       $sql = 'UPDATE users
               SET login = :login,
-                  email = :email';
-
-      //Add password if it's set
-      if (isset($this->password)) {
-        $sql .= ', password = :password_hash';
-      }
-      $sql .= "\nWHERE id = :id";
+                  email = :email
+              WHERE id = :id';
 
 
       $db = static::getDB();
@@ -438,10 +427,45 @@ class User extends \Core\Model
       $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
       $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-      if (isset($this->password)) {
-        $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-        $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+      return $stmt->execute();
+    }
+    return false;
+  }
+
+  public static function validateOldPassword($password, $userId)
+  {
+    $user = static::findByID($userId);
+
+    if ($user) {
+      if (password_verify($password, $user->password)) {
+        return true;
       }
+    }
+
+    return false;
+  }
+
+  public function updatePassword($data)
+  {
+    $this->old_password = $data['old_password'];
+    $this->new_password = $data['password'];
+
+    $this->validate();
+
+    $is_valid = static::validateOldPassword($this->old_password, $_SESSION['user_id']);
+
+    if (empty($this->errors) && $is_valid) {
+
+      $sql = 'UPDATE users
+              SET password = :password_hash
+              WHERE id = :id';
+
+      $db = static::getDB();
+      $stmt = $db->prepare($sql);
+
+      $password_hash = password_hash($this->new_password, PASSWORD_DEFAULT);
+      $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
+      $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
       return $stmt->execute();
     }
