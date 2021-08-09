@@ -97,6 +97,9 @@
                                 aria-describedby="basic-addon3">
                                 <option value="" disabled="" selected="" hidden="">-- income --
                                 </option>
+                                {% for incomeCategory in incomesCategory %}
+                                <option>{{ incomeCategory.name }}</option>
+                                {% endfor %}
 
                             </select>
                         </div>

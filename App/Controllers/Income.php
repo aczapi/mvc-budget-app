@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
-use App\Auth;
+use \App\Models\Incomes;
 
 /**
  * Income controller
@@ -18,7 +18,8 @@ class Income extends Authenticated
    */
   public function indexAction()
   {
-    $this->requireLogin();
-    View::renderTemplate('Income/income.html');
+    View::renderTemplate('Income/income.html', [
+      'incomesCategory' => Incomes::getIncomesCategoryAssignToUser()
+    ]);
   }
 }
