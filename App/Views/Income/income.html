@@ -26,9 +26,9 @@
 
                 <div class="dropdown-menu bg-transparent border-0 m-0 p-0" aria-labelledby="submenu">
 
-                    <a class="dropdown-item " href="balance-current-month.php">Current month</a>
-                    <a class="dropdown-item " href="balance-previous-month.php">Previous month</a>
-                    <a class="dropdown-item " href="balance-current-year.php">Current year</a>
+                    <a class="dropdown-item " href="#"">Current month</a>
+                    <a class=" dropdown-item " href=" #">Previous month</a>
+                    <a class="dropdown-item " href="#">Current year</a>
                     <a class="dropdown-item " href="#">Custom</a>
                     <!-- <a class="dropdown-item " href="#" data-toggle="modal" data-target=".custom"> Custom </a> -->
                 </div>
@@ -64,7 +64,7 @@
 
                 <div id="add-items" class="col-11 mx-1 col-md-12 col-xl-10 mt-lg-0 mt-xl-5">
 
-                    <form method="post" class="p-2 m-2">
+                    <form method="post" action="/income/add" class="p-2 m-2">
 
                         <h5 class="text-center">Add income</h5>
 
@@ -75,9 +75,12 @@
                                         class="icon-money inputGroup-sizing-lg"></i></span>
                             </div>
                             <input type="number" name="amount" class="form-control form-control-lg" id="inputAmount"
-                                step="0.01" placeholder="0.00" min="0.01" value="" aria-label="amount"
-                                aria-describedby="basic-addon1">
+                                step="0.01" placeholder="0.00" min="0.01" value="{{ income.amount }}"
+                                aria-label="amount" aria-describedby="basic-addon1">
                         </div>
+
+                        <span class="errors">{{ income.errors.amount }}</span>
+
 
                         <div class="input-group mt-3">
                             <div class="input-group-prepend">
@@ -85,16 +88,17 @@
                                         class="icon-calendar inputGroup-sizing-lg"></i></span>
                             </div>
                             <input type="date" name="date" class="form-control form-control-lg" id="inputDate"
-                                aria-label="date" aria-describedby="basic-addon2">
+                                value="{{ income.date }}" aria-label="date" aria-describedby="basic-addon2">
                         </div>
+                        <span class="errors">{{ income.errors.date }}</span>
 
                         <div class="input-group mt-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon3"><i
                                         class="icon-tags inputGroup-sizing-lg"></i></span>
                             </div>
-                            <select class="income form-control form-control-lg" name="category" aria-label="income"
-                                aria-describedby="basic-addon3">
+                            <select class="income form-control form-control-lg" name="category" value=""
+                                aria-label="income" aria-describedby="basic-addon3">
                                 <option value="" disabled="" selected="" hidden="">-- income --
                                 </option>
                                 {% for incomeCategory in incomesCategory %}
@@ -104,14 +108,26 @@
                             </select>
                         </div>
 
+                        <span class="errors">{{ income.errors.category }}</span>
+
                         <div class="input-group mt-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="icon-comment"
                                         id="inputGroup-sizing-lg"></i></span>
                             </div>
-                            <textarea class="form-control" name="comment" rows="2" style="resize: none"
-                                aria-label="With textarea"></textarea>
+                            <textarea class="form-control" name="comment" rows="2" value="{{ income.comment }}"
+                                style="resize: none" aria-label="With textarea"></textarea>
                         </div>
+
+                        <span class="errors">{{ income.errors.comment }}</span>
+
+
+                        {% for message in flash_messages %}
+                        <div class="mt-3 text-center alert alert-{{message.type}}">
+                            {{ message.body }}
+                        </div>
+                        {% endfor %}
+
 
                         <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
                             <input class="add-button btn px-0 py-3 m-2" type="submit" value="Add">
