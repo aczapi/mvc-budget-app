@@ -67,7 +67,6 @@ class Incomes extends \Core\Model
     $db = static::getDB();
     $stmt = $db->prepare($sql);
 
-    // echo $this->category;
     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
 
@@ -75,7 +74,6 @@ class Incomes extends \Core\Model
 
     $income = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // echo $income['id'];
     return $income['id'];
   }
 

@@ -53,4 +53,91 @@ class Expenses extends \Core\Model
 
     return $userPaymentMethods->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function validate()
+  {
+    if ($this->amount < 0.01 && $this->amount != "0") {
+      $this->errors['amount'] = "Amount can't be less than 0.01";
+    }
+
+    if ($this->date < '2000-01-01') {
+      $this->errors['date'] = "Date cannot be before 2000-01-01";
+    }
+    if (!isset($this->date) || $this->date == NULL) {
+      $this->errors['date'] = "Select date";
+    }
+    if (!isset($this->category)) {
+      $this->errors['category'] = "Select category";
+    }
+
+    if (!isset($this->payment)) {
+      $this->errors['payment'] = "Select payment method";
+    }
+
+    if (strlen($this->comment) > 100) {
+      $this->errors['comment'] = "Comment can't be longer than 100 characters";
+    }
+  }
+
+  protected function getIdOfExpense($user_id)
+  {
+    $sql = 'SELECT id FROM expenses_category_assigned_to_users WHERE name = :name AND user_id = :user_id';
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $expense = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $expense['id'];
+  }
+
+
+  protected function getIdOfPaymentMethod($user_id)
+  {
+    $sql = 'SELECT id FROM payment_methods_assigned_to_users WHERE name = :name AND user_id = :user_id';
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->payment, PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $payment_method = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $payment_method['id'];
+  }
+
+  public function save()
+  {
+    $user = Auth::getUser();
+
+    $this->validate();
+    echo "gtb";
+
+    if (empty($this->errors)) {
+
+      $sql = 'INSERT INTO expenses VALUES (NULL, :user_id, :category_id,:payment_id, :amount, :date, :comment)';
+
+      $db = static::getDB();
+      $addedExpense = $db->prepare($sql);
+
+      $addedExpense->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $addedExpense->bindValue(':category_id', $this->getIdOfExpense($user->id), PDO::PARAM_INT);
+      $addedExpense->bindValue(':payment_id', $this->getIdOfPaymentMethod($user->id), PDO::PARAM_INT);
+      $addedExpense->bindValue(':amount', $this->amount, PDO::PARAM_STR);
+      $addedExpense->bindValue(':date', $this->date, PDO::PARAM_STR);
+      $addedExpense->bindValue(':comment', $this->comment, PDO::PARAM_STR);
+
+      return $addedExpense->execute();
+    }
+
+    return false;
+  }
 }
