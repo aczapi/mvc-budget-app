@@ -33,9 +33,13 @@
                 email: {
                     remote: 'There is already an account associated with this email address'
                 }
+            },
+            errorPlacement: function ($error, $element) {
+
+                error.insertAfter(element);
+
+
             }
-            //TODO 
-            //errorPlacement: 
 
         });
 
@@ -84,9 +88,7 @@
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                 value="{{user.email}}">
                         </div>
-                        <div id="email-error">
-                            <span class="errors">{{user.errors.email}}</span>
-                        </div>
+                        <span class="errors">{{user.errors.email}}</span>
 
                         <div class="input-group my-2 my-lg-3">
                             <div class="input-group-prepend">
@@ -102,19 +104,10 @@
                                         onclick="showPwd('inputPassword',this)"></i></span>
                             </div>
                         </div>
-                        <div>
-                            <span id="password-error" class="errors">{{user.errors.password}}</span>
-                        </div>
-                        <!-- <div class="input-group mt-2">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon4"><i
-                                            class="icon-key inputGroup-sizing-lg"></i></span>
-                                </div>
-                                <input class="form-control form-control-lg" type="password"
-                                    placeholder="Repeat password" onfocus="this.placeholder=''"
-                                    onblur="this.placeholder='Repeat password'" name="password_confirmation">
-                            </div> -->
-                        <!-- <span class="errors">{{user.errors.password_confirm}}</span> -->
+
+                        <span class="errors">{{user.errors.password}}</span>
+
+
                         <div class="input-group mt-2 d-flex justify-content-center">
 
                             <div class="g-recaptcha" data-sitekey="6Lc59GsbAAAAAHikkgbiQ5M0m6faj99uXfwridf3">

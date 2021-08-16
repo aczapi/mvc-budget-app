@@ -202,8 +202,15 @@ a.link:hover{
     cursor: pointer;
 }
 
-#login-error{
+#login-error span{
     display: block;
+}
+
+.errors{
+    display: block;
+    font-size: 1.1rem;
+    text-align: center;
+    color: #ffe7c9;
 }
 
 

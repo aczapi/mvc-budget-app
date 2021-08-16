@@ -4,6 +4,12 @@
 
 {% block body %}
 
+<script>
+    function myFunction() {
+        document.getElementById("currentMonth").submit();
+    }
+</script>
+
 
 <nav id="mainNavbar" class="add navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
     <a href="../mainmenu/index" class="navbar-brand"><i class="icon-money-1 d-none d-lg-inline"></i>PERSONAL BUDGET</a>
@@ -15,7 +21,7 @@
             <li class="nav-item">
                 <a href="../mainmenu/index" class="nav-link">Home</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a href="../expense/index" class="nav-link">Add expense</a>
             </li>
             <li class="nav-item">
@@ -27,7 +33,7 @@
 
                 <div class="dropdown-menu bg-transparent border-0 m-0 p-0" aria-labelledby="submenu">
 
-                    <a class="dropdown-item " href="#">Current month</a>
+                    <a class="dropdown-item " href="#" onclick="myFunction()">Current month</a>
                     <a class="dropdown-item " href="#">Previous month</a>
                     <a class="dropdown-item " href="#">Current year</a>
                     <a class="dropdown-item " href="#">Custom</a>
@@ -46,7 +52,7 @@
 
                 </div>
 
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a href="/logout" class="nav-link">Log out</a>
             </li>
