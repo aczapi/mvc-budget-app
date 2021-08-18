@@ -91,10 +91,10 @@
                 </tr>
               </thead>
               <tbody>
-                {% for sumExpenseByCategory in sumExpenseByCategories %}
+                {% for sumExpensesByCategory in sumExpensesByCategories %}
                 <tr>
-                  <td>{{ sumExpenseByCategory.expense_category_name }}</td>
-                  <td class="text-center">{{ sumExpenseByCategory.sum_expenses }}</td>
+                  <td>{{ sumExpensesByCategory.expense_category_name }}</td>
+                  <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td>
                 </tr>
                 {% endfor %}
 
@@ -120,10 +120,18 @@
               <thead class="thead-dark ">
                 <tr>
                   <th scope="col">Category</th>
-                  <th scope="col">Amount</th>
+                  <th scope="col" class="text-center">Amount</th>
                 </tr>
               </thead>
               <tbody>
+
+                {% for sumIncomesByCategory in sumIncomesByCategories %}
+                <tr>
+                  <td>{{ sumIncomesByCategory.income_category_name }}</td>
+                  <td class="text-center">{{ sumIncomesByCategory.sum_incomes}}</td>
+                </tr>
+                {% endfor %}
+
 
               </tbody>
             </table>

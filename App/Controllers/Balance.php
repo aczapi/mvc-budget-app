@@ -14,10 +14,11 @@ class Balance extends Authenticated
       View::renderTemplate('Balance/show-balance.html', [
         'startDate' => Balances::getStartDate(),
         'endDate' => Balances::getEndDate(),
-        'sumExpenseByCategories' => Balances::getSumOfAllExpensesByCategory()
+        'sumExpensesByCategories' => Balances::getSumOfAllExpensesByCategory(),
+        'sumIncomesByCategories' => Balances::getSumOfAllIncomesByCategory()
       ]);
     }
 
-    // var_dump(Balances::getSumOfAllExpensesByCategory());
+    // var_dump(Balances::getSumOfAllIncomesByCategory());
   }
 }
