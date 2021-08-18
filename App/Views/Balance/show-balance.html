@@ -85,15 +85,15 @@
 
             <table class="table table-hover table-sm">
               <thead class="thead-dark">
-                <tr>
+                <tr class="text-center">
                   <th scope="col">Category</th>
-                  <th scope="col" class="text-center">Amount</th>
+                  <th scope="col">Amount</th>
                 </tr>
               </thead>
               <tbody>
                 {% for sumExpensesByCategory in sumExpensesByCategories %}
                 <tr>
-                  <td>{{ sumExpensesByCategory.expense_category_name }}</td>
+                  <td class="pl-3">{{ sumExpensesByCategory.expense_category_name }}</td>
                   <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td>
                 </tr>
                 {% endfor %}
@@ -118,16 +118,16 @@
           <div class="col-sm-12 col-lg-8">
             <table class="table table-hover table-sm">
               <thead class="thead-dark ">
-                <tr>
+                <tr class="text-center">
                   <th scope="col">Category</th>
-                  <th scope="col" class="text-center">Amount</th>
+                  <th scope="col">Amount</th>
                 </tr>
               </thead>
               <tbody>
 
                 {% for sumIncomesByCategory in sumIncomesByCategories %}
                 <tr>
-                  <td>{{ sumIncomesByCategory.income_category_name }}</td>
+                  <td class="pl-3">{{ sumIncomesByCategory.income_category_name }}</td>
                   <td class="text-center">{{ sumIncomesByCategory.sum_incomes}}</td>
                 </tr>
                 {% endfor %}
@@ -149,7 +149,7 @@
       <div class="col-sm-12 col-lg-8 ">
         <table class="table table-hover table-sm">
           <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
               <th scope="col">Category</th>
               <th scope="col">Amount</th>
               <th scope="col">Date</th>
@@ -158,6 +158,16 @@
             </tr>
           </thead>
           <tbody>
+
+            {% for individualExpense in individualExpenses %}
+            <tr>
+              <td class="pl-3">{{ individualExpense.expense_category_name }}</td>
+              <td class="text-center">{{ individualExpense.amount }}</td>
+              <td class="text-center">{{ individualExpense.date_of_expense }}</td>
+              <td class="text-center">{{ individualExpense.payment }}</td>
+              <td class="text-center">{{ individualExpense.comment }}</td>
+            </tr>
+            {% endfor %}
 
           </tbody>
         </table>
@@ -173,7 +183,7 @@
       <div class="col-sm-12 col-lg-8">
         <table class="table table-hover table-sm">
           <thead class="thead-dark">
-            <tr>
+            <tr class="text-center">
               <th scope="col">Category</th>
               <th scope="col">Amount</th>
               <th scope="col">Date</th>
@@ -181,6 +191,15 @@
             </tr>
           </thead>
           <tbody>
+
+            {% for individualIncome in individualIncomes %}
+            <tr>
+              <td class="pl-3">{{ individualIncome.income_category_name }}</td>
+              <td class="text-center">{{ individualIncome.amount }}</td>
+              <td class="text-center">{{ individualIncome.date_of_income }}</td>
+              <td class="text-center">{{ individualIncome.comment }}</td>
+            </tr>
+            {% endfor %}
 
 
           </tbody>

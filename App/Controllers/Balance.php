@@ -15,7 +15,9 @@ class Balance extends Authenticated
         'startDate' => Balances::getStartDate(),
         'endDate' => Balances::getEndDate(),
         'sumExpensesByCategories' => Balances::getSumOfAllExpensesByCategory(),
-        'sumIncomesByCategories' => Balances::getSumOfAllIncomesByCategory()
+        'sumIncomesByCategories' => Balances::getSumOfAllIncomesByCategory(),
+        'individualExpenses' => Balances::getIndividualExpenses(),
+        'individualIncomes' => Balances::getIndividualIncomes()
       ]);
     }
 
