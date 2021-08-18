@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use \App\Models\Balances;
 
 
 class Balance extends Authenticated
@@ -11,10 +12,12 @@ class Balance extends Authenticated
   {
     if (isset($_POST['time-period'])) {
       View::renderTemplate('Balance/show-balance.html', [
-        'selectedTime' => $_POST['time-period']
+        'startDate' => Balances::getStartDate(),
+        'endDate' => Balances::getEndDate(),
+        'sumExpenseByCategories' => Balances::getSumOfAllExpensesByCategory()
       ]);
-    } else {
-      View::renderTemplate('MainMenu/index.html');
     }
+
+    // var_dump(Balances::getSumOfAllExpensesByCategory());
   }
 }

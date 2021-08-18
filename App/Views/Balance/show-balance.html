@@ -60,7 +60,7 @@
 
   <div class="balance-display mx-0 mb-5">
     <div class="row align-items-start justify-content-center mt-3 mt-lg-5">
-      <div class="balance text-center mt-4">Balance from period: {{ selectedTime }}
+      <div class="balance text-center mt-4">Balance from period: {{ startDate }} - {{ endDate }}
 
         <div class="display-date text-center">
 
@@ -87,11 +87,16 @@
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Category</th>
-                  <th scope="col">Amount</th>
+                  <th scope="col" class="text-center">Amount</th>
                 </tr>
               </thead>
               <tbody>
-
+                {% for sumExpenseByCategory in sumExpenseByCategories %}
+                <tr>
+                  <td>{{ sumExpenseByCategory.expense_category_name }}</td>
+                  <td class="text-center">{{ sumExpenseByCategory.sum_expenses }}</td>
+                </tr>
+                {% endfor %}
 
               </tbody>
             </table>
