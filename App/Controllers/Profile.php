@@ -74,14 +74,43 @@ class Profile extends Authenticated
    * @return void
    */
 
-  public function updateAction()
+  public function changeNameAction()
+  {
+    View::renderTemplate('Profile/edit_name.html', [
+      'user' => $this->user
+    ]);
+  }
+
+
+  public function changeEmailAction()
+  {
+    View::renderTemplate('Profile/edit_email.html', [
+      'user' => $this->user
+    ]);
+  }
+
+
+  public function updateNameAction()
   {
 
-    if ($this->user->updateProfile($_POST)) {
-      Flash::addMessage('Changes saved');
+    if ($this->user->updateProfileName($_POST)) {
+      Flash::addMessage('Name has been changed');
       $this->redirect('/profile/show');
     } else {
-      View::renderTemplate('Profile/edit.html', [
+      View::renderTemplate('Profile/edit_name.html', [
+        'user' => $this->user
+      ]);
+    }
+  }
+
+  public function updateEmailAction()
+  {
+
+    if ($this->user->updateProfileEmail($_POST)) {
+      Flash::addMessage('Email has been changed');
+      $this->redirect('/profile/show');
+    } else {
+      View::renderTemplate('Profile/edit_email.html', [
         'user' => $this->user
       ]);
     }

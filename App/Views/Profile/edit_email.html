@@ -18,19 +18,27 @@
          */
         $('#formProfile').validate({
             rules: {
-
-                password: {
+                login: 'required',
+                email: {
                     required: true,
-                    minlength: 8,
-                    validPassword: true
+                    email: true,
+                    remote: {
+                        url: '/account/validate-email',
+                        data: {
+                            ignore_id: function () {
+                                return userId;
+                            }
+                        }
+                    }
                 },
-                old_password: {
-                    required: true,
-                    // minlength: 8,
-                    // validPassword: true
-                },
-
             },
+            messages: {
+                email: {
+                    remote: 'There is already an account associated with this email address'
+                }
+            }
+            //TODO 
+            //errorPlacement: 
 
         });
 
@@ -62,32 +70,44 @@
 <section class="container-fluid px-0 mb-5 mb-lg-0">
     <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-        <div class="col-md-10 col-lg-8 col-xl-6 mt-3 order-1 order-md-1 px-0">
+        <div class="col-md-10 col-lg-8 col-xl-6 mt-3 order-md-1 px-0">
 
             <div class="row justify-content-center mx-0 mt-1">
 
                 <div id="profileEdit" class="col-10 mx-1 col-sm-9 mt-md-4 px-1 px-sm-2 mb-5">
 
-                    <form method="post" action="/profile/update-password" class="p-3" id="formProfile">
-                        <div id="headingGroup" class="text-center mt-4 mb-5">Change password</div>
-                        <div class="input-group my-lg-3">
+                    <form method="post" action="/profile/update-email" class="p-3" id="formProfile">
+                        <!-- <div class=" input-group mt-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i
-                                        class="icon-key inputGroup-sizing-lg"></i></span>
+                                        class="icon-user inputGroup-sizing-lg"></i></span>
                             </div>
-                            <input class="form-control form-control-lg" type="password" placeholder="Old password"
-                                onfocus="this.placeholder=''" onblur="this.placeholder='Old password'"
-                                name="old_password">
+                            <input class="form-control form-control-lg" type="text" placeholder="Name"
+                                onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
+                                value="{{user.login}}">
                         </div>
-
-
-                        <div class="input-group my-2 my-lg-3">
+                        <span id="login-error" class="errors">{{user.errors.login}}</span> -->
+                        <div id="headingGroup" class="text-center mt-4 mb-5">Change email address</div>
+                        <div class="input-group my-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i
+                                        class="icon-mail-alt inputGroup-sizing-lg"></i></span>
+                            </div>
+                            <input class="form-control form-control-lg" type="text" placeholder="Email address"
+                                onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
+                                value="{{user.email}}">
+                        </div>
+                        <div id="email-error">
+                            <span class="errors">{{user.errors.email}}</span>
+                        </div>
+
+                        <!-- <div class="input-group my-2 my-lg-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3"><i
                                         class="icon-key inputGroup-sizing-lg"></i></span>
                             </div>
                             <input id="inputPassword" class="form-control form-control-lg" type="password"
-                                name="password" placeholder="New password" onfocus="this.placeholder=''"
+                                name="password" placeholder="Password" onfocus="this.placeholder=''"
                                 onblur="this.placeholder='Password'" name="password">
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon4"><i
@@ -97,7 +117,7 @@
                         </div>
                         <div>
                             <span id="password-error" class="errors">{{user.errors.password}}</span>
-                        </div>
+                        </div> -->
 
                         <div class="row justify-content-center mt-3">
                             <input type="submit" class="btn px-0 py-3 m-2" value="Save">

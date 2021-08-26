@@ -70,13 +70,14 @@
 <section class="container-fluid px-0 mb-5 mb-lg-0">
     <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-        <div class="col-md-6 order-1 order-md-1 px-0">
+        <div class="col-md-10 col-lg-8 col-xl-6 mt-3 order-1 order-md-1 px-0">
 
             <div class="row justify-content-center mx-0 mt-1">
 
-                <div id="profileEdit" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+                <div id="profileEdit" class="col-10 mx-1 col-sm-9 mt-md-4 px-1 px-sm-2 mb-5">
 
-                    <form method="post" action="/profile/update" class="p-3" id="formProfile">
+                    <form method="post" action="/profile/update-name" class="p-3" id="formProfile">
+                        <div id="headingGroup" class="text-center mt-3 mb-5">Change name</div>
                         <div class=" input-group mt-2">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i
@@ -88,7 +89,7 @@
                         </div>
                         <span id="login-error" class="errors">{{user.errors.login}}</span>
 
-                        <div class="input-group my-lg-3">
+                        <!-- <div class="input-group my-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i
                                         class="icon-mail-alt inputGroup-sizing-lg"></i></span>
@@ -99,7 +100,7 @@
                         </div>
                         <div id="email-error">
                             <span class="errors">{{user.errors.email}}</span>
-                        </div>
+                        </div> -->
 
                         <!-- <div class="input-group my-2 my-lg-3">
                             <div class="input-group-prepend">
