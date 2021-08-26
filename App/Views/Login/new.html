@@ -14,27 +14,30 @@
 <section class="container-fluid px-0 mb-5 mb-lg-0">
     <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-        <div class="col-md-6 order-1 order-md-1 px-0">
+        <div class="col-md-10 col-lg-8 col-xl-6 mt-3 order-1 order-md-1 px-0">
             {% for message in flash_messages %}
             <div class="text-center alert alert-{{message.type}}">
                 {{ message.body }}
             </div>
             {% endfor %}
-            <div class="row justify-content-center mx-0 mt-1">
+            <div class="row justify-content-center mx-0 mt-1 mb-3">
 
-                <div id="signInForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+                <div id="signInForm" class="col-10 mx-1 col-sm-9 mt-5 px-1 px-sm-2 mb-5">
 
                     <form class="p-3" action="/login/create" method="post">
-                        <div class="input-group my-2 my-lg-3">
+                        <div id="headingGroup">Login</div>
+                        <!-- <label class="labels" for="emailAddress">Email</label> -->
+                        <div class="input-group mb-2 mb-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i
                                         class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                             </div>
-                            <input class="form-control form-control-lg" type="email" name="email"
+                            <input class="form-control form-control-lg" type="email" name="email" id="emailAddress"
                                 placeholder="Email address" onfocus="this.placeholder=''"
                                 onblur="this.placeholder='Email address'" value=" {{ email }}">
                         </div>
-                        <div class="input-group my-2 my-lg-3">
+                        <!-- <label class="labels" for="inputPassword">Password</label> -->
+                        <div class="input-group mb-2 mb-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i
                                         class="icon-key inputGroup-sizing-lg"></i></span>
@@ -58,7 +61,7 @@
                         <div class="change mt-1"> Have no account yet?
                             <a href="/signup" class="link"> Sign up!</a>
                         </div>
-                        <div class="forgotPassword ">
+                        <div class="forgotPassword">
                             <a href="/password/forgot" class="link"> Forgot password? </a>
                         </div>
 

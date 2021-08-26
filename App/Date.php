@@ -14,22 +14,29 @@ class Date
 
   public static function getTodayDate()
   {
-    $today = new DateTime();
-    $today->format('d/m/Y');
+    // $today = date('m/d/Y');
+    $todayDate = new \DateTime();
+    $today = $todayDate->format('Y-m-d');
     return $today;
   }
 
-  public static function getCurrentMonth()
+  public static function getYesterdayDate()
   {
-    return date('m');
+    $yesterday = date('Y/m/d', strtotime("-1 days"));
+    return $yesterday;
   }
 
-  public static function getCurrentYear()
-  {
-    return date('Y');
-  }
-  public static function getPreviousMonth()
-  {
-    return date("m", strtotime("-1 month"));
-  }
+  // // public static function getCurrentMonth()
+  // // {
+  // //   return date('m');
+  // // }
+
+  // public static function getCurrentYear()
+  // {
+  //   return date('Y');
+  // }
+  // public static function getPreviousMonth()
+  // {
+  //   return date("m", strtotime("-1 month"));
+  // }
 }

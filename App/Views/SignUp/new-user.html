@@ -60,33 +60,34 @@
 <section class="container-fluid px-0 mb-5 mb-lg-0">
     <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
 
-        <div class="col-md-6 order-1 order-md-1 px-0">
+        <div class="col-md-10 col-lg-8 col-xl-6 mt-3 order-1 order-md-1 px-0">
 
-            <div class="row justify-content-center mx-0 mt-1">
+            <div class="row justify-content-center mx-0 mt-1 mb-3">
 
-                <div id="signUpForm" class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+                <div id="signUpForm" class="col-10 mx-1 col-sm-9 mt-5 px-1 px-sm-2 mb-5">
 
                     <form method="post" action="/signup/create" class="p-3" id="formSignup">
-                        <div class=" input-group mt-2">
+                        <div id="headingGroup">Register</div>
+                        <div class=" input-group mb-2 mb-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1"><i
                                         class="icon-user inputGroup-sizing-lg"></i></span>
                             </div>
                             <input class="form-control form-control-lg" type="text" placeholder="Name"
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
-                                value="{{user.login}}">
+                                value="{{ user.login }}">
                         </div>
                         <div id="login-error">
                             <span class="errors">{{user.errors.login}}</span>
                         </div>
-                        <div class="input-group mt-2 my-lg-3">
+                        <div class="input-group mb-2 mb-lg-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon2"><i
                                         class="icon-mail-alt inputGroup-sizing-lg"></i></span>
                             </div>
                             <input class="form-control form-control-lg" type="text" placeholder="Email address"
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
-                                value="{{user.email}}">
+                                value="{{ user.email }}">
                         </div>
                         <span class="errors">{{user.errors.email}}</span>
 

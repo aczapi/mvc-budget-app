@@ -12,38 +12,48 @@
 
 <section class="container-fluid px-0 mb-5 mb-lg-0">
 
-  <div class="row align-items-center justify-content-center mt-0 mt-xl-0">
+  <div class="row align-items-center justify-content-center mt-5 mt-xl-0">
 
-    <div class="col-md-6 order-1 order-md-1 px-0">
+    <div class="col-12 col-xl-6 order-1 order-md-1 px-0">
       <!-- {% for message in flash_messages %}
         <div class="text-center alert alert-{{message.type}}">
           {{ message.body }}
         </div>
         {% endfor %} -->
       <div class="row justify-content-center mx-0 mt-1">
-        <div class="col-11 mx-1 col-sm-9 col-md-12 col-xl-8 mt-lg-0 mt-xl-5 px-1 px-sm-2">
+        <div class="col-10 mx-1 mt-lg-0 mt-xl-5 px-1 px-sm-2 mb-3">
+          <div id="aboutApp" class="p-3">
+            <p>Hi there! Do you want to take care of yours finances?</p>
+            <p>If yes, it's the right place to do so! </p>
+            <p>You can now use this tool, I've created to take your finances under control. It's really simple!
+              By adding your expenses and incomes you can easily check your balance and get financial analysis in
+              specified period of time.</p>
 
 
+            <div class="row justify-content-end align-items-center">
+              <div class="col-sm-6 justify-content-start d-flex">To start you need to create an account</div>
+              <div class="col-sm-4 mt-2 justify-content-center d-flex justify-content-md-start">
+                <input onclick="window.location.href='../signup'" type="button" class="btn px-0 py-3" value="Sign up">
+              </div>
+            </div>
 
-          <!-- visual changes for later -->
-          <div class="row justify-content-center">
-            <input onclick="window.location.href='../login'" type="button" class="btn px-0 py-3" value="Sign in">
+            <div class="row justify-content-end align-items-center mt-2">
+              <div class="col-sm-6 justify-content-start d-flex">Already have one? Then sign in and manage your
+                finances right away!</div>
+              <div class="col-sm-4 mt-2 justify-content-center d-flex justify-content-md-start">
+                <input onclick="window.location.href='../login'" type="button" class="btn px-0 py-3" value="Sign in">
+              </div>
+            </div>
           </div>
-
-          <div class="row justify-content-center">
-            <input onclick="window.location.href='../signup'" type="button" class="btn px-0 py-3 mt-5" value="Sign up">
-          </div>
-
         </div>
       </div>
-
-
     </div>
     <div class="col-md-6 order-2 order-md-2 px-0 d-none d-xl-inline ">
       <!-- Photo by Scott Graham on Unsplash -->
       <img id="mainImg" class="img-fluid rounded" src="/imgs/micheile12.jpg" alt="">
 
     </div>
+
   </div>
 </section>
 

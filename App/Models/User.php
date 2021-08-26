@@ -411,18 +411,16 @@ class User extends \Core\Model
    * @return boolean True if the data was updated, false otherwise
    */
 
-  public function updateProfile($data)
+  public function updateProfileName($data)
   {
     $this->login = $data['login'];
-    $this->email = $data['email'];
 
     $this->validate();
 
     if (empty($this->errors)) {
 
       $sql = 'UPDATE users
-              SET login = :login,
-                  email = :email
+              SET login = :login
               WHERE id = :id';
 
 
@@ -430,6 +428,29 @@ class User extends \Core\Model
       $stmt = $db->prepare($sql);
 
       $stmt->bindValue(':login', $this->login, PDO::PARAM_STR);
+      $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+      return $stmt->execute();
+    }
+    return false;
+  }
+
+  public function updateProfileEmail($data)
+  {
+    $this->email = $data['email'];
+
+    $this->validate();
+
+    if (empty($this->errors)) {
+
+      $sql = 'UPDATE users
+              SET email = :email
+              WHERE id = :id';
+
+
+      $db = static::getDB();
+      $stmt = $db->prepare($sql);
+
       $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
       $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 

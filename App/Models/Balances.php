@@ -14,7 +14,19 @@ class Balances extends \Core\Model
   public static function getStartDate()
   {
     if (isset($_POST['time-period'])) {
-      $startDate = date('Y/m/01');
+      $time_period = $_POST['time-period'];
+      if ($time_period == 'current-month') {
+        $startDate = date('Y/m/01');
+      }
+      if ($time_period == 'previous-month') {
+        $startDate = date('Y/m/d', strtotime('first day of last month'));
+      }
+      if ($time_period == 'current-year') {
+        $startDate = date('Y/01/01');
+      }
+      if ($time_period == 'custom') {
+        $startDate = $_POST['startDate'];
+      }
     }
     return $startDate;
   }
@@ -22,7 +34,19 @@ class Balances extends \Core\Model
   public static function getEndDate()
   {
     if (isset($_POST['time-period'])) {
-      $endDate = date('Y/m/d');
+      $time_period = $_POST['time-period'];
+      if ($time_period == 'current-month') {
+        $endDate = date('Y/m/d');
+      }
+      if ($time_period == 'previous-month') {
+        $endDate = date('Y/m/d', strtotime('last day of last month'));
+      }
+      if ($time_period == 'current-year') {
+        $endDate = date('Y/m/d');
+      }
+      if ($time_period == 'custom') {
+        $endDate = $_POST['endDate'];
+      }
     }
 
     return $endDate;
@@ -134,4 +158,6 @@ class Balances extends \Core\Model
 
     return $individualIncomes->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  // public static function getBalance 
 }

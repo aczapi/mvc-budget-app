@@ -16,6 +16,16 @@ body {
     margin-right: 15px;
 }
 
+#aboutApp{
+    font-size: 20px;
+    color: #2C383B;
+    background-color: rgba(128, 178, 197, 0.041);
+    border-radius: 0.5rem;
+	-webkit-box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+	-moz-box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+	box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
+}
+
 .welcome{
     font-size: 1.5rem;
     background-color: #2C383B;
@@ -103,9 +113,16 @@ body {
     letter-spacing: 1px;
     }
 
+.labels{
+    color: #2C383B;
+    font-size: 1.35rem;
+}
 
-#headingGroup span {
-    color: #ffe7c9;
+#headingGroup {
+    color: #2C383B;
+    text-align: center;
+    font-size: 1.7rem;
+    margin-bottom: 0.7rem;
 }
 
  .view{
@@ -154,7 +171,7 @@ th, td{
 
  #signInForm, #signUpForm, #resetForm, #forgotForm, #profileEdit, #add-items, .balance-display {
     min-height: 350px;
-   background-color: rgba(128, 178, 197, 0.041);
+    background-color: rgba(128, 178, 197, 0.041);
     border-radius: 0.5rem;
     color: #2C383B;
 	-webkit-box-shadow: 3px 3px 30px 5px rgba(49, 59, 61, 0.3);	 
@@ -497,4 +514,11 @@ a.link:hover{
     background: grey;
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
   }
+
+  table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+
   

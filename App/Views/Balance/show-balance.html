@@ -2,6 +2,13 @@
 
 {% block title %}Balance{% endblock %}
 
+{% block footer %}
+
+<script src="../js/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+{% endblock %}
+
 {% block body %}
 
 
@@ -12,9 +19,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navLinks">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mt-3">
       <li class="nav-item">
-        <a href="../mainmenu/index" class="nav-link">Home</a>
+        <a href="../mainmenu/index" class="nav-link"><i class="bi bi-house-fill inputGroup-sizing-lg mr-1"></i>Home</a>
       </li>
       <!-- <li class="nav-item">
         <a href="../expense/index" class="nav-link">Add expense</a>
@@ -49,7 +56,7 @@
 
       </li> -->
       <li class="nav-item">
-        <a href="/logout" class="nav-link">Log out</a>
+        <a href="/logout" class="nav-link"><i class="bi bi-box-arrow-right inputGroup-sizing-lg mr-1"></i>Log out</a>
       </li>
     </ul>
   </div>
@@ -58,15 +65,13 @@
 
 <section class="container-fluid px-0 mx-0">
 
-  <div class="balance-display mx-0 mb-5">
+  <div class="balance-display mx-3 mb-5">
     <div class="row align-items-start justify-content-center mt-3 mt-lg-5">
-      <div class="balance text-center mt-4">Balance from period: {{ startDate }} - {{ endDate }}
+      <div class="col-12 col-lg-6 balance text-center text-lg-right mt-4">Balance from period: </div>
 
-        <div class="display-date text-center">
-
-        </div>
+      <div class="col-12 col-lg-6 balance display-date text-center text-lg-left mt-lg-4">
+        {{ startDate }} - {{ endDate }}
       </div>
-
     </div>
 
 
@@ -146,7 +151,7 @@
     </div>
 
     <div class="row justify-content-center  mx-0 mb-1">
-      <div class="col-sm-12 col-lg-8 ">
+      <div class="col-sm-12 col-lg-10 ">
         <table class="table table-hover table-sm">
           <thead class="thead-dark">
             <tr class="text-center">
@@ -165,7 +170,7 @@
               <td class="text-center">{{ individualExpense.amount }}</td>
               <td class="text-center">{{ individualExpense.date_of_expense }}</td>
               <td class="text-center">{{ individualExpense.payment }}</td>
-              <td class="text-center">{{ individualExpense.comment }}</td>
+              <td class="comment">{{ individualExpense.expense_comment }}</td>
             </tr>
             {% endfor %}
 
@@ -180,7 +185,7 @@
       <h2 class="header display-5 p-3 mt-1 mt-lg-5">Individual incomes</h2>
     </div>
     <div class="row justify-content-center mx-0 mb-1">
-      <div class="col-sm-12 col-lg-8">
+      <div class="col-sm-12 col-lg-10">
         <table class="table table-hover table-sm">
           <thead class="thead-dark">
             <tr class="text-center">
@@ -197,9 +202,10 @@
               <td class="pl-3">{{ individualIncome.income_category_name }}</td>
               <td class="text-center">{{ individualIncome.amount }}</td>
               <td class="text-center">{{ individualIncome.date_of_income }}</td>
-              <td class="text-center">{{ individualIncome.comment }}</td>
+              <td class="comment">{{ individualIncome.income_comment }}</td>
             </tr>
             {% endfor %}
+
 
 
           </tbody>
@@ -212,6 +218,7 @@
       <h2 class="balance display-5 p-3 my-2 mb-5">Balance:
 
       </h2>
+      <canvas id="myChart" style="height: 370px; width: 100%;"></canvas>
     </div>
   </div>
 </section>

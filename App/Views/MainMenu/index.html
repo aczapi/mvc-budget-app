@@ -72,18 +72,17 @@
                             class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
                             <form id="currentMonth" action="../balance/show">
                                 <button formmethod="post" type="submit" class="btn px-0 py-3" name="time-period"
-                                    value="current-month" data-toggle="modal" data-target=".construction">Current
+                                    value="current-month">Current
                                     month</button>
                             </form>
                         </div>
                         <div
                             class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
-                            <!-- <form id="previousMonth" action="../balance/show"> -->
-                            <button class="btn px-0 py-3" name="time-period" value="previous-month" data-toggle="modal"
-                                data-target=".construction">Previous
-                                month</button>
-                            <!-- formmethod="post" type="submit" -->
-                            <!-- </form> -->
+                            <form id="previousMonth" action="../balance/show">
+                                <button formmethod="post" type="submit" class="btn px-0 py-3" name="time-period"
+                                    value="previous-month">Previous
+                                    month</button>
+                            </form>
                         </div>
                     </div>
 
@@ -91,13 +90,16 @@
 
                         <div
                             class="justify-content-center d-flex justify-content-sm-end col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-0 mr-sm-2 my-2 px-0">
-                            <button onclick="window.location.href='#'" type="button" class="btn px-0 py-3"
-                                data-toggle="modal" data-target=".construction">Current year</button>
+                            <form id="previousMonth" action="../balance/show">
+                                <button formmethod="post" type="submit" class="btn px-0 py-3" name="time-period"
+                                    value="current-year">Current year</button>
+                            </form>
                         </div>
+
                         <div
                             class="justify-content-center d-flex justify-content-sm-start col-12 col-sm-5 col-lg-4 col-xl-5 ml-sm-2 mr-sm-0 my-2 px-0">
                             <button type="button" class="btn py-3" data-toggle="modal"
-                                data-target=".construction">Custom</button>
+                                data-target=".custom">Custom</button>
                         </div>
                         <div class="modal fade custom" tabindex="-1" role="dialog">
                             <div class="modal-dialog " role="document">
@@ -108,15 +110,16 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <form action="balance-selected-period.php" method="post" class="p-2 m-2">
+                                    <form action="../balance/show" method="post" class="p-2 m-2">
                                         <div class="modal-body">
                                             <div class="input-group mt-3">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon2"><i
                                                             class="icon-calendar inputGroup-sizing-lg"></i></span>
                                                 </div>
-                                                <input type="date" name="startDate" class="form-control form-control-lg"
-                                                    id="inputDate" aria-label="date" aria-describedby="basic-addon2">
+                                                <input type="date" name="startDate" value=required
+                                                    class="form-control form-control-lg" id="inputDate"
+                                                    aria-label="date" aria-describedby="basic-addon2">
                                             </div>
                                             <div class="input-group mt-3">
                                                 <div class="input-group-prepend">
@@ -124,13 +127,14 @@
                                                             class="icon-calendar inputGroup-sizing-lg"></i></span>
                                                 </div>
 
-                                                <input type="date" name="endDate" class="form-control form-control-lg"
-                                                    id="inputDate" aria-label="date" aria-describedby="basic-addon2">
+                                                <input type="date" name="endDate" required
+                                                    class="form-control form-control-lg" id="inputDate"
+                                                    aria-label="date" aria-describedby="basic-addon2">
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button onclick="window.location.href='balance-selected-period.php'"
-                                                type="submit" id="modal-select" class="btn">Select</button>
+                                            <button type="submit" name="time-period" value="custom" id="modal-select"
+                                                class="btn">Select</button>
                                             <button type="button" id="modal-close" class="btn"
                                                 data-dismiss="modal">Close</button>
                                         </div>
@@ -248,7 +252,6 @@
         </div>
 
     </div>
-
 </section>
 
 

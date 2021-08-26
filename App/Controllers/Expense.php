@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Models\Expenses;
 use \App\Flash;
+use \App\Date;
 
 /**
  * Expense controller
@@ -21,7 +22,8 @@ class Expense extends Authenticated
   {
     View::renderTemplate('Expense/expense.html', [
       'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),
-      'paymentMethods' => Expenses::getPaymentMethodsAssignToUser()
+      'paymentMethods' => Expenses::getPaymentMethodsAssignToUser(),
+      'today' => Date::getTodayDate()
     ]);
   }
 
@@ -40,8 +42,9 @@ class Expense extends Authenticated
     } else {
       View::renderTemplate('Expense/expense.html', [
         'expense' => $expense,
+        'today' => Date::getTodayDate(),
         'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),
-        'paymentMethods' => Expenses::getPaymentMethodsAssignToUser()
+        'paymentMethods' => Expenses::getPaymentMethodsAssignToUser(),
       ]);
     }
   }
