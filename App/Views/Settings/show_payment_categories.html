@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Payment Categories{% endblock %}
+
+{% block body %}
+
+<nav id="mainNavbar" class="navbar navbar-light navbar-expand-xl pt-1 px-0">
+  <a href="../mainmenu/index" class="navbar-brand"><i class="icon-money-1 d-none d-lg-inline"></i>PERSONAL
+    BUDGET</a>
+  <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navLinks">
+    <ul class="navbar-nav mt-3">
+      <li class="nav-item">
+        <a href="../mainmenu/index" class="nav-link"><i class="bi bi-house-fill inputGroup-sizing-lg mr-1"></i>Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="/logout" class="nav-link"><i class="bi bi-box-arrow-right inputGroup-sizing-lg mr-1"></i>Log out</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+<section class="container-fluid px-0 mb-5 mb-lg-0">
+  <div class="row align-items-center justify-content-center mt-2 mt-xl-4">
+
+    <div id="settings" class="col-11 col-md-10 col-lg-8 col-xl-6 mt-2 mt-md-4 px-1 px-sm-2 mb-5">
+
+      <div id="headingGroup" class="text-center mt-3 mb-2">Payment Categories</div>
+
+      {% for message in flash_messages %}
+      <div class="text-center alert alert-{{message.type}}">
+        {{ message.body }}
+      </div>
+      {% endfor %}
+
+      <div class="row justify-content-center mx-3 mb-1">
+        <div class="col-12 px-0">
+          <div class="row justify-content-center mx-3 mb-1">
+
+            <table class="table table-hover table-sm">
+              <thead class="thead-dark">
+                <tr class="text-center">
+                  <th scope="col" style="width: 50%">Category</th>
+                  <th scope="col" style="width: 40%">Limit</th>
+                  <th scope="col" style="width: 10%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for paymentCategory in paymentCategories %}
+                <tr>
+                  <td class="pl-3">{{ paymentCategory.name }}</td>
+                  <td class="pl-3"></td>
+                  <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
+                      onclick="window.location.href='#'"></i></td>
+                  <!-- <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td> -->
+                </tr>
+                {% endfor %}
+
+              </tbody>
+            </table>
+
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- </div> -->
+
+  </div>
+</section>
+
+
+
+{% endblock %}
