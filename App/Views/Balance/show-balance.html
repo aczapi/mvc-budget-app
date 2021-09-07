@@ -5,6 +5,7 @@
 {% block footer %}
 
 <script src="../js/chart.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 
 {% endblock %}
@@ -56,7 +57,7 @@
         <div class="row justify-content-center mx-3 mb-1">
           <div class="col-sm-12 col-lg-8">
 
-            <table class="table table-hover table-sm">
+            <table id="expensesTable" class="table table-hover table-sm">
               <thead class="thead-dark">
                 <tr class="text-center">
                   <th scope="col">Category</th>
@@ -89,7 +90,7 @@
         </div>
         <div class="row justify-content-center mx-3 mb-1">
           <div class="col-sm-12 col-lg-8">
-            <table class="table table-hover table-sm">
+            <table id="incomesTable" class="table table-hover table-sm">
               <thead class="thead-dark ">
                 <tr class="text-center">
                   <th scope="col">Category</th>
@@ -183,10 +184,9 @@
       </div>
     </div>
     <div class="line-h row align-items-start justify-content-center">
-      <h2 class="balance display-5 p-3 my-2 mb-5">Balance:
+      <h2 id="balance" class="header balance display-5 p-3 my-2 mb-1"></h2>
 
-      </h2>
-      <canvas id="myChart" style="height: 370px; width: 100%;"></canvas>
+      <div id="myChart" class="mx-5" style="height: 450px; width: 100%;"></div>
     </div>
   </div>
 </section>
