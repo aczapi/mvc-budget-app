@@ -22,9 +22,10 @@ function drawPieChart() {
     animationEnabled: true,
     backgroundColor: "transparent",
     title: {
-      text: "All expenses in selected period of time.",
+      text: "All expenses in selected period of time",
       fontFamily: "Della Respira",
       fontColor: "#2C383B",
+      fontSize: 24,
     },
     legend: {
       cursor: "pointer",
@@ -94,3 +95,4 @@ function calculateBalance() {
   if (balance > 0) { $("#balance").css({ 'color': '#16462e', 'font-style': 'italic' }); }
   else { $("#balance").css({ 'color': '#7e2128', 'font-style': 'italic' }); }
 };
+

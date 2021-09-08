@@ -4,11 +4,7 @@
 
 {% block body %}
 
-<script>
-    function myFunction() {
-        document.getElementById("currentMonth").submit();
-    }
-</script>
+
 
 
 <nav id="mainNavbar" class="add navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
@@ -62,7 +58,7 @@
                                 <span class="input-group-text" id="basic-addon2"><i
                                         class="icon-calendar inputGroup-sizing-lg"></i></span>
                             </div>
-                            <input type="date" name="date" class="form-control form-control-lg" id="inputDate"
+                            <input type="date" name="date" class="form-control form-control-lg" id="todayDate"
                                 aria-label="date" aria-describedby="basic-addon2">
                         </div>
 
@@ -143,6 +139,8 @@
     </div>
 </section>
 
+
+<script src="../js/dates.js"></script>
 
 
 {% endblock %}

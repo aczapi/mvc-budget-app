@@ -119,7 +119,6 @@ class Expenses extends \Core\Model
     $user = Auth::getUser();
 
     $this->validate();
-    echo "gtb";
 
     if (empty($this->errors)) {
 

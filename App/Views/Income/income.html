@@ -56,7 +56,7 @@
                                 <span class="input-group-text" id="basic-addon2"><i
                                         class="icon-calendar inputGroup-sizing-lg"></i></span>
                             </div>
-                            <input type="date" name="date" class="form-control form-control-lg" id="inputDate"
+                            <input type="date" name="date" class="form-control form-control-lg" id="todayDate"
                                 value="{{ income.date }}" aria-label="date" aria-describedby="basic-addon2">
                         </div>
                         <span class="errors">{{ income.errors.date }}</span>
@@ -120,6 +120,7 @@
     </div>
 </section>
 
+<script src="../js/dates.js"></script>
 
 
 {% endblock %}
