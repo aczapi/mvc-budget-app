@@ -129,6 +129,7 @@
               <th scope="col">Date</th>
               <th scope="col">Payment method</th>
               <th scope="col">Comment</th>
+              <th scope="col" style="width: 5%"></th>
             </tr>
           </thead>
           <tbody>
@@ -140,6 +141,8 @@
               <td class="text-center">{{ individualExpense.date_of_expense }}</td>
               <td class="text-center">{{ individualExpense.payment }}</td>
               <td class="comment">{{ individualExpense.expense_comment }}</td>
+              <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
+                  onclick="window.location.href='#'"></i></td>
             </tr>
             {% endfor %}
 
@@ -162,6 +165,7 @@
               <th scope="col">Amount</th>
               <th scope="col">Date</th>
               <th scope="col">Comment</th>
+              <th scope="col" style="width: 5%"></th>
             </tr>
           </thead>
           <tbody>
@@ -172,6 +176,8 @@
               <td class="text-center">{{ individualIncome.amount }}</td>
               <td class="text-center">{{ individualIncome.date_of_income }}</td>
               <td class="comment">{{ individualIncome.income_comment }}</td>
+              <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
+                  onclick="window.location.href='#'"></i></td>
             </tr>
             {% endfor %}
 

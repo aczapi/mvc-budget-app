@@ -36,7 +36,7 @@ function drawPieChart() {
       type: "pie",
       fontColor: "#2C383B",
       showInLegend: true,
-      toolTipContent: "{name}: <strong>{y}%</strong>",
+      toolTipContent: "{name}: <strong>{y}</strong>",
       indexLabel: "{name} - {y}",
       yValueFormatString: "####.0%",
       dataPoints: dataPoint
