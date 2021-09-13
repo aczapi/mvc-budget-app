@@ -44,7 +44,8 @@
                 <tr class="text-center">
                   <th scope="col" style="width: 50%">Category</th>
                   <th scope="col" style="width: 40%">Limit</th>
-                  <th scope="col" style="width: 10%"></th>
+                  <th scope="col" style="width: 5%"></th>
+                  <th scope="col" style="width: 5%"></th>
                 </tr>
               </thead>
               <tbody>
@@ -55,6 +56,9 @@
                   <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
                       onclick="window.location.href='#'"></i></td>
                   <!-- <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td> -->
+                  <td data-role="deleteCategory" data-id=""><i
+                      class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i>
+                  </td>
                 </tr>
                 {% endfor %}
 
