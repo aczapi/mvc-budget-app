@@ -18,7 +18,7 @@
          */
         $('#formProfile').validate({
             rules: {
-                login: 'required',
+                // login: 'required',
                 email: {
                     required: true,
                     email: true,
@@ -36,9 +36,11 @@
                 email: {
                     remote: 'There is already an account associated with this email address'
                 }
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
+
             }
-            //TODO 
-            //errorPlacement: 
 
         });
 
@@ -97,9 +99,9 @@
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                 value="{{user.email}}">
                         </div>
-                        <div id="email-error">
-                            <span class="errors">{{user.errors.email}}</span>
-                        </div>
+                        <!-- <div id="email-error"> -->
+                        <span id="email-error" class="errors">{{user.errors.email}}</span>
+                        <!-- </div> -->
 
                         <!-- <div class="input-group my-2 my-lg-3">
                             <div class="input-group-prepend">

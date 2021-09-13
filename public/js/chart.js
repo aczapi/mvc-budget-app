@@ -1,8 +1,8 @@
 window.onload = function () {
 
-  drawPieChart();
-  calculateBalance();
-
+  if (calculateBalance() != 0) {
+    drawPieChart();
+  }
 }
 
 function drawPieChart() {
@@ -88,11 +88,13 @@ function calculateBalance() {
 
   if (balance > 0) { message = "You are doing great! You saved " + balance; }
   else if (balance < 0) { message = "Oh no! Your debt is " + balance; }
-  else { message = ""; }
+  else { message = "Balance: " + balance; }
 
   $("#balance").html(message);
 
   if (balance > 0) { $("#balance").css({ 'color': '#16462e', 'font-style': 'italic' }); }
-  else { $("#balance").css({ 'color': '#7e2128', 'font-style': 'italic' }); }
+  else if (balance < 0) { $("#balance").css({ 'color': '#7e2128', 'font-style': 'italic' }); }
+
+  return balance;
 };
 

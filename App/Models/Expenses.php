@@ -92,7 +92,7 @@ class Expenses extends \Core\Model
     $stmt->execute();
 
     $expense = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    // echo $expense['id'];
     return $expense['id'];
   }
 
@@ -110,7 +110,7 @@ class Expenses extends \Core\Model
     $stmt->execute();
 
     $payment_method = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    echo $payment_method['id'];
     return $payment_method['id'];
   }
 
@@ -138,5 +138,52 @@ class Expenses extends \Core\Model
     }
 
     return false;
+  }
+
+  public function update()
+  {
+    $user = Auth::getUser();
+
+    $this->validate();
+
+    if (empty($this->errors)) {
+
+      $sql = "UPDATE expenses SET expense_category_assigned_to_user_id = :category_id, payment_method_assigned_to_user_id = :payment_id, amount = :amount, date_of_expense = :date, expense_comment = :comment WHERE id = :id";
+
+      $db = static::getDB();
+      $stmt = $db->prepare($sql);
+      $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+      $stmt->bindValue(':category_id', $this->getIdOfExpense($user->id), PDO::PARAM_INT);
+      $stmt->bindValue(':payment_id', $this->getIdOfPaymentMethod($user->id), PDO::PARAM_INT);
+      $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
+      $stmt->bindValue(':date', $this->date, PDO::PARAM_STR);
+      $stmt->bindValue(':comment', $this->comment, PDO::PARAM_STR);
+
+      // $stmt->execute();
+      echo "OK";
+      echo $stmt->execute();
+    }
+    return false;
+    // if ($stmt->execute()) {
+    //   return 'data updated';
+    // }
+
+
+    //   if (empty($this->errors)) {
+    //     $sql = "UPDATE expenses SET expense_category_assigned_to_user_id = :category_id, payment_method_assigned_to_user_id = :payment_id, amount = :amount, date_of_expense = :date, comment = :comment WHERE id = $this->id";
+
+    //     $db = static::getDB();
+    //     $stmt = $db->prepare($sql);
+
+    //     $stmt->bindValue(':category_id', $this->getIdOfExpense($user->id), PDO::PARAM_INT);
+    //     $stmt->bindValue(':payment_id', $this->getIdOfPaymentMethod($user->id), PDO::PARAM_INT);
+    //     $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
+    //     $stmt->bindValue(':date', $this->date, PDO::PARAM_STR);
+    //     $stmt->bindValue(':comment', $this->comment, PDO::PARAM_STR);
+
+    //     return $stmt->execute();
+    //   }
+    //   return false;
+    // }
   }
 }

@@ -116,7 +116,7 @@ class Balances extends \Core\Model
     $db = static::getDB();
 
     $sql = 'SELECT expenses_category_assigned_to_users.name AS expense_category_name, expenses.date_of_expense,
-    expenses.amount, payment_methods_assigned_to_users.name AS payment, expenses.expense_comment
+    expenses.amount, payment_methods_assigned_to_users.name AS payment, expenses.expense_comment, expenses.id
     FROM expenses_category_assigned_to_users, expenses, users, payment_methods_assigned_to_users
     WHERE users.id = :user_id
     AND users.id = expenses.user_id
@@ -158,6 +158,4 @@ class Balances extends \Core\Model
 
     return $individualIncomes->fetchAll(PDO::FETCH_ASSOC);
   }
-
-  // public static function getBalance 
 }

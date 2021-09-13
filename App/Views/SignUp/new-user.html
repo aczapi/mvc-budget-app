@@ -34,11 +34,8 @@
                     remote: 'There is already an account associated with this email address'
                 }
             },
-            errorPlacement: function ($error, $element) {
-
-                error.insertAfter(element);
-
-
+            errorPlacement: function (error, element) {
+                error.insertAfter(element.parent());
             }
 
         });
@@ -89,7 +86,7 @@
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                 value="{{ user.email }}">
                         </div>
-                        <span class="errors">{{user.errors.email}}</span>
+                        <span class="errors text-center">{{user.errors.email}}</span>
 
                         <div class="input-group my-2 my-lg-3">
                             <div class="input-group-prepend">
@@ -116,7 +113,7 @@
                         </div>
 
                         <div class="row justify-content-center mt-3">
-                            <input type="submit" class="btn px-0 py-3" value="Sign up">
+                            <input type="submit" class="btn main-button px-0 py-3" value="Sign up">
                         </div>
                         <div class="change mt-1 px-1"> Already have an account?
                             <a href="/login" class="link"> Sign in!</a>
