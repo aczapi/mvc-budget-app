@@ -57,7 +57,7 @@
                                         class="icon-calendar inputGroup-sizing-lg"></i></span>
                             </div>
                             <input type="date" name="date" class="form-control form-control-lg" id="todayDate"
-                                value="{{ income.date }}" aria-label="date" aria-describedby="basic-addon2">
+                                aria-label="date" aria-describedby="basic-addon2">
                         </div>
                         <span class="errors">{{ income.errors.date }}</span>
 
@@ -68,7 +68,7 @@
                             </div>
                             <select class="income form-control form-control-lg" name="category" value=""
                                 aria-label="income" aria-describedby="basic-addon3">
-                                <option value="" disabled="" selected="" hidden="">-- income --
+                                <option value="" disabled="" selected="" hidden="">-- category --
                                 </option>
                                 {% for incomeCategory in incomesCategory %}
                                 <option>{{ incomeCategory.name }}</option>

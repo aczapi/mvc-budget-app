@@ -10,17 +10,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 
 <script>
-
   $(document).ready(function () {
-    $(document).on('click', 'td[data-role=update]', function () {
+    $(document).on('click', 'td[data-role=updateExpense]', function () {
       let id = ($(this).data('id'));
-      let category = $('#' + id).children('td[data-target=category]').text();
-      let amount = $('#' + id).children('td[data-target=amount]').text();
-      let date = $('#' + id).children('td[data-target=date]').text();
-      let paymentMethod = $('#' + id).children('td[data-target=paymentMethod]').text();
-      let comment = $('#' + id).children('td[data-target=comment]').text();
+      let category = $('#expense-' + id).children('td[data-target=expense-category]').text();
+      let amount = $('#expense-' + id).children('td[data-target=expense-amount]').text();
+      let date = $('#expense-' + id).children('td[data-target=expense-date]').text();
+      let paymentMethod = $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text();
+      let comment = $('#expense-' + id).children('td[data-target=expense-comment]').text();
 
-      // alert(id + category + amount + date + paymentMethod + comment);
       $('#inputAmount').val(amount);
       $('#selectedDate').val(date);
       $('#category').val(category);
@@ -31,7 +29,7 @@
 
     });
 
-    $('#modal-select').click(function (event) {
+    $('#expenseSubmit').click(function (event) {
       event.preventDefault();
 
       let id = $('#expenseId').val();
@@ -48,11 +46,11 @@
         traditional: true,
         success: function (response) {
           console.log("See response: " + response);
-          $('#' + id).children('td[data-target=amount]').text(amount);
-          $('#' + id).children('td[data-target=date]').text(date);
-          $('#' + id).children('td[data-target=category]').text(category);
-          $('#' + id).children('td[data-target=paymentMethod]').text(payment);
-          $('#' + id).children('td[data-target=comment]').text(comment);
+          $('#expense-' + id).children('td[data-target=expense-amount]').text(amount);
+          $('#expense-' + id).children('td[data-target=expense-date]').text(date);
+          $('#expense-' + id).children('td[data-target=expense-category]').text(category);
+          $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
+          $('#expense-' + id).children('td[data-target=expense-comment]').text(comment);
           $('#editExpenseModal').modal('toggle');
         }
       });
@@ -64,6 +62,50 @@
 </script>
 
 <script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=updateIncome]', function () {
+      let id = ($(this).data('id'));
+      let category = $('#income-' + id).children('td[data-target=income-category]').text();
+      let amount = $('#income-' + id).children('td[data-target=income-amount]').text();
+      let date = $('#income-' + id).children('td[data-target=income-date]').text();
+      let comment = $('#income-' + id).children('td[data-target=income-comment]').text();
+
+      $('#incomeAmount').val(amount);
+      $('#selectedIncomeDate').val(date);
+      $('#incomeCategory').val(category);
+      $('#incomeComment').val(comment);
+      $('#incomeId').val(id);
+      $('#editIncomeModal').modal('toggle');
+
+    });
+
+
+    $('#incomeSubmit').click(function (event) {
+      event.preventDefault();
+
+      let id = $('#incomeId').val();
+      let amount = $('#incomeAmount').val();
+      let date = $('#selectedIncomeDate').val();
+      let category = $('#incomeCategory').val();
+      let comment = $('#incomeComment').val();
+
+      $.ajax({
+        url: '/income/updateIncome',
+        method: 'POST',
+        data: { amount: amount, date: date, category: category, comment: comment, id: id },
+        traditional: true,
+        success: function (response) {
+          console.log("See response: " + response);
+          $('#income-' + id).children('td[data-target=income-amount]').text(amount);
+          $('#income-' + id).children('td[data-target=income-date]').text(date);
+          $('#income-' + id).children('td[data-target=income-category]').text(category);
+          $('#income-' + id).children('td[data-target=income-comment]').text(comment);
+          $('#editIncomeModal').modal('toggle');
+        }
+      });
+    });
+  });
 
 
 </script>
@@ -195,13 +237,13 @@
           <tbody>
 
             {% for individualExpense in individualExpenses %}
-            <tr id="{{individualExpense.id}}">
-              <td data-target="category" class="pl-3">{{ individualExpense.expense_category_name }}</td>
-              <td data-target="amount" class="text-center">{{ individualExpense.amount }}</td>
-              <td data-target="date" class="text-center">{{ individualExpense.date_of_expense }}</td>
-              <td data-target="paymentMethod" class="text-center">{{ individualExpense.payment }}</td>
-              <td data-target="comment" class="comment">{{ individualExpense.expense_comment }}</td>
-              <td data-role="update" data-id="{{individualExpense.id}}"><i
+            <tr id="expense-{{individualExpense.id}}">
+              <td data-target="expense-category" class="pl-3">{{ individualExpense.expense_category_name }}</td>
+              <td data-target="expense-amount" class="text-center">{{ individualExpense.amount }}</td>
+              <td data-target="expense-date" class="text-center">{{ individualExpense.date_of_expense }}</td>
+              <td data-target="expense-paymentMethod" class="text-center">{{ individualExpense.payment }}</td>
+              <td data-target="expense-comment" class="comment">{{ individualExpense.expense_comment }}</td>
+              <td data-role="updateExpense" data-id="{{individualExpense.id}}"><i
                   class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i>
               </td>
             </tr>
@@ -301,7 +343,8 @@
                 </div>
                 <div class="modal-footer">
                   <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
-                    <input id="modal-select" class="add-button btn px-0 py-3 m-2" type="submit" value="Update">
+                    <input id="expenseSubmit" class="modal-select add-button btn px-0 py-3 m-2" type="submit"
+                      value="Update">
                     <input onclick="window.location.href='#'" id="modal-close"
                       class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
                   </div>
@@ -334,11 +377,11 @@
           <tbody>
 
             {% for individualIncome in individualIncomes %}
-            <tr id="{{individualIncome.id}}">
-              <td data-target="category" class="pl-3">{{ individualIncome.income_category_name }}</td>
-              <td data-target="amount" class="text-center">{{ individualIncome.amount }}</td>
-              <td data-target="date" class="text-center">{{ individualIncome.date_of_income }}</td>
-              <td data-target="comment" class="comment">{{ individualIncome.income_comment }}</td>
+            <tr id="income-{{individualIncome.id}}">
+              <td data-target="income-category" class="pl-3">{{ individualIncome.income_category_name }}</td>
+              <td data-target="income-amount" class="text-center">{{ individualIncome.amount }}</td>
+              <td data-target="income-date" class="text-center">{{ individualIncome.date_of_income }}</td>
+              <td data-target="income-comment" class="comment">{{ individualIncome.income_comment }}</td>
               <td data-role="updateIncome" data-id="{{individualIncome.id}}"><i
                   class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i>
               </td>
@@ -348,6 +391,90 @@
           </tbody>
         </table>
 
+        <!-- modal -->
+        <div id="editIncomeModal" class="modal fade custom" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Edit income</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form action="" method="post" class="p-2 m-2">
+                <div class="modal-body">
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"><i
+                          class="icon-money inputGroup-sizing-lg"></i></span>
+                    </div>
+                    <input type="number" name="amount" class="form-control form-control-lg" id="incomeAmount"
+                      step="0.01" placeholder="0.00" value="" aria-label="amount" aria-describedby="basic-addon1">
+                  </div>
+
+                  <span class="errors">{{ income.errors.amount }}</span>
+
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon2"><i
+                          class="icon-calendar inputGroup-sizing-lg"></i></span>
+                    </div>
+                    <input type="date" name="date" class="form-control form-control-lg" id="selectedIncomeDate"
+                      aria-label="date" aria-describedby="basic-addon2">
+                  </div>
+
+                  <span class="errors">{{ income.errors.date }}</span>
+
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon3"><i
+                          class="icon-tags inputGroup-sizing-lg"></i></span>
+                    </div>
+                    <select id="incomeCategory" class="category form-control form-control-lg" name="category"
+                      aria-label="category" aria-describedby="basic-addon3">
+                      <option value="" disabled="" selected="" hidden="">-- category--
+                      </option>
+
+                      {% for incomeCategory in incomesCategory %}
+                      <option>{{ incomeCategory.name }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                  <span class="errors">{{ income.errors.category }}</span>
+
+                  <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-comment inputGroup-sizing-lg"></i></span>
+                    </div>
+                    <textarea id="incomeComment" class="form-control" name="comment" maxlength="100" rows="2"
+                      style="resize: none" aria-label="With textarea"></textarea>
+                  </div>
+
+                  <span class="errors">{{ income.errors.comment }}</span>
+
+                  {% for message in flash_messages %}
+                  <div class="mt-3 text-center alert alert-{{message.type}}">
+                    {{ message.body }}
+                  </div>
+                  {% endfor %}
+
+                  <input type="hidden" id="incomeId" name="incomeId" class="form-control">
+                </div>
+                <div class="modal-footer">
+                  <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
+                    <input id="incomeSubmit" class="modal-select add-button btn px-0 py-3 m-2" type="submit"
+                      value="Update">
+                    <input onclick="window.location.href='#'" id="modal-close"
+                      class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- end of modal -->
 
       </div>
     </div>

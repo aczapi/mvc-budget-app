@@ -101,4 +101,27 @@ class Incomes extends \Core\Model
 
     return false;
   }
+
+  public function update()
+  {
+    $user = Auth::getUser();
+
+    $this->validate();
+
+    if (empty($this->errors)) {
+
+      $sql = "UPDATE incomes SET income_category_assigned_to_user_id = :category_id, amount = :amount, date_of_income = :date, income_comment = :comment WHERE id = :id";
+
+      $db = static::getDB();
+      $stmt = $db->prepare($sql);
+      $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+      $stmt->bindValue(':category_id', $this->getIdOfIncome($user->id), PDO::PARAM_INT);
+      $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
+      $stmt->bindValue(':date', $this->date, PDO::PARAM_STR);
+      $stmt->bindValue(':comment', $this->comment, PDO::PARAM_STR);
+
+      return $stmt->execute();
+    }
+    return false;
+  }
 }

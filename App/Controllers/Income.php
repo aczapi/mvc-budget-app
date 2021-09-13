@@ -43,4 +43,15 @@ class Income extends Authenticated
       ]);
     }
   }
+
+  public function updateIncomeAction()
+  {
+
+    $income = new Incomes($_POST);
+    var_dump($income);
+
+    if ($income->update()) {
+      echo "The income has been updated.";
+    } else echo "The income could not be edited.";
+  }
 }

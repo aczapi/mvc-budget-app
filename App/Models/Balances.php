@@ -143,7 +143,7 @@ class Balances extends \Core\Model
     $db = static::getDB();
 
     $sql = 'SELECT incomes_category_assigned_to_users.name AS income_category_name, incomes.date_of_income,
-    incomes.amount, incomes.income_comment
+    incomes.amount, incomes.income_comment, incomes.id
     FROM incomes_category_assigned_to_users, incomes, users
     WHERE users.id = :user_id
     AND users.id = incomes.user_id

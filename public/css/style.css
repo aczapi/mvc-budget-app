@@ -517,7 +517,7 @@ a.link:hover{
 
 
 
-#modal-select, #modal-close {
+.modal-select, .modal-close {
     width: 155px;
     background: none;
     border: 2px solid;
@@ -527,12 +527,12 @@ a.link:hover{
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
   }
     
- #modal-close:hover {
+ .modal-close:hover {
     
     background: grey;
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
   }
-  #modal-select:hover {
+  .modal-select:hover {
     
     background: #ffe7c9;
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
