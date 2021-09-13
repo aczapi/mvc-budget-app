@@ -54,7 +54,9 @@
           $('#editExpenseModal').modal('toggle');
         }
       });
-
+      $.ajax({
+        url: 'balance/'
+      });
     });
 
   });
