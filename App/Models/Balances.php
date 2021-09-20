@@ -158,4 +158,66 @@ class Balances extends \Core\Model
 
     return $individualIncomes->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function updateExpenseSum()
+  {
+    $user = Auth::getUser();
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $category = $_POST['category'];
+
+    $db = static::getDB();
+
+    $sql = 'SELECT SUM(expenses.amount) AS sum_expenses
+    FROM expenses_category_assigned_to_users, expenses, users
+    WHERE users.id = :user_id
+    AND users.id = expenses.user_id
+    AND expenses_category_assigned_to_users.name = :category
+    AND expenses.expense_category_assigned_to_user_id = expenses_category_assigned_to_users.id
+    AND expenses.date_of_expense BETWEEN :startDate AND :endDate
+    GROUP BY expenses_category_assigned_to_users.name';
+
+    $sumOfAllExpensesByCategory = $db->prepare($sql);
+    $sumOfAllExpensesByCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $sumOfAllExpensesByCategory->bindValue(':startDate', $startDate, PDO::PARAM_STR);
+    $sumOfAllExpensesByCategory->bindValue(':category', $category, PDO::PARAM_STR);
+    $sumOfAllExpensesByCategory->bindValue(':endDate', $endDate, PDO::PARAM_STR);
+    $sumOfAllExpensesByCategory->execute();
+    $row_sum_exp = $sumOfAllExpensesByCategory->fetch(PDO::FETCH_ASSOC);
+    if ($row_sum_exp) {
+      echo $row_sum_exp['sum_expenses'];
+    } else echo 0;
+  }
+
+
+  public function updateIncomeSum()
+  {
+    $user = Auth::getUser();
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $category = $_POST['category'];
+
+    $db = static::getDB();
+
+    $sql = 'SELECT SUM(incomes.amount) AS sum_incomes
+    FROM incomes_category_assigned_to_users, incomes, users
+    WHERE users.id = :user_id
+    AND users.id = incomes.user_id
+    AND incomes_category_assigned_to_users.name = :category
+    AND incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id
+    AND incomes.date_of_income BETWEEN :startDate AND :endDate
+    GROUP BY incomes_category_assigned_to_users.name';
+
+    $sumOfAllIncomesByCategory = $db->prepare($sql);
+    $sumOfAllIncomesByCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $sumOfAllIncomesByCategory->bindValue(':startDate', $startDate, PDO::PARAM_STR);
+    $sumOfAllIncomesByCategory->bindValue(':category', $category, PDO::PARAM_STR);
+    $sumOfAllIncomesByCategory->bindValue(':endDate', $endDate, PDO::PARAM_STR);
+    $sumOfAllIncomesByCategory->execute();
+
+    $row_sum_inc = $sumOfAllIncomesByCategory->fetch(PDO::FETCH_ASSOC);
+    if ($row_sum_inc) {
+      echo $row_sum_inc['sum_incomes'];
+    } else echo 0;
+  }
 }

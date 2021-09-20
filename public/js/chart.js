@@ -1,5 +1,6 @@
-window.onload = function () {
+window.onload = function chart() {
 
+  // calculateBalance();
   if (calculateBalance() != 0) {
     drawPieChart();
   }
@@ -12,11 +13,11 @@ function drawPieChart() {
 
   $("#expensesTable tbody tr").each(function () {
     dataPoint.push({
-      y: ($(this).find("td:last").text() / total),
-      name: $(this).find("td:first").text()
+      name: $(this).find("td:first").text(),
+      y: ($(this).find("td:last").text() / total)
+
     });
   });
-
 
   let chart = new CanvasJS.Chart("myChart", {
     animationEnabled: true,
@@ -29,7 +30,7 @@ function drawPieChart() {
     },
     legend: {
       cursor: "pointer",
-      itemclick: explodePie
+      itemclick: explodePie,
     },
     data: [{
       cursor: "pointer",
@@ -37,10 +38,11 @@ function drawPieChart() {
       fontColor: "#2C383B",
       showInLegend: true,
       toolTipContent: "{name}: <strong>{y}</strong>",
-      indexLabel: "{name} - {y}",
+      indexLabel: "{name}-{y}",
       yValueFormatString: "####.0%",
-      dataPoints: dataPoint
+      dataPoints: dataPoint,
     }]
+
   });
   chart.render();
 
@@ -54,7 +56,7 @@ function drawPieChart() {
 
   }
 
-}
+};
 
 
 function calculateAllExpenses() {
@@ -63,7 +65,7 @@ function calculateAllExpenses() {
   let sumOfExpenses = 0;
 
   $("#expensesTable tbody tr").each(function () {
-    sumOfExpenses += Number($(this).find("td:last").text());
+    sumOfExpenses += parseFloat($(this).find("td:last").text());
   });
   return sumOfExpenses;
 };
@@ -73,7 +75,8 @@ function calculateAllIncomes() {
   let incomesTable = document.getElementById("incomesTable");
   let sumOfIncomes = 0;
   $("#incomesTable tbody tr").each(function () {
-    sumOfIncomes += Number($(this).find("td:last").text());
+    sumOfIncomes += parseFloat($(this).find("td:last").text());
+
   });
   return sumOfIncomes;
 };

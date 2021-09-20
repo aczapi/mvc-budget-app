@@ -124,4 +124,17 @@ class Incomes extends \Core\Model
     }
     return false;
   }
+
+  public function delete()
+  {
+    $user = Auth::getUser();
+
+    $sql = "DELETE FROM incomes WHERE id = :id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+    return $stmt->execute();
+  }
 }

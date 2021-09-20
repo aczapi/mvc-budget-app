@@ -16,6 +16,11 @@ body {
     margin-right: 15px;
 }
 
+.hidden {
+    display: none;
+  }
+  
+
 #aboutApp{
     font-size: 20px;
     color: #2C383B;
@@ -517,7 +522,7 @@ a.link:hover{
 
 
 
-.modal-select, .modal-close {
+.modal-select, .modal-close{
     width: 155px;
     background: none;
     border: 2px solid;

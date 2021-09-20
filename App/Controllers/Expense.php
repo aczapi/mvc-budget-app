@@ -51,27 +51,22 @@ class Expense extends Authenticated
   {
 
     $expense = new Expenses($_POST);
-    var_dump($expense);
+    // var_dump($expense);
 
     if ($expense->update()) {
       echo "The expense has been updated.";
     } else echo "The expense could not be edited.";
+  }
 
-    //   if ($expense->update()) {
-    //     Flash::addMessage('The expense has been updated.');
-    //     $this->redirect('/balance/show');
-    //   } else {
-    //     Flash::addMessage('The expense could not be edited.', Flash::WARNING);
-    //     View::renderTemplate('Balance/show-balance.html', [
-    //       'startDate' => Balances::getStartDate(),
-    //       'endDate' => Balances::getEndDate(),
-    //       'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),  //update??
-    //       'paymentMethods' => Expenses::getPaymentMethodsAssignToUser(),     //update??
-    //       'sumExpensesByCategories' => Balances::getSumOfAllExpensesByCategory(),
-    //       'sumIncomesByCategories' => Balances::getSumOfAllIncomesByCategory(),
-    //       'individualExpenses' => Balances::getIndividualExpenses(),
-    //       'individualIncomes' => Balances::getIndividualIncomes()
-    //     ]);
-    //   }
+
+  public function deleteExpenseAction()
+  {
+
+    $expense = new Expenses($_POST);
+    // var_dump($expense);
+
+    if ($expense->delete()) {
+      echo "The expense has been deleted.";
+    } else echo "The expense could not be deleted.";
   }
 }

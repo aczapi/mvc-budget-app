@@ -48,9 +48,20 @@ class Income extends Authenticated
   {
 
     $income = new Incomes($_POST);
-    var_dump($income);
+    // var_dump($income);
 
     if ($income->update()) {
+      echo "The income has been updated.";
+    } else echo "The income could not be edited.";
+  }
+
+  public function deleteIncomeAction()
+  {
+
+    $income = new Incomes($_POST);
+    // var_dump($income);
+
+    if ($income->delete()) {
       echo "The income has been updated.";
     } else echo "The income could not be edited.";
   }

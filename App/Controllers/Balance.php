@@ -27,4 +27,17 @@ class Balance extends Authenticated
       ]);
     }
   }
+  public function updateExpensesSumAction()
+  {
+    $expenseSum = new Balances();
+
+    $expenseSum->updateExpenseSum();
+  }
+
+  public function updateIncomesSumAction()
+  {
+    $incomeSum = new Balances();
+
+    $incomeSum->updateIncomeSum();
+  }
 }

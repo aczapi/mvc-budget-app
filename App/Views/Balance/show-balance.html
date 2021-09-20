@@ -5,19 +5,42 @@
 {% block footer %}
 
 <script src="../js/chart.js"></script>
-<script src="../js/dates.js"></script>
+<!-- <script src="../js/dates.js"></script> -->
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 
 <script>
+  function compareDate(date_str) {
+    let formatDate;
+    if (date_str.length == 10) {
+      let mon1 = parseInt(date_str.substring(5, 7));
+      let dt1 = parseInt(date_str.substring(8, 10));
+      let yr1 = parseInt(date_str.substring(0, 4));
+
+      formatDate = new Date(yr1, mon1 - 1, dt1);
+
+    } else {
+      let mon1 = parseInt(date_str.substring(6, 8));
+      let dt1 = parseInt(date_str.substring(9, 11));
+      let yr1 = parseInt(date_str.substring(1, 5));
+
+      formatDate = new Date(yr1, mon1 - 1, dt1);
+    }
+
+    return formatDate;
+  }
+</script>
+
+
+<script>
   $(document).ready(function () {
     $(document).on('click', 'td[data-role=updateExpense]', function () {
-      let id = ($(this).data('id'));
-      let category = $('#expense-' + id).children('td[data-target=expense-category]').text();
-      let amount = $('#expense-' + id).children('td[data-target=expense-amount]').text();
-      let date = $('#expense-' + id).children('td[data-target=expense-date]').text();
-      let paymentMethod = $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text();
-      let comment = $('#expense-' + id).children('td[data-target=expense-comment]').text();
+      const id = ($(this).data('id'));
+      const category = $('#expense-' + id).children('td[data-target=expense-category]').text();
+      const amount = $('#expense-' + id).children('td[data-target=expense-amount]').text();
+      const date = $('#expense-' + id).children('td[data-target=expense-date]').text();
+      const paymentMethod = $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text();
+      const comment = $('#expense-' + id).children('td[data-target=expense-comment]').text();
 
       $('#inputAmount').val(amount);
       $('#selectedDate').val(date);
@@ -32,12 +55,40 @@
     $('#expenseSubmit').click(function (event) {
       event.preventDefault();
 
-      let id = $('#expenseId').val();
-      let amount = $('#inputAmount').val();
-      let date = $('#selectedDate').val();
-      let category = $('#category').val();
-      let payment = $('#payment').val();
-      let comment = $('#comment').val();
+      const id = $('#expenseId').val();
+      const amount = $('#inputAmount').val();
+      const date = $('#selectedDate').val();
+      const category = $('#category').val();
+      const payment = $('#payment').val();
+      const comment = $('#comment').val();
+
+      const startDate = document.getElementById('startDate').innerHTML;
+      const endDate = document.getElementById('endDate').innerHTML;
+
+
+      // function compareDate(date_str) {
+      //   let formatDate;
+      //   if (date_str.length == 10) {
+      //     let mon1 = parseInt(date_str.substring(5, 7));
+      //     let dt1 = parseInt(date_str.substring(8, 10));
+      //     let yr1 = parseInt(date_str.substring(0, 4));
+
+      //     formatDate = new Date(yr1, mon1 - 1, dt1);
+
+      //   } else {
+      //     let mon1 = parseInt(date_str.substring(6, 8));
+      //     let dt1 = parseInt(date_str.substring(9, 11));
+      //     let yr1 = parseInt(date_str.substring(1, 5));
+
+      //     formatDate = new Date(yr1, mon1 - 1, dt1);
+      //   }
+
+      //   return formatDate;
+      // }
+
+      let date_strToDate = compareDate(date);
+      let startDate_strToDate = compareDate(startDate);
+      let endDate_strToDate = compareDate(endDate);
 
       $.ajax({
         url: '/expense/updateExpense',
@@ -45,18 +96,51 @@
         data: { amount: amount, date: date, category: category, payment: payment, comment: comment, id: id },
         traditional: true,
         success: function (response) {
-          console.log("See response: " + response);
-          $('#expense-' + id).children('td[data-target=expense-amount]').text(amount);
-          $('#expense-' + id).children('td[data-target=expense-date]').text(date);
-          $('#expense-' + id).children('td[data-target=expense-category]').text(category);
-          $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
-          $('#expense-' + id).children('td[data-target=expense-comment]').text(comment);
+
+          if (date_strToDate < startDate_strToDate || date_strToDate > endDate_strToDate) {
+            $('#expense-' + id).css('background', 'lightcoral');
+            $('#expense-' + id).fadeOut(800, function () {
+              $(this).remove();
+            });
+          } else {
+            $('#expense-' + id).children('td[data-target=expense-amount]').text(amount);
+            $('#expense-' + id).children('td[data-target=expense-date]').text(date);
+            $('#expense-' + id).children('td[data-target=expense-category]').text(category);
+            $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
+            $('#expense-' + id).children('td[data-target=expense-comment]').text(comment);
+          }
           $('#editExpenseModal').modal('toggle');
         }
       });
+      // alert(category + startDate + endDate);
       $.ajax({
-        url: 'balance/'
+        url: '/balance/updateExpensesSum',
+        method: 'POST',
+        data: { startDate: startDate, endDate: endDate, category: category },
+        traditional: true,
+        success: function (response) {
+          console.log(response);
+          if (response == 0) {
+            $('#expense-' + category).css('background', 'lightcoral');
+            $('#expense-' + category).fadeOut(800, function () {
+              $(this).remove();
+              if (calculateBalance() != 0) {
+                drawPieChart();
+
+              }
+            });
+          } else {
+            $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
+          }
+
+          if (calculateBalance() != 0) {
+            drawPieChart();
+
+          }
+        }
+
       });
+
     });
 
   });
@@ -67,11 +151,11 @@
 
   $(document).ready(function () {
     $(document).on('click', 'td[data-role=updateIncome]', function () {
-      let id = ($(this).data('id'));
-      let category = $('#income-' + id).children('td[data-target=income-category]').text();
-      let amount = $('#income-' + id).children('td[data-target=income-amount]').text();
-      let date = $('#income-' + id).children('td[data-target=income-date]').text();
-      let comment = $('#income-' + id).children('td[data-target=income-comment]').text();
+      const id = ($(this).data('id'));
+      const category = $('#income-' + id).children('td[data-target=income-category]').text();
+      const amount = $('#income-' + id).children('td[data-target=income-amount]').text();
+      const date = $('#income-' + id).children('td[data-target=income-date]').text();
+      const comment = $('#income-' + id).children('td[data-target=income-comment]').text();
 
       $('#incomeAmount').val(amount);
       $('#selectedIncomeDate').val(date);
@@ -86,11 +170,18 @@
     $('#incomeSubmit').click(function (event) {
       event.preventDefault();
 
-      let id = $('#incomeId').val();
-      let amount = $('#incomeAmount').val();
-      let date = $('#selectedIncomeDate').val();
-      let category = $('#incomeCategory').val();
-      let comment = $('#incomeComment').val();
+      const id = $('#incomeId').val();
+      const amount = $('#incomeAmount').val();
+      const date = $('#selectedIncomeDate').val();
+      const category = $('#incomeCategory').val();
+      const comment = $('#incomeComment').val();
+
+      const startDate = document.getElementById('startDate').innerHTML;
+      const endDate = document.getElementById('endDate').innerHTML;
+
+      let date_strToDate = compareDate(date);
+      let startDate_strToDate = compareDate(startDate);
+      let endDate_strToDate = compareDate(endDate);
 
       $.ajax({
         url: '/income/updateIncome',
@@ -98,17 +189,180 @@
         data: { amount: amount, date: date, category: category, comment: comment, id: id },
         traditional: true,
         success: function (response) {
-          console.log("See response: " + response);
-          $('#income-' + id).children('td[data-target=income-amount]').text(amount);
-          $('#income-' + id).children('td[data-target=income-date]').text(date);
-          $('#income-' + id).children('td[data-target=income-category]').text(category);
-          $('#income-' + id).children('td[data-target=income-comment]').text(comment);
+
+          if (date_strToDate < startDate_strToDate || date_strToDate > endDate_strToDate) {
+            $('#income-' + id).css('background', 'lightcoral');
+            $('#income-' + id).fadeOut(800, function () {
+              $(this).remove();
+            });
+          } else {
+            $('#income-' + id).children('td[data-target=income-amount]').text(amount);
+            $('#income-' + id).children('td[data-target=income-date]').text(date);
+            $('#income-' + id).children('td[data-target=income-category]').text(category);
+            $('#income-' + id).children('td[data-target=income-comment]').text(comment);
+          }
           $('#editIncomeModal').modal('toggle');
+        }
+      });
+
+
+      $.ajax({
+        url: '/balance/updateIncomesSum',
+        method: 'POST',
+        data: { startDate: startDate, endDate: endDate, category: category },
+        traditional: true,
+        success: function (response) {
+
+          if (response == 0) {
+            $('#income-' + category).css('background', 'lightcoral');
+            $('#income-' + category).fadeOut(800, function () {
+              $(this).remove();
+              if (calculateBalance() != 0) {
+                drawPieChart();
+              }
+            });
+          } else {
+            $('#income-' + category).children('td[data-target=income-sum]').text(response);
+          }
+          if (calculateBalance() != 0) {
+            drawPieChart();
+          }
+        }
+      });
+
+    });
+  });
+
+
+</script>
+
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=deleteExpense]', function () {
+      const id = ($(this).data('id'));
+      const category = $('#expense-' + id).children('td[data-target=expense-category]').text();
+      // console.log(id);
+
+      bootbox.confirm("Do you really want to delete expense?", function (result) {
+
+        if (result) {
+          // AJAX Request
+          $.ajax({
+            url: '/expense/deleteExpense',
+            type: 'POST',
+            data: { id: id },
+            success: function (response) {
+              // Removing row from HTML Table
+              if (response) {
+                $('#expense-' + id).css('background', 'lightcoral');
+                $('#expense-' + id).fadeOut(800, function () {
+                  $(this).remove();
+                });
+
+                const startDate = document.getElementById('startDate').innerHTML;
+                const endDate = document.getElementById('endDate').innerHTML;
+
+                // alert(category + " " + startDate + " " + endDate);
+                $.ajax({
+                  url: '/balance/updateExpensesSum',
+                  method: 'POST',
+                  data: { startDate: startDate, endDate: endDate, category: category },
+                  traditional: true,
+                  success: function (response) {
+                    if (response == 0) {
+                      $('#expense-' + category).css('background', 'lightcoral');
+                      $('#expense-' + category).fadeOut(800, function () {
+                        $(this).remove();
+                        if (calculateBalance() != 0) {
+                          drawPieChart();
+
+                        }
+                      });
+                    } else {
+                      $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
+                    }
+
+                    if (calculateBalance() != 0) {
+                      drawPieChart();
+
+                    }
+                  }
+                });
+              } else {
+                bootbox.alert('Record not deleted.');
+              }
+            }
+          });
         }
       });
     });
   });
 
+</script>
+
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=deleteIncome]', function () {
+      const id = ($(this).data('id'));
+      const category = $('#income-' + id).children('td[data-target=income-category]').text();
+      // console.log(id);
+
+      bootbox.confirm("Do you really want to delete income?", function (result) {
+
+        if (result) {
+          // AJAX Request
+          $.ajax({
+            url: '/income/deleteIncome',
+            type: 'POST',
+            data: { id: id },
+            success: function (response) {
+              // Removing row from HTML Table
+              if (response) {
+                $('#income-' + id).css('background', 'lightcoral');
+                $('#income-' + id).fadeOut(800, function () {
+                  $(this).remove();
+                });
+
+                const startDate = document.getElementById('startDate').innerHTML;
+                const endDate = document.getElementById('endDate').innerHTML;
+
+                // alert(category + " " + startDate + " " + endDate);
+                $.ajax({
+                  url: '/balance/updateIncomesSum',
+                  method: 'POST',
+                  data: { startDate: startDate, endDate: endDate, category: category },
+                  traditional: true,
+                  success: function (response) {
+                    if (response == 0) {
+                      $('#income-' + category).css('background', 'lightcoral');
+                      $('#income-' + category).fadeOut(800, function () {
+                        $(this).remove();
+                        if (calculateBalance() != 0) {
+                          drawPieChart();
+
+                        }
+                      });
+                    } else {
+                      $('#income-' + category).children('td[data-target=income-sum]').text(response);
+                    }
+
+                    if (calculateBalance() != 0) {
+                      drawPieChart();
+
+                    }
+                  }
+                });
+              } else {
+                bootbox.alert('Record not deleted.');
+              }
+            }
+          });
+        }
+      });
+    });
+  });
 
 </script>
 
@@ -143,7 +397,8 @@
       <div class="col-12 col-lg-6 balance text-center text-lg-right mt-4">Balance from period: </div>
 
       <div class="col-12 col-lg-6 balance display-date text-center text-lg-left mt-lg-4">
-        {{ startDate }} - {{ endDate }}
+        <span id='startDate'> {{startDate}} </span>-<span id='endDate'> {{endDate}} </span>
+
       </div>
     </div>
 
@@ -170,9 +425,10 @@
               </thead>
               <tbody>
                 {% for sumExpensesByCategory in sumExpensesByCategories %}
-                <tr>
-                  <td class="pl-3">{{ sumExpensesByCategory.expense_category_name }}</td>
-                  <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td>
+                <tr id="expense-{{ sumExpensesByCategory.expense_category_name }}">
+                  <td data-target="expense-name" class="pl-3">{{ sumExpensesByCategory.expense_category_name }}
+                  </td>
+                  <td data-target="expense-sum" class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td>
                 </tr>
                 {% endfor %}
 
@@ -204,9 +460,9 @@
               <tbody>
 
                 {% for sumIncomesByCategory in sumIncomesByCategories %}
-                <tr>
-                  <td data-target="all-category" class="pl-3">{{ sumIncomesByCategory.income_category_name }}</td>
-                  <td data-target="sum" class="text-center">{{ sumIncomesByCategory.sum_incomes}}</td>
+                <tr id="income-{{ sumIncomesByCategory.income_category_name }}">
+                  <td data-target="income-name" class="pl-3">{{ sumIncomesByCategory.income_category_name }}</td>
+                  <td data-target="income-sum" class="text-center">{{ sumIncomesByCategory.sum_incomes}}</td>
                 </tr>
                 {% endfor %}
 
@@ -349,10 +605,9 @@
                 </div>
                 <div class="modal-footer">
                   <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
-                    <input id="expenseSubmit" class="modal-select add-button btn px-0 py-3 m-2" type="submit"
-                      value="Update">
-                    <input onclick="window.location.href='#'" id="modal-close"
-                      class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
+                    <input id="expenseSubmit" class="modal-select btn px-0 py-3 m-2" type="submit" value="Update">
+                    <input class=" modal-close btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel"
+                      data-dismiss="modal">
                   </div>
 
                 </div>
@@ -475,8 +730,8 @@
                   <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
                     <input id="incomeSubmit" class="modal-select add-button btn px-0 py-3 m-2" type="submit"
                       value="Update">
-                    <input onclick="window.location.href='#'" id="modal-close"
-                      class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel">
+                    <input class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel"
+                      data-dismiss="modal">
                   </div>
 
                 </div>
