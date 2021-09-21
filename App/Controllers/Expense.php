@@ -69,4 +69,15 @@ class Expense extends Authenticated
       echo "The expense has been deleted.";
     } else echo "The expense could not be deleted.";
   }
+
+  // public function deleteExpenseAction()
+  // {
+
+  //   $expense = new Expenses($_POST);
+  //   // var_dump($expense);
+
+  //   if ($expense->delete()) {
+  //     echo "The expense has been deleted.";
+  //   } else echo "The expense could not be deleted.";
+  // }
 }

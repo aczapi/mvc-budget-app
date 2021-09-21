@@ -523,7 +523,7 @@ a.link:hover{
 
 
 .modal-select, .modal-close{
-    width: 155px;
+    width: 140px;
     background: none;
     border: 2px solid;
     color:rgb(49, 59, 61);
@@ -533,13 +533,13 @@ a.link:hover{
   }
     
  .modal-close:hover {
-    
+    border-color: white;
     background: grey;
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
   }
   .modal-select:hover {
-    
-    background: #ffe7c9;
+    color: white;
+    background: #348b48ea;
     transition: color 0.25s, border-color 0.25s, box-shadow 0.25s,transform 0.25s;
   }
 

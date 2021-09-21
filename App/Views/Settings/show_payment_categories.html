@@ -2,6 +2,44 @@
 
 {% block title %}Payment Categories{% endblock %}
 
+{% block footer %}
+
+<script>
+
+  $(document).ready(function () {
+
+    $('#newPayment').on('click', function () {
+
+      bootbox.prompt({
+        title: "Add new category",
+        placeholder: "Enter a name of the new payment method:",
+        centerVertical: true,
+        backdrop: true,
+        inputType: 'text',
+        buttons: {
+          confirm: {
+            label: '<i class="bi bi-check-lg"></i> Add',
+            className: 'btn modal-select px-0 py-2 m-2'
+          },
+          cancel: {
+            label: '<i class="bi bi-x-lg"></i> Cancel',
+            className: 'btn modal-close px-0 py-2 btn-secondary m-2'
+          }
+        },
+        callback: function (result) {
+          console.log('This was logged in the callback: ' + result);
+        }
+      });
+    });
+  });
+
+</script>
+
+
+
+
+{% endblock %}
+
 {% block body %}
 
 <nav id="mainNavbar" class="navbar navbar-light navbar-expand-xl pt-1 px-0">
@@ -63,7 +101,9 @@
               </tbody>
             </table>
 
-
+            <button id="newPayment" type="button" class="justify-content-center btn main-button py-3 mb-2 px-0"><i
+                class="bi bi-folder-plus mx-1 px-1"></i>Add
+              new</button>
 
           </div>
 

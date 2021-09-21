@@ -2,6 +2,43 @@
 
 {% block title %}Incomes Categories{% endblock %}
 
+{% block footer %}
+
+<script>
+
+  $(document).ready(function () {
+
+    $('#newIncome').on('click', function () {
+
+      bootbox.prompt({
+        title: "Add new category",
+        placeholder: "Enter a name of the new category:",
+        centerVertical: true,
+        backdrop: true,
+        inputType: 'text',
+        buttons: {
+          confirm: {
+            label: '<i class="bi bi-check-lg"></i> Add',
+            className: 'btn modal-select px-0 py-2 m-2'
+          },
+          cancel: {
+            label: '<i class="bi bi-x-lg"></i> Cancel',
+            className: 'btn modal-close px-0 py-2 btn-secondary m-2'
+          }
+        },
+        callback: function (result) {
+          console.log('This was logged in the callback: ' + result);
+        }
+      });
+    });
+  });
+
+</script>
+
+
+
+
+{% endblock %}
 {% block body %}
 
 <nav id="mainNavbar" class="navbar navbar-light navbar-expand-xl pt-1 px-0">
@@ -63,9 +100,42 @@
               </tbody>
             </table>
 
-
-
+            <button id="newIncome" type="button" class="justify-content-center btn main-button py-3 mb-2 px-0"><i
+                class="bi bi-folder-plus mx-1 px-1"></i>Add
+              new</button>
           </div>
+
+          <!-- <div class="modal fade add-income-category" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add new category</h5>
+                  <button type="button" class=" close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="" method="post" class="p-2 m-2">
+                  <div class="modal-body">
+                    <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1"><i
+                            class="icon-money inputGroup-sizing-lg"></i></span>
+                      </div>
+                      <input type="text" name="new-income" class="form-control form-control-lg" id="new-income-category"
+                        aria-describedby="basic-addon1">
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="time-period" value="custom"
+                      class="btn modal-select px-0 py-3 m-2">Add</button>
+                    <button type="button" class="btn modal-close px-0 py-3 btn-secondary m-2"
+                      data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> -->
 
 
         </div>

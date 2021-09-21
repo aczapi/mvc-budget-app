@@ -28,12 +28,13 @@ class Incomes extends \Core\Model
     $user = Auth::getUser();
 
 
-    $sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :user_id';
+    $sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userIncomesCategory = $db->prepare($sql);
 
     $userIncomesCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $userIncomesCategory->bindValue(':name', 'Another', PDO::PARAM_STR);
     $userIncomesCategory->execute();
 
     return $userIncomesCategory->fetchAll(PDO::FETCH_ASSOC);

@@ -5,9 +5,34 @@
 {% block footer %}
 
 <script src="../js/chart.js"></script>
+<!-- <script src="../js/balance.js"></script> -->
 <!-- <script src="../js/dates.js"></script> -->
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+<script>
+
+  function compareDate(date_str) {
+    let formatDate;
+    if (date_str.length == 10) {
+      let mon1 = parseInt(date_str.substring(5, 7));
+      let dt1 = parseInt(date_str.substring(8, 10));
+      let yr1 = parseInt(date_str.substring(0, 4));
+
+      formatDate = new Date(yr1, mon1 - 1, dt1);
+
+    } else {
+      let mon1 = parseInt(date_str.substring(6, 8));
+      let dt1 = parseInt(date_str.substring(9, 11));
+      let yr1 = parseInt(date_str.substring(1, 5));
+
+      formatDate = new Date(yr1, mon1 - 1, dt1);
+    }
+
+    return formatDate;
+  }
+
+</script>
 
 <script>
   function compareDate(date_str) {
@@ -65,27 +90,6 @@
       const startDate = document.getElementById('startDate').innerHTML;
       const endDate = document.getElementById('endDate').innerHTML;
 
-
-      // function compareDate(date_str) {
-      //   let formatDate;
-      //   if (date_str.length == 10) {
-      //     let mon1 = parseInt(date_str.substring(5, 7));
-      //     let dt1 = parseInt(date_str.substring(8, 10));
-      //     let yr1 = parseInt(date_str.substring(0, 4));
-
-      //     formatDate = new Date(yr1, mon1 - 1, dt1);
-
-      //   } else {
-      //     let mon1 = parseInt(date_str.substring(6, 8));
-      //     let dt1 = parseInt(date_str.substring(9, 11));
-      //     let yr1 = parseInt(date_str.substring(1, 5));
-
-      //     formatDate = new Date(yr1, mon1 - 1, dt1);
-      //   }
-
-      //   return formatDate;
-      // }
-
       let date_strToDate = compareDate(date);
       let startDate_strToDate = compareDate(startDate);
       let endDate_strToDate = compareDate(endDate);
@@ -99,7 +103,7 @@
 
           if (date_strToDate < startDate_strToDate || date_strToDate > endDate_strToDate) {
             $('#expense-' + id).css('background', 'lightcoral');
-            $('#expense-' + id).fadeOut(800, function () {
+            $('#expense-' + id).fadeOut(1000, function () {
               $(this).remove();
             });
           } else {
@@ -112,7 +116,7 @@
           $('#editExpenseModal').modal('toggle');
         }
       });
-      // alert(category + startDate + endDate);
+
       $.ajax({
         url: '/balance/updateExpensesSum',
         method: 'POST',
@@ -122,7 +126,7 @@
           console.log(response);
           if (response == 0) {
             $('#expense-' + category).css('background', 'lightcoral');
-            $('#expense-' + category).fadeOut(800, function () {
+            $('#expense-' + category).fadeOut(1000, function () {
               $(this).remove();
               if (calculateBalance() != 0) {
                 drawPieChart();
@@ -192,7 +196,7 @@
 
           if (date_strToDate < startDate_strToDate || date_strToDate > endDate_strToDate) {
             $('#income-' + id).css('background', 'lightcoral');
-            $('#income-' + id).fadeOut(800, function () {
+            $('#income-' + id).fadeOut(1000, function () {
               $(this).remove();
             });
           } else {
@@ -215,7 +219,7 @@
 
           if (response == 0) {
             $('#income-' + category).css('background', 'lightcoral');
-            $('#income-' + category).fadeOut(800, function () {
+            $('#income-' + category).fadeOut(1000, function () {
               $(this).remove();
               if (calculateBalance() != 0) {
                 drawPieChart();
@@ -242,28 +246,27 @@
     $(document).on('click', 'td[data-role=deleteExpense]', function () {
       const id = ($(this).data('id'));
       const category = $('#expense-' + id).children('td[data-target=expense-category]').text();
-      // console.log(id);
+
 
       bootbox.confirm("Do you really want to delete expense?", function (result) {
 
         if (result) {
-          // AJAX Request
+
           $.ajax({
             url: '/expense/deleteExpense',
             type: 'POST',
             data: { id: id },
             success: function (response) {
-              // Removing row from HTML Table
+
               if (response) {
                 $('#expense-' + id).css('background', 'lightcoral');
-                $('#expense-' + id).fadeOut(800, function () {
+                $('#expense-' + id).fadeOut(1000, function () {
                   $(this).remove();
                 });
 
                 const startDate = document.getElementById('startDate').innerHTML;
                 const endDate = document.getElementById('endDate').innerHTML;
 
-                // alert(category + " " + startDate + " " + endDate);
                 $.ajax({
                   url: '/balance/updateExpensesSum',
                   method: 'POST',
@@ -272,7 +275,7 @@
                   success: function (response) {
                     if (response == 0) {
                       $('#expense-' + category).css('background', 'lightcoral');
-                      $('#expense-' + category).fadeOut(800, function () {
+                      $('#expense-' + category).fadeOut(1000, function () {
                         $(this).remove();
                         if (calculateBalance() != 0) {
                           drawPieChart();
@@ -307,28 +310,24 @@
     $(document).on('click', 'td[data-role=deleteIncome]', function () {
       const id = ($(this).data('id'));
       const category = $('#income-' + id).children('td[data-target=income-category]').text();
-      // console.log(id);
 
       bootbox.confirm("Do you really want to delete income?", function (result) {
 
         if (result) {
-          // AJAX Request
           $.ajax({
             url: '/income/deleteIncome',
             type: 'POST',
             data: { id: id },
             success: function (response) {
-              // Removing row from HTML Table
               if (response) {
                 $('#income-' + id).css('background', 'lightcoral');
-                $('#income-' + id).fadeOut(800, function () {
+                $('#income-' + id).fadeOut(1000, function () {
                   $(this).remove();
                 });
 
                 const startDate = document.getElementById('startDate').innerHTML;
                 const endDate = document.getElementById('endDate').innerHTML;
 
-                // alert(category + " " + startDate + " " + endDate);
                 $.ajax({
                   url: '/balance/updateIncomesSum',
                   method: 'POST',
@@ -337,7 +336,7 @@
                   success: function (response) {
                     if (response == 0) {
                       $('#income-' + category).css('background', 'lightcoral');
-                      $('#income-' + category).fadeOut(800, function () {
+                      $('#income-' + category).fadeOut(1000, function () {
                         $(this).remove();
                         if (calculateBalance() != 0) {
                           drawPieChart();
@@ -605,9 +604,9 @@
                 </div>
                 <div class="modal-footer">
                   <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
-                    <input id="expenseSubmit" class="modal-select btn px-0 py-3 m-2" type="submit" value="Update">
-                    <input class=" modal-close btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel"
+                    <input class=" modal-close btn px-0 py-2 btn-secondary m-2" type="button" value="Cancel"
                       data-dismiss="modal">
+                    <input id="expenseSubmit" class="modal-select btn px-0 py-2 m-2" type="submit" value="Update">
                   </div>
 
                 </div>
@@ -728,10 +727,10 @@
                 </div>
                 <div class="modal-footer">
                   <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
-                    <input id="incomeSubmit" class="modal-select add-button btn px-0 py-3 m-2" type="submit"
-                      value="Update">
-                    <input class="cancel-button btn px-0 py-3 btn-secondary m-2" type="button" value="Cancel"
+
+                    <input class="modal-close btn px-0 py-2 btn-secondary m-2" type="button" value="Cancel"
                       data-dismiss="modal">
+                    <input id="incomeSubmit" class="modal-select btn px-0 py-2 m-2" type="submit" value="Update">
                   </div>
 
                 </div>

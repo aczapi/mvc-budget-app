@@ -28,12 +28,13 @@ class Expenses extends \Core\Model
     $user = Auth::getUser();
 
 
-    $sql = 'SELECT name FROM expenses_category_assigned_to_users WHERE user_id = :user_id';
+    $sql = 'SELECT name FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userExpensesCategory = $db->prepare($sql);
 
     $userExpensesCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $userExpensesCategory->bindValue(':name', 'Another', PDO::PARAM_STR);
     $userExpensesCategory->execute();
 
     return $userExpensesCategory->fetchAll(PDO::FETCH_ASSOC);
@@ -43,12 +44,13 @@ class Expenses extends \Core\Model
   {
     $user = Auth::getUser();
 
-    $sql = 'SELECT name FROM payment_methods_assigned_to_users WHERE user_id = :user_id';
+    $sql = 'SELECT name FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userPaymentMethods = $db->prepare($sql);
 
     $userPaymentMethods->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $userPaymentMethods->bindValue(':name', 'Another', PDO::PARAM_STR);
     $userPaymentMethods->execute();
 
     return $userPaymentMethods->fetchAll(PDO::FETCH_ASSOC);
