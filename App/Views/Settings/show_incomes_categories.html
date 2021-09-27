@@ -16,6 +16,7 @@
         centerVertical: true,
         backdrop: true,
         inputType: 'text',
+        required: true,
         buttons: {
           confirm: {
             label: '<i class="bi bi-check-lg"></i> Add',
@@ -27,7 +28,30 @@
           }
         },
         callback: function (result) {
-          console.log('This was logged in the callback: ' + result);
+
+          const category = $('.bootbox-input-text').val();
+          if (result) {
+            $.ajax({
+              url: '/settings/addNewIncomeCategory',
+              type: 'POST',
+              data: { category: category },
+              success: function (response) {
+                if (response) {
+                  newRow = '<tr id="' + category + '"><td class="pl - 3">' + category + '</td>' +
+                    '<td data-role="updateCategory"><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i></td>' +
+                    '<td data-role="deleteCategory" data-id=""><i class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i></td></tr>'
+                  $('table tbody').append(newRow);
+
+                } else {
+                  bootbox.alert({
+                    message: '<i class="bi bi-exclamation-square pr-2"></i>Category already exists!',
+                    centerVertical: true,
+                    backdrop: true,
+                  });
+                }
+              }
+            });
+          }
         }
       });
     });
@@ -35,6 +59,119 @@
 
 </script>
 
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=deleteCategory]', function () {
+
+      const category = $(this).closest('tr').children('td:first').text();
+
+      bootbox.confirm({
+        message: "Do you really want to delete expense?",
+        centerVertical: true,
+        backdrop: true,
+        buttons: {
+          confirm: {
+            label: '<i class="bi bi-check-lg"></i> Ok',
+            className: 'btn modal-select px-0 py-2 m-2'
+          },
+          cancel: {
+            label: '<i class="bi bi-x-lg"></i> Cancel',
+            className: 'btn modal-close px-0 py-2 btn-secondary m-2'
+          }
+        },
+        callback: function (result) {
+          if (result) {
+
+            $.ajax({
+              url: '/settings/deleteIncomeCategory',
+              type: 'POST',
+              data: { category: category },
+              success: function (response) {
+
+                if (response) {
+                  $('#' + category).css('background', 'lightcoral');
+                  $('#' + category).fadeOut(1000, function () {
+                    $(this).remove();
+                  });
+                } else {
+                  bootbox.alert('Record not deleted.');
+                }
+              }
+            });
+          }
+        }
+      });
+
+    });
+  });
+</script>
+
+
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=updateCategory]', function () {
+      const id = ($(this).data('id'));
+      const category = $(this).closest('tr').children('td:first').text();
+
+      $('#incomeCategoryId').val(id);
+      $('#incomeCategory').val(category);
+      $('#updateCategoryModal').modal('toggle');
+    });
+
+
+    $('#updateCategory').click(function (event) {
+      event.preventDefault();
+
+      const category = $('#incomeCategory').val();
+      const id = $('#incomeCategoryId').val();
+
+
+      $.ajax({
+        url: '/settings/updateIncomeCategory',
+        method: 'POST',
+        data: { category: category, id: id },
+        traditional: true,
+        success: function (response) {
+
+          if (response) {
+            $('#' + id).children('td[data-target=income-category]').text(category);
+          }
+          $('#updateCategoryModal').modal('toggle');
+        }
+      });
+
+
+      //   $.ajax({
+      //     url: '/balance/updateIncomesSum',
+      //     method: 'POST',
+      //     data: { startDate: startDate, endDate: endDate, category: category },
+      //     traditional: true,
+      //     success: function (response) {
+
+      //       if (response == 0) {
+      //         $('#income-' + category).css('background', 'lightcoral');
+      //         $('#income-' + category).fadeOut(1000, function () {
+      //           $(this).remove();
+      //           if (calculateBalance() != 0) {
+      //             drawPieChart();
+      //           }
+      //         });
+      //       } else {
+      //         $('#income-' + category).children('td[data-target=income-sum]').text(response);
+      //       }
+      //       if (calculateBalance() != 0) {
+      //         drawPieChart();
+      //       }
+      //     }
+      //   });
+
+    });
+  });
+
+
+</script>
 
 
 
@@ -76,7 +213,7 @@
         <div class="col-12 px-0">
           <div class="row justify-content-center mx-3 mb-1">
 
-            <table class="table table-hover table-sm">
+            <table id="categoryIncome" class="table table-hover table-sm">
               <thead class="thead-dark">
                 <tr class="text-center">
                   <th scope="col" style="width: 90%">Category</th>
@@ -86,11 +223,12 @@
               </thead>
               <tbody>
                 {% for incomesCategory in incomesCategories %}
-                <tr>
-                  <td class="pl-3">{{ incomesCategory.name }}</td>
-                  <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
-                      onclick="window.location.href='#'"></i></td>
-                  <td data-role="deleteCategory" data-id=""><i
+                <tr id="{{ incomesCategory.id }}">
+                  <td class="pl-3" data-target="income-category">{{ incomesCategory.name }}</td>
+                  <td data-role="updateCategory" data-id="{{incomesCategory.id}}"><i
+                      class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i>
+                  </td>
+                  <td data-role="deleteCategory" data-id="{{incomesCategory.id}}"><i
                       class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i>
                   </td>
                   <!-- <td class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td> -->
@@ -105,37 +243,61 @@
               new</button>
           </div>
 
-          <!-- <div class="modal fade add-income-category" tabindex="-1" role="dialog">
+          <!-- modal -->
+          <div id="updateCategoryModal" class="modal fade custom" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Add new category</h5>
-                  <button type="button" class=" close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title">Edit category</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <form action="" method="post" class="p-2 m-2">
                   <div class="modal-body">
+
                     <div class="input-group mt-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><i
-                            class="icon-money inputGroup-sizing-lg"></i></span>
+                        <span class="input-group-text" id="basic-addon3"><i
+                            class="icon-tags inputGroup-sizing-lg"></i></span>
                       </div>
-                      <input type="text" name="new-income" class="form-control form-control-lg" id="new-income-category"
-                        aria-describedby="basic-addon1">
+                      <input type="text" name="category" class="form-control form-control-lg" id="incomeCategory"
+                        value="" aria-label="category" aria-describedby="basic-addon1">
                     </div>
+
+                    <span class="errors">{{ income.errors.category }}</span>
+
+                    <!-- <div class="input-group mt-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i
+                            class="bi bi-arrow-up-right-circle px-1 inputGroup-sizing-lg"></i></span>
+                      </div>
+                      <input type="number" name="limit" class="form-control form-control-lg" id="limit" value=""
+                        aria-label="limit" aria-describedby="basic-addon1">
+                    </div> -->
+
+                    {% for message in flash_messages %}
+                    <div class="mt-3 text-center alert alert-{{message.type}}">
+                      {{ message.body }}
+                    </div>
+                    {% endfor %}
+                    <input type="hidden" id="incomeCategoryId" name="incomeCategoryId" class="form-control">
 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" name="time-period" value="custom"
-                      class="btn modal-select px-0 py-3 m-2">Add</button>
-                    <button type="button" class="btn modal-close px-0 py-3 btn-secondary m-2"
-                      data-dismiss="modal">Close</button>
+                    <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
+
+                      <input class="modal-close btn px-0 py-2 btn-secondary m-2" type="button" value="Cancel"
+                        data-dismiss="modal">
+                      <input id="updateCategory" class="modal-select btn px-0 py-2 m-2" type="submit" value="Update">
+                    </div>
+
                   </div>
                 </form>
               </div>
             </div>
-          </div> -->
+          </div>
+          <!--  -->
 
 
         </div>

@@ -28,7 +28,7 @@ class Incomes extends \Core\Model
     $user = Auth::getUser();
 
 
-    $sql = 'SELECT name FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
+    $sql = 'SELECT name, id FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userIncomesCategory = $db->prepare($sql);
@@ -137,5 +137,79 @@ class Incomes extends \Core\Model
     $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
     return $stmt->execute();
+  }
+
+  public function validateNewCategoryName()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT * FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) == 1) {
+      $this->errors['category'] = "Category already exists";
+    }
+  }
+
+  public function addNewCategory()
+  {
+    $user = Auth::getUser();
+
+    $this->validateNewCategoryName();
+
+    if (empty($this->errors)) {
+
+      $sql = "INSERT INTO incomes_category_assigned_to_users VALUES (NULL, :user_id, :name)";
+
+      $db = static::getDB();
+      $newCategory = $db->prepare($sql);
+      $newCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $newCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+
+      // echo ($newCategory->execute());
+      return $newCategory->execute();
+    }
+    return false;
+  }
+
+  public function deleteCategory()
+  {
+    $user = Auth::getUser();
+
+    $sql = "DELETE FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $deletedCategory = $db->prepare($sql);
+    $deletedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $deletedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+
+    return $deletedCategory->execute();
+  }
+  public function updateCategory()
+  {
+    $user = Auth::getUser();
+
+    // $this->validateNewCategoryName();
+
+    // if (empty($this->errors)) {
+
+    $sql = "UPDATE incomes_category_assigned_to_users SET name = :name WHERE user_id = :user_id AND id = :id";
+
+    $db = static::getDB();
+    $updatedCategory = $db->prepare($sql);
+    $updatedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $updatedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+    $updatedCategory->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+    return $updatedCategory->execute();
+    // }
+    // return false;
   }
 }

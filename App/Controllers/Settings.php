@@ -54,4 +54,34 @@ class Settings extends Authenticated
       'paymentCategories' => Expenses::getPaymentMethodsAssignToUser()
     ]);
   }
+
+  public function addNewIncomeCategoryAction()
+  {
+    if (isset($_POST['category'])) {
+
+      $income = new Incomes($_POST);
+
+      echo $income->addNewCategory();
+    }
+  }
+
+  public function deleteIncomeCategoryAction()
+  {
+    // if (isset($_POST['category'])) {
+
+    $income = new Incomes($_POST);
+
+    echo $income->deleteCategory();
+    // }
+  }
+
+  public function updateIncomeCategoryAction()
+  {
+    // if (isset($_POST['category'])) {
+
+    $income = new Incomes($_POST);
+
+    echo $income->updateCategory();
+    // }
+  }
 }
