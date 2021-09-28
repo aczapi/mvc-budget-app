@@ -172,9 +172,9 @@ class Incomes extends \Core\Model
       $newCategory = $db->prepare($sql);
       $newCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
       $newCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+      $newCategory->execute();
 
-      // echo ($newCategory->execute());
-      return $newCategory->execute();
+      echo $this->getIdOfIncome($user->id);
     }
     return false;
   }
@@ -190,26 +190,28 @@ class Incomes extends \Core\Model
     $deletedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
     $deletedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
 
-    return $deletedCategory->execute();
+    echo $deletedCategory->execute();
   }
+
+
   public function updateCategory()
   {
     $user = Auth::getUser();
 
-    // $this->validateNewCategoryName();
+    $this->validateNewCategoryName();
 
-    // if (empty($this->errors)) {
+    if (empty($this->errors)) {
 
-    $sql = "UPDATE incomes_category_assigned_to_users SET name = :name WHERE user_id = :user_id AND id = :id";
+      $sql = "UPDATE incomes_category_assigned_to_users SET name = :name WHERE user_id = :user_id AND id = :id";
 
-    $db = static::getDB();
-    $updatedCategory = $db->prepare($sql);
-    $updatedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
-    $updatedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
-    $updatedCategory->bindValue(':id', $this->id, PDO::PARAM_INT);
+      $db = static::getDB();
+      $updatedCategory = $db->prepare($sql);
+      $updatedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $updatedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+      $updatedCategory->bindValue(':id', $this->id, PDO::PARAM_INT);
 
-    return $updatedCategory->execute();
-    // }
-    // return false;
+      echo $updatedCategory->execute();
+    }
+    return false;
   }
 }

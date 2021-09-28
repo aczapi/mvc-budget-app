@@ -61,27 +61,27 @@ class Settings extends Authenticated
 
       $income = new Incomes($_POST);
 
-      echo $income->addNewCategory();
+      $income->addNewCategory();
     }
   }
 
   public function deleteIncomeCategoryAction()
   {
-    // if (isset($_POST['category'])) {
+    if (isset($_POST['category'])) {
 
-    $income = new Incomes($_POST);
+      $income = new Incomes($_POST);
 
-    echo $income->deleteCategory();
-    // }
+      $income->deleteCategory();
+    }
   }
 
   public function updateIncomeCategoryAction()
   {
-    // if (isset($_POST['category'])) {
+    if (isset($_POST['category'])) {
 
-    $income = new Incomes($_POST);
+      $income = new Incomes($_POST);
 
-    echo $income->updateCategory();
-    // }
+      $income->updateCategory();
+    }
   }
 }
