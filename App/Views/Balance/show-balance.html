@@ -107,7 +107,7 @@
               $(this).remove();
             });
           } else {
-            $('#expense-' + id).children('td[data-target=expense-amount]').text(amount);
+            $('#expense-' + id).children('td[data-target=expense-amount]').text(parseFloat(amount).toFixed(2));
             $('#expense-' + id).children('td[data-target=expense-date]').text(date);
             $('#expense-' + id).children('td[data-target=expense-category]').text(category);
             $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
@@ -123,7 +123,7 @@
         data: { startDate: startDate, endDate: endDate, category: category },
         traditional: true,
         success: function (response) {
-          console.log(response);
+
           if (response == 0) {
             $('#expense-' + category).css('background', 'lightcoral');
             $('#expense-' + category).fadeOut(1000, function () {
@@ -200,7 +200,7 @@
               $(this).remove();
             });
           } else {
-            $('#income-' + id).children('td[data-target=income-amount]').text(amount);
+            $('#income-' + id).children('td[data-target=income-amount]').text(parseFloat(amount).toFixed(2));
             $('#income-' + id).children('td[data-target=income-date]').text(date);
             $('#income-' + id).children('td[data-target=income-category]').text(category);
             $('#income-' + id).children('td[data-target=income-comment]').text(comment);
@@ -589,6 +589,7 @@
                       {% for expenseCategory in expensesCategory %}
                       <option>{{ expenseCategory.name }}</option>
                       {% endfor %}
+                      <option>Another</option>
                     </select>
                   </div>
 
@@ -607,6 +608,7 @@
                       {% for paymentMethod in paymentMethods %}
                       <option>{{ paymentMethod.name }}</option>
                       {% endfor %}
+                      <option>Another</option>
 
                     </select>
                   </div>
@@ -731,6 +733,7 @@
                       {% for incomeCategory in incomesCategory %}
                       <option>{{ incomeCategory.name }}</option>
                       {% endfor %}
+                      <option>Another</option>
                     </select>
                   </div>
 

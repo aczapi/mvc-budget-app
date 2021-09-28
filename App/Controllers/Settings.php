@@ -84,4 +84,34 @@ class Settings extends Authenticated
       $income->updateCategory();
     }
   }
+
+  public function addNewExpenseCategoryAction()
+  {
+    if (isset($_POST['category'])) {
+
+      $expense = new Expenses($_POST);
+
+      $expense->addNewCategory();
+    }
+  }
+
+  public function deleteExpenseCategoryAction()
+  {
+    if (isset($_POST['category'])) {
+
+      $expense = new Expenses($_POST);
+
+      $expense->deleteCategory();
+    }
+  }
+
+  public function updateExpenseCategoryAction()
+  {
+    if (isset($_POST['category'])) {
+
+      $expense = new Expenses($_POST);
+
+      echo $expense->updateCategory();
+    }
+  }
 }

@@ -28,7 +28,7 @@ class Expenses extends \Core\Model
     $user = Auth::getUser();
 
 
-    $sql = 'SELECT name FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
+    $sql = 'SELECT name, category_limit,id FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userExpensesCategory = $db->prepare($sql);
@@ -176,5 +176,97 @@ class Expenses extends \Core\Model
     $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
 
     return $stmt->execute();
+  }
+
+  public function validateNewCategoryName()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT * FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) == 1) {
+      $this->errors['category'] = "Category already exists";
+    }
+  }
+
+  public function addNewCategory()
+  {
+    $user = Auth::getUser();
+
+    $this->validateNewCategoryName();
+
+    if (empty($this->errors)) {
+
+      $sql = "INSERT INTO expenses_category_assigned_to_users(id,user_id,name) VALUES (NULL, :user_id, :name)";
+
+      $db = static::getDB();
+      $newCategory = $db->prepare($sql);
+      $newCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $newCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+      $newCategory->execute();
+
+      echo $this->getIdOfExpense($user->id);
+    }
+    return false;
+  }
+
+  public function deleteCategory()
+  {
+    $user = Auth::getUser();
+
+    $sql = "DELETE FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $deletedCategory = $db->prepare($sql);
+    $deletedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $deletedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+
+    echo $deletedCategory->execute();
+  }
+
+
+  public function updateCategory()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT * FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name = :name AND id <> :id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) == 1) {
+      $this->errors['category'] = "Category already exists";
+    }
+
+    if (empty($this->errors)) {
+      $sql = "UPDATE expenses_category_assigned_to_users SET name = :name, category_limit = :category_limit WHERE user_id = :user_id AND id = :id";
+
+      $db = static::getDB();
+      $updatedCategory = $db->prepare($sql);
+      $updatedCategory->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $updatedCategory->bindValue(':name', $this->category, PDO::PARAM_STR);
+      if ($this->categoryLimit == "") {
+        $updatedCategory->bindValue(':category_limit', NULL, PDO::PARAM_STR);
+      } else {
+        $updatedCategory->bindValue(':category_limit', $this->categoryLimit, PDO::PARAM_STR);
+      }
+      $updatedCategory->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+      echo $updatedCategory->execute();
+    }
+    return false;
   }
 }

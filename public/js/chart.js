@@ -86,10 +86,11 @@ function calculateBalance() {
 
   let totalIncome = calculateAllIncomes();
   let totalExpense = calculateAllExpenses();
-  var balance = Math.round((totalIncome - totalExpense) * 100) / 100;
-  var message = "";
+  let balance = Math.round((totalIncome - totalExpense) * 100) / 100;
+  let format_balance = balance.toFixed(2);
+  let message = "";
 
-  if (balance > 0) { message = "You are doing great! You saved " + balance; }
+  if (balance > 0) { message = "You are doing great! You saved " + format_balance; }
   else if (balance < 0) { message = "Oh no! Your debt is " + balance; }
   else { message = "Balance: " + balance; }
 

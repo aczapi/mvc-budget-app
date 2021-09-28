@@ -38,7 +38,7 @@
               data: { category: category },
               success: function (response) {
                 if (response) {
-                  newRow = '<tr id="' + response + '"><td class="pl-3">' + category + '</td>' +
+                  newRow = '<tr id="' + response + '"><td class="pl-3" data-target="income-category">' + category + '</td>' +
                     '<td data-role="updateCategory" data-id="' + response + '"><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i></td>' +
                     '<td data-role="deleteCategory" data-id="' + response + '"><i class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i></td></tr>'
                   $('table tbody').append(newRow);
@@ -139,14 +139,12 @@
 
             $('#' + id).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
             $('#' + id).fadeOut(500, function () {
+              // $('#' + id).children('td[data-target=income-category]').text(category);
               $('#' + id).children('td[data-target=income-category]').text(category);
               $(this).fadeIn(0);
               $('#' + id).css({ "background-color": "transparent", "opacity": "1.0" });
             });
-            // $('#' + id).children('td[data-target=income-category]').text(category);
 
-
-            // $('#' + id).children('td[data-target=income-category]').text(category);
           } else {
             bootbox.alert({
               message: '<i class="bi bi-exclamation-square pr-2"></i>Category already exists!',
@@ -158,37 +156,10 @@
         }
       });
 
-
-      //   $.ajax({
-      //     url: '/balance/updateIncomesSum',
-      //     method: 'POST',
-      //     data: { startDate: startDate, endDate: endDate, category: category },
-      //     traditional: true,
-      //     success: function (response) {
-
-      //       if (response == 0) {
-      //         $('#income-' + category).css('background', 'lightcoral');
-      //         $('#income-' + category).fadeOut(1000, function () {
-      //           $(this).remove();
-      //           if (calculateBalance() != 0) {
-      //             drawPieChart();
-      //           }
-      //         });
-      //       } else {
-      //         $('#income-' + category).children('td[data-target=income-sum]').text(response);
-      //       }
-      //       if (calculateBalance() != 0) {
-      //         drawPieChart();
-      //       }
-      //     }
-      //   });
-
     });
   });
 
-
 </script>
-
 
 
 {% endblock %}
@@ -269,10 +240,10 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <form action="" method="post" class="p-2 m-2">
+                <form action="" method="post" class="mx-2 mb-2">
                   <div class="modal-body">
 
-                    <div class="input-group mt-3">
+                    <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3"><i
                             class="icon-tags inputGroup-sizing-lg"></i></span>
@@ -282,15 +253,6 @@
                     </div>
 
                     <span class="errors">{{ income.errors.category }}</span>
-
-                    <!-- <div class="input-group mt-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i
-                            class="bi bi-arrow-up-right-circle px-1 inputGroup-sizing-lg"></i></span>
-                      </div>
-                      <input type="number" name="limit" class="form-control form-control-lg" id="limit" value=""
-                        aria-label="limit" aria-describedby="basic-addon1">
-                    </div> -->
 
                     {% for message in flash_messages %}
                     <div class="mt-3 text-center alert alert-{{message.type}}">
