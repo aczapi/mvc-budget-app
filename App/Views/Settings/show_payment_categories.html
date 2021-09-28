@@ -96,6 +96,12 @@
                   $('#' + id).fadeOut(1000, function () {
                     $(this).remove();
                   });
+                  bootbox.alert({
+                    message: '<i class="bi bi-exclamation-square pr-2"></i>Payments in this category have been moved to the "Another"!',
+                    centerVertical: true,
+                    backdrop: true,
+                  });
+
                 } else {
                   bootbox.alert('Record not deleted.');
                 }

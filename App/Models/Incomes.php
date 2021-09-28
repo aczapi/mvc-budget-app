@@ -179,9 +179,43 @@ class Incomes extends \Core\Model
     return false;
   }
 
+  public function getIdOfAnotherCategory($user_id)
+  {
+    $sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE name = :name AND user_id = :user_id';
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', 'Another', PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $incomeAnother = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $incomeAnother['id'];
+  }
+
+  public function moveToAnotherCategory($user_id)
+  {
+    $sql = "UPDATE incomes
+				SET income_category_assigned_to_user_id = :another_category_id 
+				WHERE income_category_assigned_to_user_id = :category_id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':category_id', $this->getIdOfIncome($user_id), PDO::PARAM_INT);
+    $stmt->bindValue(':another_category_id', $this->getIdOfAnotherCategory($user_id), PDO::PARAM_INT);
+
+    return  $stmt->execute();
+  }
+
   public function deleteCategory()
   {
     $user = Auth::getUser();
+
+    $this->moveToAnotherCategory($user->id);
 
     $sql = "DELETE FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
 

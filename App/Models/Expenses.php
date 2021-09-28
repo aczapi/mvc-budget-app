@@ -218,9 +218,44 @@ class Expenses extends \Core\Model
     return false;
   }
 
+  public function getIdOfAnotherCategory($user_id)
+  {
+    $sql = 'SELECT id FROM expenses_category_assigned_to_users WHERE name = :name AND user_id = :user_id';
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', 'Another', PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $expenseAnother = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $expenseAnother['id'];
+  }
+
+  public function moveToAnotherCategory($user_id)
+  {
+    $sql = "UPDATE expenses
+				SET expense_category_assigned_to_user_id = :another_category_id 
+				WHERE expense_category_assigned_to_user_id = :category_id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':category_id', $this->getIdOfExpense($user_id), PDO::PARAM_INT);
+    $stmt->bindValue(':another_category_id', $this->getIdOfAnotherCategory($user_id), PDO::PARAM_INT);
+
+    return  $stmt->execute();
+  }
+
+
   public function deleteCategory()
   {
     $user = Auth::getUser();
+
+    $this->moveToAnotherCategory($user->id);
 
     $sql = "DELETE FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name = :name";
 
@@ -310,9 +345,43 @@ class Expenses extends \Core\Model
     return false;
   }
 
+  public function getIdOfAnotherPayment($user_id)
+  {
+    $sql = 'SELECT id FROM payment_methods_assigned_to_users WHERE name = :name AND user_id = :user_id';
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', 'Another', PDO::PARAM_STR);
+
+    $stmt->execute();
+
+    $paymentAnother = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $paymentAnother['id'];
+  }
+
+  public function moveToAnotherPayment($user_id)
+  {
+    $sql = "UPDATE expenses
+				SET payment_method_assigned_to_user_id = :another_payment_id 
+				WHERE payment_method_assigned_to_user_id = :payment_id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':payment_id', $this->getIdOfPaymentMethod($user_id), PDO::PARAM_INT);
+    $stmt->bindValue(':another_payment_id', $this->getIdOfAnotherPayment($user_id), PDO::PARAM_INT);
+
+    return  $stmt->execute();
+  }
+
   public function deletePayment()
   {
     $user = Auth::getUser();
+
+    $this->moveToAnotherPayment($user->id);
 
     $sql = "DELETE FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name = :name";
 
