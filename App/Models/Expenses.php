@@ -44,7 +44,7 @@ class Expenses extends \Core\Model
   {
     $user = Auth::getUser();
 
-    $sql = 'SELECT name FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name != :name';
+    $sql = 'SELECT name,id FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name != :name';
 
     $db = static::getDB();
     $userPaymentMethods = $db->prepare($sql);
@@ -266,6 +266,93 @@ class Expenses extends \Core\Model
       $updatedCategory->bindValue(':id', $this->id, PDO::PARAM_INT);
 
       echo $updatedCategory->execute();
+    }
+    return false;
+  }
+
+  public function validateNewPaymentName()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT * FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->payment, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) == 1) {
+      $this->errors['payment'] = "Payment method already exists";
+    }
+  }
+
+  public function addNewPayment()
+  {
+    $user = Auth::getUser();
+
+    $this->validateNewPaymentName();
+
+    if (empty($this->errors)) {
+
+      $sql = "INSERT INTO payment_methods_assigned_to_users VALUES (NULL, :user_id, :name)";
+
+      $db = static::getDB();
+      $newPayment = $db->prepare($sql);
+      $newPayment->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $newPayment->bindValue(':name', $this->payment, PDO::PARAM_STR);
+      $newPayment->execute();
+
+      echo $this->getIdOfPaymentMethod($user->id);
+    }
+    return false;
+  }
+
+  public function deletePayment()
+  {
+    $user = Auth::getUser();
+
+    $sql = "DELETE FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name = :name";
+
+    $db = static::getDB();
+    $deletedPayment = $db->prepare($sql);
+    $deletedPayment->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $deletedPayment->bindValue(':name', $this->payment, PDO::PARAM_STR);
+
+    echo $deletedPayment->execute();
+  }
+
+
+  public function updatePayment()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT * FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name = :name AND id <> :id";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->payment, PDO::PARAM_STR);
+    $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (count($result) == 1) {
+      $this->errors['payment'] = "Payment method already exists";
+    }
+
+    if (empty($this->errors)) {
+      $sql = "UPDATE payment_methods_assigned_to_users SET name = :name WHERE user_id = :user_id AND id = :id";
+
+      $db = static::getDB();
+      $updatedPayment = $db->prepare($sql);
+      $updatedPayment->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+      $updatedPayment->bindValue(':name', $this->payment, PDO::PARAM_STR);
+      $updatedPayment->bindValue(':id', $this->id, PDO::PARAM_INT);
+
+      echo $updatedPayment->execute();
     }
     return false;
   }

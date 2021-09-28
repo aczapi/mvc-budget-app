@@ -107,11 +107,17 @@
               $(this).remove();
             });
           } else {
-            $('#expense-' + id).children('td[data-target=expense-amount]').text(parseFloat(amount).toFixed(2));
-            $('#expense-' + id).children('td[data-target=expense-date]').text(date);
-            $('#expense-' + id).children('td[data-target=expense-category]').text(category);
-            $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
-            $('#expense-' + id).children('td[data-target=expense-comment]').text(comment);
+
+            $('#expense-' + id).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
+            $('#expense-' + id).fadeOut(500, function () {
+              $('#expense-' + id).children('td[data-target=expense-amount]').text(parseFloat(amount).toFixed(2));
+              $('#expense-' + id).children('td[data-target=expense-date]').text(date);
+              $('#expense-' + id).children('td[data-target=expense-category]').text(category);
+              $('#expense-' + id).children('td[data-target=expense-paymentMethod]').text(payment);
+              $('#expense-' + id).children('td[data-target=expense-comment]').text(comment);
+              $(this).fadeIn(0);
+              $('#expense-' + id).css({ "background-color": "transparent", "opacity": "1.0" });
+            });
           }
           $('#editExpenseModal').modal('toggle');
         }
@@ -134,7 +140,13 @@
               }
             });
           } else {
-            $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
+            $('#expense-' + category).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
+            $('#expense-' + category).fadeOut(500, function () {
+              $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
+              $(this).fadeIn(0);
+              $('#expense-' + category).css({ "background-color": "transparent", "opacity": "1.0" });
+            });
+
           }
 
           if (calculateBalance() != 0) {
@@ -200,10 +212,18 @@
               $(this).remove();
             });
           } else {
-            $('#income-' + id).children('td[data-target=income-amount]').text(parseFloat(amount).toFixed(2));
-            $('#income-' + id).children('td[data-target=income-date]').text(date);
-            $('#income-' + id).children('td[data-target=income-category]').text(category);
-            $('#income-' + id).children('td[data-target=income-comment]').text(comment);
+
+            $('#income-' + id).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
+            $('#income-' + id).fadeOut(500, function () {
+              $('#income-' + id).children('td[data-target=income-amount]').text(parseFloat(amount).toFixed(2));
+              $('#income-' + id).children('td[data-target=income-date]').text(date);
+              $('#income-' + id).children('td[data-target=income-category]').text(category);
+              $('#income-' + id).children('td[data-target=income-comment]').text(comment);
+              $(this).fadeIn(0);
+              $('#income-' + id).css({ "background-color": "transparent", "opacity": "1.0" });
+            });
+
+
           }
           $('#editIncomeModal').modal('toggle');
         }
@@ -226,7 +246,14 @@
               }
             });
           } else {
-            $('#income-' + category).children('td[data-target=income-sum]').text(response);
+            $('#income-' + category).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
+            $('#income-' + category).fadeOut(500, function () {
+              $('#income-' + category).children('td[data-target=income-sum]').text(response);
+              $(this).fadeIn(0);
+              $('#income-' + category).css({ "background-color": "transparent", "opacity": "1.0" });
+            });
+
+
           }
           if (calculateBalance() != 0) {
             drawPieChart();

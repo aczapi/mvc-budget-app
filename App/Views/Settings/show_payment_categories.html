@@ -4,6 +4,7 @@
 
 {% block footer %}
 
+
 <script>
 
   $(document).ready(function () {
@@ -11,11 +12,12 @@
     $('#newPayment').on('click', function () {
 
       bootbox.prompt({
-        title: "Add new category",
+        title: "Add new payment method",
         placeholder: "Enter a name of the new payment method:",
         centerVertical: true,
         backdrop: true,
         inputType: 'text',
+        required: true,
         buttons: {
           confirm: {
             label: '<i class="bi bi-check-lg"></i> Add',
@@ -27,7 +29,31 @@
           }
         },
         callback: function (result) {
-          console.log('This was logged in the callback: ' + result);
+
+          const payment = $('.bootbox-input-text').val();
+          // alert(payment);
+
+          if (result) {
+            $.ajax({
+              url: '/settings/addNewPaymentMethod',
+              type: 'POST',
+              data: { payment: payment },
+              success: function (response) {
+                if (response) {
+                  newRow = '<tr id="' + response + '"><td class="pl-3" data-target="payment-name">' + payment + '</td>' +
+                    '<td data-role="updatePayment" data-id="' + response + '"><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i></td>' +
+                    '<td data-role="deletePayment" data-id="' + response + '"><i class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i></td></tr>'
+                  $('table tbody').append(newRow);
+                } else {
+                  bootbox.alert({
+                    message: '<i class="bi bi-exclamation-square pr-2"></i>Category already exists!',
+                    centerVertical: true,
+                    backdrop: true,
+                  });
+                }
+              }
+            });
+          }
         }
       });
     });
@@ -35,6 +61,107 @@
 
 </script>
 
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=deletePayment]', function () {
+      const id = ($(this).data('id'));
+      const payment = $(this).closest('tr').children('td:first').text();
+
+      bootbox.confirm({
+        message: "Do you really want to delete payment method?",
+        centerVertical: true,
+        backdrop: true,
+        buttons: {
+          confirm: {
+            label: '<i class="bi bi-check-lg"></i> Ok',
+            className: 'btn modal-select px-0 py-2 m-2'
+          },
+          cancel: {
+            label: '<i class="bi bi-x-lg"></i> Cancel',
+            className: 'btn modal-close px-0 py-2 btn-secondary m-2'
+          }
+        },
+        callback: function (result) {
+          if (result) {
+
+            $.ajax({
+              url: '/settings/deletePaymentMethod',
+              type: 'POST',
+              data: { payment: payment },
+              success: function (response) {
+
+                if (response) {
+                  $('#' + id).css('background', 'lightcoral');
+                  $('#' + id).fadeOut(1000, function () {
+                    $(this).remove();
+                  });
+                } else {
+                  bootbox.alert('Record not deleted.');
+                }
+              }
+            });
+          }
+        }
+      });
+
+    });
+  });
+</script>
+
+
+<script>
+
+  $(document).ready(function () {
+    $(document).on('click', 'td[data-role=updatePayment]', function () {
+      const id = ($(this).data('id'));
+      const payment = $(this).closest('tr').children('td:first').text();
+
+      $('#paymentMethodId').val(id);
+      $('#paymentMethod').val(payment);
+      $('#updatePaymentModal').modal('toggle');
+    });
+
+
+    $('#updatePayment').click(function (event) {
+      event.preventDefault();
+
+      const payment = $('#paymentMethod').val();
+      const id = $('#paymentMethodId').val();
+
+
+      $.ajax({
+        url: '/settings/updatePaymentMethod',
+        method: 'POST',
+        data: { payment: payment, id: id },
+        traditional: true,
+        success: function (response) {
+
+          if (response) {
+
+            $('#' + id).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
+            $('#' + id).fadeOut(500, function () {
+              // $('#' + id).children('td[data-target=income-category]').text(category);
+              $('#' + id).children('td[data-target=payment-name]').text(payment);
+              $(this).fadeIn(0);
+              $('#' + id).css({ "background-color": "transparent", "opacity": "1.0" });
+            });
+
+          } else {
+            bootbox.alert({
+              message: '<i class="bi bi-exclamation-square pr-2"></i>Payment method already exists!',
+              centerVertical: true,
+              backdrop: true,
+            });
+          }
+          $('#updatePaymentModal').modal('toggle');
+        }
+      });
+
+    });
+  });
+
+</script>
 
 
 
@@ -87,12 +214,13 @@
               </thead>
               <tbody>
                 {% for paymentCategory in paymentCategories %}
-                <tr>
-                  <td class="pl-3">{{ paymentCategory.name }}</td>
+                <tr id="{{paymentCategory.id}}">
+                  <td class="pl-3" data-target="payment-name">{{ paymentCategory.name }}</td>
 
-                  <td><i class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"
-                      onclick="window.location.href='#'"></i></td>
-                  <td data-role="deleteCategory" data-id=""><i
+                  <td data-role="updatePayment" data-id="{{ paymentCategory.id }}"><i
+                      class="justify-content-center input-group-append bi bi-pencil-square inputGroup-sizing-lg mt-2"></i>
+                  </td>
+                  <td data-role="deletePayment" data-id="{{ paymentCategory.id }}"><i
                       class="justify-content-center input-group-append bi bi-trash inputGroup-sizing-lg mt-2"></i>
                   </td>
                 </tr>
@@ -106,6 +234,52 @@
               new</button>
 
           </div>
+
+          <!-- modal -->
+          <div id="updatePaymentModal" class="modal fade custom" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit payment method</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form action="" method="post" class="mx-2 mb-2">
+                  <div class="modal-body">
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3"><i class="bi bi-credit-card"></i></span>
+                      </div>
+                      <input type="text" name="payment" class="form-control form-control-lg" id="paymentMethod" value=""
+                        aria-label="category" aria-describedby="basic-addon1">
+                    </div>
+
+                    <span class="errors">{{ expense.errors.payment }}</span>
+
+                    {% for message in flash_messages %}
+                    <div class="mt-3 text-center alert alert-{{message.type}}">
+                      {{ message.body }}
+                    </div>
+                    {% endfor %}
+                    <input type="hidden" id="paymentMethodId" name="paymentMethodId" class="form-control">
+
+                  </div>
+                  <div class="modal-footer">
+                    <div class="row justify-content-center mt-3 mb-0 mb-lg-2">
+
+                      <input class="modal-close btn px-0 py-2 btn-secondary m-2" type="button" value="Cancel"
+                        data-dismiss="modal">
+                      <input id="updatePayment" class="modal-select btn px-0 py-2 m-2" type="submit" value="Update">
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!--  -->
 
 
         </div>

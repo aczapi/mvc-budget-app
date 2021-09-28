@@ -114,4 +114,34 @@ class Settings extends Authenticated
       echo $expense->updateCategory();
     }
   }
+
+  public function addNewPaymentMethodAction()
+  {
+    if (isset($_POST['payment'])) {
+
+      $expense = new Expenses($_POST);
+
+      $expense->addNewPayment();
+    }
+  }
+
+  public function deletePaymentMethodAction()
+  {
+    if (isset($_POST['payment'])) {
+
+      $expense = new Expenses($_POST);
+
+      $expense->deletePayment();
+    }
+  }
+
+  public function updatePaymentMethodAction()
+  {
+    if (isset($_POST['payment'])) {
+
+      $expense = new Expenses($_POST);
+
+      echo $expense->updatePayment();
+    }
+  }
 }

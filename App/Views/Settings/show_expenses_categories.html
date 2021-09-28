@@ -37,6 +37,7 @@
               type: 'POST',
               data: { category: category },
               success: function (response) {
+                console.log(response);
                 if (response) {
                   newRow = '<tr id="' + response + '"><td class="pl-3" data-target="expense-category">' + category + '</td>' +
                     '<td class="pl-3 text-center" data-target="category-limit" data-id="' + response + '"></td> ' +
