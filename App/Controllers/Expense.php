@@ -49,35 +49,30 @@ class Expense extends Authenticated
 
   public function updateExpenseAction()
   {
-
     $expense = new Expenses($_POST);
-    // var_dump($expense);
-
-    if ($expense->update()) {
-      echo "The expense has been updated.";
-    } else echo "The expense could not be edited.";
+    echo $expense->update();
   }
 
 
   public function deleteExpenseAction()
   {
-
     $expense = new Expenses($_POST);
-    // var_dump($expense);
-
-    if ($expense->delete()) {
-      echo "The expense has been deleted.";
-    } else echo "The expense could not be deleted.";
+    echo $expense->delete();
   }
 
-  // public function deleteExpenseAction()
-  // {
+  public function getLimitAction()
+  {
+    if (isset($_POST['category'])) {
+      $expense = new Expenses($_POST);
+      $expense->getLimit();
+    }
+  }
 
-  //   $expense = new Expenses($_POST);
-  //   // var_dump($expense);
-
-  //   if ($expense->delete()) {
-  //     echo "The expense has been deleted.";
-  //   } else echo "The expense could not be deleted.";
-  // }
+  public function getValueAction()
+  {
+    if (isset($_POST['amount'])) {
+      $expense = new Expenses($_POST);
+      $expense->getValue();
+    }
+  }
 }

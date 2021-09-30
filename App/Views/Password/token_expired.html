@@ -11,9 +11,7 @@
 <script>
 
   $(document).ready(function () {
-    /**
-     * Validate the form
-     */
+
     $('#formPassword').validate({
       rules: {
         password: {
@@ -21,17 +19,13 @@
           minlength: 8,
           validPassword: true
         },
-        // password_confirmation: {
-        //     equalTo: '#inputPassword'
-        // }
+
       },
       messages: {
         email: {
           remote: 'There is already an account associated with this email address'
         }
       }
-      //TODO 
-      //errorPlacement: 
 
     });
 
@@ -43,16 +37,6 @@
 
 
 {% block body %}
-
-<!-- {% if user.errors is not empty %}
-<p> Errors: </p>
-<ul>
-    {%for error in user.errors %}
-    <li>{{ error}}</li>
-    {% endfor %}
-</ul>
-
-{% endif %} -->
 
 
 <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">

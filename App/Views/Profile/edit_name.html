@@ -13,37 +13,16 @@
     $(document).ready(function () {
 
         var userId = '{{ user.id }}';
-        /**
-         * Validate the form
-         */
+
         $('#formProfile').validate({
             rules: {
                 login: 'required',
-                // email: {
-                //     required: true,
-                //     email: true,
-                //     remote: {
-                //         url: '/account/validate-email',
-                //         data: {
-                //             ignore_id: function () {
-                //                 return userId;
-                //             }
-                //         }
-                //     }
-                // },
             },
-            // messages: {
-            //     email: {
-            //         remote: 'There is already an account associated with this email address'
-            //     }
-            // },
-            errorPlacement: function (error, element) {
+            acement: function (error, element) {
                 error.insertAfter(element.parent());
 
             }
-
         });
-
     });
 
 </script>
@@ -52,16 +31,6 @@
 
 
 {% block body %}
-
-<!-- {% if user.errors is not empty %}
-<p> Errors: </p>
-<ul>
-    {%for error in user.errors %}
-    <li>{{ error}}</li>
-    {% endfor %}
-</ul>
-
-{% endif %} -->
 
 
 <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
@@ -90,37 +59,6 @@
                                 value="{{user.login}}">
                         </div>
                         <span id="login-error" class="errors">{{user.errors.login}}</span>
-
-                        <!-- <div class="input-group my-lg-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon2"><i
-                                        class="icon-mail-alt inputGroup-sizing-lg"></i></span>
-                            </div>
-                            <input class="form-control form-control-lg" type="text" placeholder="Email address"
-                                onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
-                                value="{{user.email}}">
-                        </div>
-                        <div id="email-error">
-                            <span class="errors">{{user.errors.email}}</span>
-                        </div> -->
-
-                        <!-- <div class="input-group my-2 my-lg-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3"><i
-                                        class="icon-key inputGroup-sizing-lg"></i></span>
-                            </div>
-                            <input id="inputPassword" class="form-control form-control-lg" type="password"
-                                name="password" placeholder="Password" onfocus="this.placeholder=''"
-                                onblur="this.placeholder='Password'" name="password">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon4"><i
-                                        class="bi bi-eye-slash inputGroup-sizing-lg"
-                                        onclick="showPwd('inputPassword',this)"></i></span>
-                            </div>
-                        </div>
-                        <div>
-                            <span id="password-error" class="errors">{{user.errors.password}}</span>
-                        </div> -->
 
                         <div class="row justify-content-center mt-3">
                             <input type="submit" class="btn main-button px-0 py-3 m-2" value="Save">

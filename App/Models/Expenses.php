@@ -145,6 +145,11 @@ class Expenses extends \Core\Model
 
     $user = Auth::getUser();
 
+    if ($this->amount == 0) {
+      $this->delete();
+      echo 1;
+    }
+
     $this->validate();
 
     if (empty($this->errors)) {
@@ -424,5 +429,79 @@ class Expenses extends \Core\Model
       echo $updatedPayment->execute();
     }
     return false;
+  }
+
+  public function getLimit()
+  {
+    $categoryLimit = $this->getLimitForCategory();
+    $sumOfExpensesInCategory = $this->getSumOfExpensesInCategory();
+    $difference = $categoryLimit - $sumOfExpensesInCategory;
+
+    if ($this->amount != "") {
+      $totalSum = $sumOfExpensesInCategory + $this->amount;
+    }
+    if ($categoryLimit != null) {
+      echo "Monthly limit: " . $categoryLimit . "<br>";
+      if ($sumOfExpensesInCategory != "") {
+        echo "Expenses in this month: " . $sumOfExpensesInCategory . "<br>";
+      } else {
+        echo "Expenses in this month: 0<br>";
+      }
+      echo "Difference: " . number_format($difference, 2, '.', '') . "<br>";
+      if ($this->amount != "") {
+        echo "Expenses + entered amount: " . number_format($totalSum, 2, '.', '');
+      }
+    }
+  }
+
+  public function getLimitForCategory()
+  {
+    $user = Auth::getUser();
+
+    $sql = "SELECT category_limit FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name= :name";
+
+    $db = static::getDB();
+
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':user_id', $user->id, PDO::PARAM_INT);
+    $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $limit = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $limit['category_limit'];
+  }
+
+  public function getSumOfExpensesInCategory()
+  {
+
+    $user = Auth::getUser();
+    $sql = "SELECT SUM(expenses.amount) AS sum_expenses FROM expenses WHERE expense_category_assigned_to_user_id = :id AND date_of_expense BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()";
+
+    $db = static::getDB();
+    $stmt = $db->prepare($sql);
+
+    $stmt->bindValue(':id', $this->getIdOfExpense($user->id), PDO::PARAM_INT);
+    $stmt->execute();
+
+    $sum = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $sum['sum_expenses'];
+  }
+
+  public function getValue()
+  {
+    if ($this->amount != "") {
+
+      $categoryLimit = $this->getLimitForCategory();
+      $sumOfExpensesInCategory = $this->getSumOfExpensesInCategory();
+      $totalSum = $sumOfExpensesInCategory + $this->amount;
+      if ($totalSum <= $categoryLimit) {
+        echo false;
+      } else {
+        echo true;
+      }
+    }
   }
 }

@@ -9,15 +9,21 @@
 
 </nav>
 
-{% for message in flash_messages %}
-<div class="text-center alert alert-{{message.type}}">
-    {{ message.body }}
-</div>
-{% endfor %}
+
 
 <div class="row justify-content-center mt-3 mt-xl-2 mb-xl-4 welcome">
 
     <h2>Hello {{current_user.login}}</h2>
+
+</div>
+
+<div class="message">
+
+    {% for message in flash_messages %}
+    <div class="text-center alert alert-{{message.type}}">
+        {{ message.body }}
+    </div>
+    {% endfor %}
 
 </div>
 
@@ -166,8 +172,6 @@
 
                         </div>
                     </div>
-
-                    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".construction"></button> -->
 
                     <!-- modal -->
 

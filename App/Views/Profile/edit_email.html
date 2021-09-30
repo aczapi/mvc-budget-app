@@ -13,12 +13,10 @@
     $(document).ready(function () {
 
         var userId = '{{ user.id }}';
-        /**
-         * Validate the form
-         */
+
         $('#formProfile').validate({
             rules: {
-                // login: 'required',
+
                 email: {
                     required: true,
                     email: true,
@@ -50,18 +48,7 @@
 
 {% endblock %}
 
-
 {% block body %}
-
-<!-- {% if user.errors is not empty %}
-<p> Errors: </p>
-<ul>
-    {%for error in user.errors %}
-    <li>{{ error}}</li>
-    {% endfor %}
-</ul>
-
-{% endif %} -->
 
 
 <nav id="mainNavbar" class="account navbar navbar-light navbar-expand-xl pt-1 px-0 fixed-top">
@@ -79,16 +66,7 @@
                 <div id="profileEdit" class="col-10 mx-1 col-sm-9 mt-md-4 px-1 px-sm-2 mb-5">
 
                     <form method="post" action="/profile/update-email" class="p-3" id="formProfile">
-                        <!-- <div class=" input-group mt-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1"><i
-                                        class="icon-user inputGroup-sizing-lg"></i></span>
-                            </div>
-                            <input class="form-control form-control-lg" type="text" placeholder="Name"
-                                onfocus="this.placeholder=''" onblur="this.placeholder='Name'" name="login"
-                                value="{{user.login}}">
-                        </div>
-                        <span id="login-error" class="errors">{{user.errors.login}}</span> -->
+
                         <div id="headingGroup" class="text-center mt-4 mb-5">Change email address</div>
                         <div class="input-group my-lg-3">
                             <div class="input-group-prepend">
@@ -99,27 +77,8 @@
                                 onfocus="this.placeholder=''" onblur="this.placeholder='Email address'" name="email"
                                 value="{{user.email}}">
                         </div>
-                        <!-- <div id="email-error"> -->
-                        <span id="email-error" class="errors">{{user.errors.email}}</span>
-                        <!-- </div> -->
 
-                        <!-- <div class="input-group my-2 my-lg-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon3"><i
-                                        class="icon-key inputGroup-sizing-lg"></i></span>
-                            </div>
-                            <input id="inputPassword" class="form-control form-control-lg" type="password"
-                                name="password" placeholder="Password" onfocus="this.placeholder=''"
-                                onblur="this.placeholder='Password'" name="password">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon4"><i
-                                        class="bi bi-eye-slash inputGroup-sizing-lg"
-                                        onclick="showPwd('inputPassword',this)"></i></span>
-                            </div>
-                        </div>
-                        <div>
-                            <span id="password-error" class="errors">{{user.errors.password}}</span>
-                        </div> -->
+                        <span id="email-error" class="errors">{{user.errors.email}}</span>
 
                         <div class="row justify-content-center mt-3">
                             <input type="submit" class="btn main-button px-0 py-3 m-2" value="Save">

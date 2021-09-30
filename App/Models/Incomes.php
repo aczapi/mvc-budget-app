@@ -107,6 +107,11 @@ class Incomes extends \Core\Model
   {
     $user = Auth::getUser();
 
+    if ($this->amount == 0) {
+      $this->delete();
+      echo 1;
+    }
+
     $this->validate();
 
     if (empty($this->errors)) {
