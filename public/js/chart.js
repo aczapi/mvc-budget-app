@@ -82,9 +82,9 @@ function calculateBalance() {
   let balance = Math.round((totalIncome - totalExpense) * 100) / 100;
   let message = "";
 
-  if (balance > 0) { message = "You are doing great! You saved " + balance; }
-  else if (balance < 0) { message = "Oh no! Your debt is " + balance; }
-  else { message = "Balance: " + balance; }
+  if (balance > 0) { message = "You are doing great! You saved " + parseFloat(balance).toFixed(2); }
+  else if (balance < 0) { message = "Oh no! Your debt is " + parseFloat(balance).toFixed(2); }
+  else { message = "Balance: " + parseFloat(balance).toFixed(2); }
 
   $("#balance").html(message);
 

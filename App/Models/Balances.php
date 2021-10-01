@@ -36,13 +36,13 @@ class Balances extends \Core\Model
     if (isset($_POST['time-period'])) {
       $time_period = $_POST['time-period'];
       if ($time_period == 'current-month') {
-        $endDate = date('Y/m/d');
+        $endDate = date('Y/m/t');
       }
       if ($time_period == 'previous-month') {
         $endDate = date('Y/m/d', strtotime('last day of last month'));
       }
       if ($time_period == 'current-year') {
-        $endDate = date('Y/m/d');
+        $endDate = date('Y/m/t');
       }
       if ($time_period == 'custom') {
         $endDate = $_POST['endDate'];

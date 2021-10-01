@@ -475,9 +475,12 @@ class Expenses extends \Core\Model
 
   public function getSumOfExpensesInCategory()
   {
+    $month = date("m", strtotime($_POST['date']));
+    $year = date("Y", strtotime($_POST['date']));
 
     $user = Auth::getUser();
-    $sql = "SELECT SUM(expenses.amount) AS sum_expenses FROM expenses WHERE expense_category_assigned_to_user_id = :id AND date_of_expense BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW()";
+    $sql = "SELECT SUM(expenses.amount) AS sum_expenses FROM expenses WHERE MONTH(expenses.date_of_expense) = $month
+    AND YEAR(expenses.date_of_expense) = $year AND expense_category_assigned_to_user_id = :id";
 
     $db = static::getDB();
     $stmt = $db->prepare($sql);
