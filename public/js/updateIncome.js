@@ -60,63 +60,29 @@ $(function () {
 
 
           }
+
           $.ajax({
-            url: '/balance/updateIncomesSum',
+            url: '/balance/getIncomesSum',
             method: 'POST',
-            data: { startDate: startDate, endDate: endDate, category: category },
+            data: { startDate: startDate, endDate: endDate },
+            dataType: "JSON",
             traditional: true,
             success: function (response) {
 
-              if (response == 0) {
-                $('#income-' + category).css('background', 'lightcoral');
-                $('#income-' + category).fadeOut(1000, function () {
-                  $(this).remove();
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
+              if (response) {
 
-                  }
-                });
-              } else {
-                $('#income-' + category).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
-                $('#income-' + category).fadeOut(500, function () {
-                  $('#income-' + category).children('td[data-target=income-sum]').text(response);
-                  $(this).fadeIn(0);
-                  $('#income-' + category).css({ "background-color": "transparent", "opacity": "1.0" });
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
-              }
+                let tableBody = $('#incomeTbody');
+                tableBody.empty();
+                buildIncomeTable(response);
 
-            }
-          });
+                // for (let i = 0; i < response.length; i++) {
+                //   let row = '<tr id="income-"' + response[i].income_category_name + '><td data-target="income-name" class="pl-3">' + response[i].income_category_name + '</td>' + '<td data-target="income-sum" class="text-center">' + response[i].sum_incomes + '</td></tr>'
+                //   $('table #incomeTbody').append(row);
+                // }
+                if (calculateBalance() != 0) {
+                  drawPieChart();
+                }
 
-          $.ajax({
-            url: '/balance/updateIncomesSum',
-            method: 'POST',
-            data: { startDate: startDate, endDate: endDate, category: categoryOriginal },
-            traditional: true,
-            success: function (response) {
-
-              if (response == 0) {
-                $('#income-' + categoryOriginal).css('background', 'lightcoral');
-                $('#income-' + categoryOriginal).fadeOut(1000, function () {
-                  $(this).remove();
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-
-                  }
-                });
-              } else {
-                $('#income-' + categoryOriginal).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
-                $('#income-' + categoryOriginal).fadeOut(500, function () {
-                  $('#income-' + categoryOriginal).children('td[data-target=income-sum]').text(response);
-                  $(this).fadeIn(0);
-                  $('#income-' + categoryOriginal).css({ "background-color": "transparent", "opacity": "1.0" });
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
               }
 
             }

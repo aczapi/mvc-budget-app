@@ -66,74 +66,25 @@ $(function () {
 
 
           $.ajax({
-            url: '/balance/updateExpensesSum',
+            url: '/balance/getExpensesSum',
             method: 'POST',
-            data: { startDate: startDate, endDate: endDate, category: category },
+            data: { startDate: startDate, endDate: endDate },
+            dataType: "JSON",
             traditional: true,
             success: function (response) {
 
-              if (response == 0) {
-                $('#expense-' + category).css('background', 'lightcoral');
-                $('#expense-' + category).fadeOut(1000, function () {
-                  $(this).remove();
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
-              } else {
-                $('#expense-' + category).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
-                $('#expense-' + category).fadeOut(500, function () {
-                  $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
-                  $(this).fadeIn(0);
-                  $('#expense-' + category).css({ "background-color": "transparent", "opacity": "1.0" });
+              if (response) {
 
+                let tableBody = $('#expenseTbody');
+                tableBody.empty();
+                buildExpenseTable(response);
 
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
-
+                if (calculateBalance() != 0) {
+                  drawPieChart();
+                }
               }
-
             }
-
           });
-
-          // if (category != categoryOriginal) {
-          $.ajax({
-            url: '/balance/updateExpensesSum',
-            method: 'POST',
-            data: { startDate: startDate, endDate: endDate, category: categoryOriginal },
-            traditional: true,
-            success: function (response) {
-
-              if (response == 0) {
-                $('#expense-' + categoryOriginal).css('background', 'lightcoral');
-                $('#expense-' + categoryOriginal).fadeOut(1000, function () {
-                  $(this).remove();
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
-              } else {
-                $('#expense-' + categoryOriginal).css({ "background-color": "#ffe7c9", "opacity": "0.5" });
-                $('#expense-' + categoryOriginal).fadeOut(500, function () {
-                  $('#expense-' + categoryOriginal).children('td[data-target=expense-sum]').text(response);
-                  $(this).fadeIn(0);
-                  $('#expense-' + categoryOriginal).css({ "background-color": "transparent", "opacity": "1.0" });
-
-
-                  if (calculateBalance() != 0) {
-                    drawPieChart();
-                  }
-                });
-
-              }
-
-            }
-
-          });
-          // }
 
         } else {
           bootbox.alert('Expense not updated.');

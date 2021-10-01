@@ -37,27 +37,22 @@ $(function () {
                 const endDate = document.getElementById('endDate').innerHTML;
 
                 $.ajax({
-                  url: '/balance/updateExpensesSum',
+                  url: '/balance/getExpensesSum',
                   method: 'POST',
-                  data: { startDate: startDate, endDate: endDate, category: category },
+                  data: { startDate: startDate, endDate: endDate },
+                  dataType: 'JSON',
                   traditional: true,
                   success: function (response) {
-                    if (response == 0) {
-                      $('#expense-' + category).css('background', 'lightcoral');
-                      $('#expense-' + category).fadeOut(1000, function () {
-                        $(this).remove();
-                        if (calculateBalance() != 0) {
-                          drawPieChart();
+                    if (response) {
 
-                        }
-                      });
-                    } else {
-                      $('#expense-' + category).children('td[data-target=expense-sum]').text(response);
-                    }
+                      let tableBody = $('#expenseTbody');
+                      tableBody.empty();
+                      buildExpenseTable(response);
 
-                    if (calculateBalance() != 0) {
-                      drawPieChart();
 
+                      if (calculateBalance() != 0) {
+                        drawPieChart();
+                      }
                     }
                   }
                 });

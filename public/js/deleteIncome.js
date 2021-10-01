@@ -35,28 +35,27 @@ $(function () {
                 const endDate = document.getElementById('endDate').innerHTML;
 
                 $.ajax({
-                  url: '/balance/updateIncomesSum',
+                  url: '/balance/getIncomesSum',
                   method: 'POST',
-                  data: { startDate: startDate, endDate: endDate, category: category },
+                  data: { startDate: startDate, endDate: endDate },
+                  dataType: 'JSON',
                   traditional: true,
                   success: function (response) {
-                    if (response == 0) {
-                      $('#income-' + category).css('background', 'lightcoral');
-                      $('#income-' + category).fadeOut(1000, function () {
-                        $(this).remove();
-                        if (calculateBalance() != 0) {
-                          drawPieChart();
+                    if (response) {
 
-                        }
-                      });
-                    } else {
-                      $('#income-' + category).children('td[data-target=income-sum]').text(response);
+
+                      let tableBody = $('#incomeTbody');
+                      tableBody.empty();
+                      buildIncomeTable(response);
+
+
+                      if (calculateBalance() != 0) {
+                        drawPieChart();
+
+                      }
                     }
 
-                    if (calculateBalance() != 0) {
-                      drawPieChart();
 
-                    }
                   }
                 });
               } else {

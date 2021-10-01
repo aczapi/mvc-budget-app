@@ -17,27 +17,25 @@ class Balance extends Authenticated
       View::renderTemplate('Balance/show-balance.html', [
         'startDate' => Balances::getStartDate(),
         'endDate' => Balances::getEndDate(),
-        'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),  //update??
+        'expensesCategory' => Expenses::getExpensesCategoryAssignToUser(),
         'paymentMethods' => Expenses::getPaymentMethodsAssignToUser(),
-        'incomesCategory' => Incomes::getIncomesCategoryAssignToUser(),  //update??
-        'sumExpensesByCategories' => Balances::getSumOfAllExpensesByCategory(),
-        'sumIncomesByCategories' => Balances::getSumOfAllIncomesByCategory(),
+        'incomesCategory' => Incomes::getIncomesCategoryAssignToUser(),
         'individualExpenses' => Balances::getIndividualExpenses(),
         'individualIncomes' => Balances::getIndividualIncomes()
       ]);
     }
   }
-  public function updateExpensesSumAction()
+  public function getExpensesSumAction()
   {
     $expenseSum = new Balances();
 
-    $expenseSum->updateExpenseSum();
+    return $expenseSum->getSumOfAllExpensesByCategory();
   }
 
-  public function updateIncomesSumAction()
+  public function getIncomesSumAction()
   {
     $incomeSum = new Balances();
 
-    $incomeSum->updateIncomeSum();
+    return $incomeSum->getSumOfAllIncomesByCategory();
   }
 }

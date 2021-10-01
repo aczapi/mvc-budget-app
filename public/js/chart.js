@@ -1,10 +1,3 @@
-window.onload = function chart() {
-
-  // calculateBalance();
-  if (calculateBalance() != 0) {
-    drawPieChart();
-  }
-}
 
 function drawPieChart() {
 

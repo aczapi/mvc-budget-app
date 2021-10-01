@@ -4,6 +4,8 @@
 
 {% block footer %}
 
+
+<script src="../js/buildTable.js"></script>
 <script src="../js/chart.js"></script>
 <script src="../js/dates.js"></script>
 <script src="../js/formatDates.js"></script>
@@ -13,6 +15,7 @@
 <script src="../js/deleteIncome.js"></script>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
 
 
 {% endblock %}
@@ -77,19 +80,10 @@
                   <th scope="col">Amount</th>
                 </tr>
               </thead>
-              <tbody>
-                {% for sumExpensesByCategory in sumExpensesByCategories %}
-                <tr id="expense-{{ sumExpensesByCategory.expense_category_name }}">
-                  <td data-target="expense-name" class="pl-3">{{ sumExpensesByCategory.expense_category_name }}
-                  </td>
-                  <td data-target="expense-sum" class="text-center">{{ sumExpensesByCategory.sum_expenses }}</td>
-                </tr>
-                {% endfor %}
+              <tbody id="expenseTbody">
 
               </tbody>
             </table>
-
-
 
           </div>
 
@@ -111,20 +105,10 @@
                   <th scope="col">Amount</th>
                 </tr>
               </thead>
-              <tbody>
-
-                {% for sumIncomesByCategory in sumIncomesByCategories %}
-                <tr id="income-{{ sumIncomesByCategory.income_category_name }}">
-                  <td data-target="income-name" class="pl-3">{{ sumIncomesByCategory.income_category_name }}</td>
-                  <td data-target="income-sum" class="text-center">{{ sumIncomesByCategory.sum_incomes}}</td>
-                </tr>
-                {% endfor %}
-
+              <tbody id="incomeTbody">
 
               </tbody>
             </table>
-
-
           </div>
         </div>
       </div>
