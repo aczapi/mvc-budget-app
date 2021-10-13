@@ -45,5 +45,4 @@ class Config
    * @var boolean
    */
 
-  const SECRET_KEY = "TXZEV2dxKpRJziM47rCUqU2QAB5d9VYS";
 }
